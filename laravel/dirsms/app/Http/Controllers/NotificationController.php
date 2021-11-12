@@ -26,6 +26,14 @@ class NotificationController extends Controller
         return view('admin/notifications', compact('profile_pic'));
     }
 
+
+    public function notify(){
+        $notification = Notification::where('type', 'newaccount')->count();
+
+
+        return response()->json(['notifify'=>$notification]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -55,9 +63,11 @@ class NotificationController extends Controller
      * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Notification $notification)
+    public function update(Request $request, $id)
     {
         //
+
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Image;
+use App\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -78,13 +79,6 @@ class RegisterController extends Controller
         $image = str_replace(' ', '+', $image);
         $imageName = str_random(10) . '.png';
         $is_store = Storage::disk('local')->put($imageName, base64_decode($image));
- 
-        if($is_store){  
-            $imagemodel= new Image();
-            $imagemodel->name="$imageName";
-            $imagemodel->user_id = $user->id;
-            $is_saved = $imagemodel->save(); 
-        }
 
         $user = User::create([
             'fname' => $data['fname'],
@@ -99,6 +93,19 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         
+        if($is_store){  
+            $imagemodel= new Image();
+            $imagemodel->name="$imageName";
+            $imagemodel->user_id = $user->id;
+            $is_saved = $imagemodel->save(); 
+        }
+
+
+        $notification = new Notification();
+        $notification->user_id = $user->id;
+        $notification->type = 'newaccount';
+        $notification->save();
+
         return $user;
     }
 }

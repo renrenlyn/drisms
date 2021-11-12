@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('admin/home', 'HomeController@index')->name('home');
   
 
+Route::post('admin/notify', 'NotificationController@notify');
+  
+
 
 
 Route::prefix('/course')->group(function(){

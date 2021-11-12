@@ -33,15 +33,16 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $(".bubble").hide();
-            readNotifications("<?=url("Notification@read");?>");
-        });
-    </script>
+    </div> 
 
     
 @include('../layouts/includes/footer') 
+<script>
+       
+
+      </script>
+
+
+
 
 @endsection
