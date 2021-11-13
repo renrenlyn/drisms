@@ -13,6 +13,11 @@
 <script src="{{ asset('js/components/app.js') }}"></script> 
 
 
+
+
+
+
+
 <script>
     $(document).ready(function(){
             function loadlink(){ 

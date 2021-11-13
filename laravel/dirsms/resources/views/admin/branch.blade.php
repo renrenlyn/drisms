@@ -76,17 +76,25 @@
                                                     Edit
                                                 </a>
                                             </li>
-                                          <li role="presentation"><a role="menuitem" href="" input="branchid" modal="#sendemail" class="pass-data" value="{{ $branch->id }}"> <i class="mdi mdi-email-outline"></i> Send Email</a></li>
+                                          <li role="presentation">
+                                                <a role="menuitem" 
+                                                    href="" 
+                                                    data-toggle="modal" 
+                                                    data-target="#sendemail{{$branch->id}}"
+                                                >
+                                            <i class="mdi mdi-email-outline"></i> Send Email</a></li>
                                           <li role="presentation"><a role="menuitem" href="" input="branchid" modal="#sendsms" class="pass-data" value="{{ $branch->id }}"> <i class="mdi mdi-message-text-outline"></i> Send SMS</a></li>
                                             <li 
                                                 role="presentation"
                                             >  
-                                                <form id="deleteBranch" action="{{ route('branch.destroy', $branch->id) }}" method="POST">
+                                                <form id="deleteBranch{{$branch->id}}" action="{{ route('branch.destroy', $branch->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')  
                                                     <a  
-                                                        href="javascript:void()" 
-                                                        onclick="return myFunction();">
+                                                        href="#"  
+                                                        class="branch_delete"  
+                                                        rel="deleteBranch{{$branch->id}}"     
+                                                    >
                                                         <i class="mdi mdi-delete"></i> 
                                                         Delete
                                                     </a> 
@@ -97,12 +105,18 @@
                                         </ul>
                                 </div> 
                                     <span class="badge badge-success">Current branch</span> 
-                                    <a href="" class="send-to-server-click" data="branchid:{{ $branch->id }}|csrf-token:{{ csrf_token() }}" url="{{ url('Branch@switch') }}" loader="true"><span class="badge badge-primary pointer">Switch to branch</span></a> 
+                                    <a 
+                                    href="" 
+                                    class="send-to-server-click" 
+                                    data="branchid:{{ $branch->id }}|csrf-token:{{ csrf_token() }}" 
+                                    url="{{ url('Branch@switch') }}" 
+                                    loader="true"><span class="badge badge-primary pointer">Switch to branch</span></a> 
                             </div>
                         </div>
                     </div>
                 </div> 
-                @include("admin/modified/branch")   
+                @include("admin/modified/branch") 
+                @include("admin/email/branch")  
             @empty  
               @include("admin/empty/empty")  
             @endforelse
@@ -131,16 +145,20 @@
 
 
 
-        @include("admin/email/branch")  
         @include("admin/sms/branch")   
 
         @include('../layouts/includes/footer') 
 
     <script>
-        function myFunction() {
-            if(confirm("Are you sure to delete this? This branch and all it's staff, fleet, students & record will be deleted forever."))
-                $('#deleteBranch').submit(); 
-        }
+         $('.branch_delete').on('click touchstart', function(e){ 
+            e.preventDefault();
+            if(confirm("Are you sure to delete this? This Branch and all it's data will be deleted")){
+
+                $branch_data = $(this).attr('rel');
+                $('#'+$branch_data).submit();
+
+            } 
+        })
 
     //Send Email
     // $('.sendemail').on('click',function(){

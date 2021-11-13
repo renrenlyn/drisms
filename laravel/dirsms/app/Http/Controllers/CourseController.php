@@ -140,6 +140,7 @@ class CourseController extends Controller
                         $imageExist->save();
                     }
                 }else{
+                    
                     $unlink = unlink(public_path() . "/images/$image_->name");
                 
                     $image = $request->image_course;
@@ -158,7 +159,7 @@ class CourseController extends Controller
                 if($is_save){
                     return redirect()->back()->with('success', 'Successfully update the course!');
                 }else{
-                    return redirect()->back()->with('error', 'Successfully update the course!');
+                    return redirect()->back()->with('error', 'Failed to update the course!');
                 } 
             }
 
@@ -175,16 +176,17 @@ class CourseController extends Controller
     public function destroy($id)
     {
 
-        dd($id);
         $existingCourse = Course::find( $id );
 
         if( $existingCourse )
         {
+            $image_ = Image::where('course_id', $id)->first(); 
+            $unlink = unlink(public_path() . "/images/$image_->name");
+            $image_->delete();  
             $existingCourse->delete();  
-            return  redirect()->back()->with('success', 'Fleet deleted successfully!');
+            return  redirect()->back()->with('success', 'Course deleted successfully!');
         } 
-        return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from branch');
+        return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from Course');
  
-
     }
 }

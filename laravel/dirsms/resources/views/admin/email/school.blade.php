@@ -1,6 +1,6 @@
 
 <!-- Send Email-->
-<div class="modal right fade" id="sendemail" role="dialog" tabindex="-1">
+<div class="modal right fade" id="sendemail{{$school->id}}" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,14 +8,17 @@
                 <h4 class="modal-title" id="myModalLabel2">Send Email</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ url('School@sendemail') }}" class="simcy-form" data-parsley-validate=""  loader="true" method="post">
+                <form action="{{ route('school.email') }}" method="post">
+
+                    @csrf
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Subject</label> 
-                                <input class="form-control" name="subject" placeholder="Subject" type="text" required="">
-                                <input name="csrf-token" type="hidden" value="{{csrf_token()}}">
-                                <input name="schoolid" type="hidden">
+                                <input class="form-control" name="subject_m" placeholder="Subject" type="text" required="">
+                                <input class="form-control" name="school_email" type="hidden" value="{{$school->email}}">
+                                <input class="form-control" name="school_name" type="hidden" value="{{$school->name}}"> 
+                           
                             </div>
                         </div>
                     </div>

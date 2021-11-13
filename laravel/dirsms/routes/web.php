@@ -23,7 +23,9 @@ Route::get('admin/home', 'HomeController@index')->name('home');
   
 
 Route::post('admin/notify', 'NotificationController@notify');
-  
+Route::post('admin/school/email', 'SchoolController@sendEmail')->name('school.email');
+Route::post('admin/branch/email', 'BranchController@sendEmail')->name('branch.email');
+    
 
 
 

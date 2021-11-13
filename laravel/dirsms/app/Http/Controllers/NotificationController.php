@@ -17,18 +17,27 @@ class NotificationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        // 
+    { 
+
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
-        ->get(['users.*', 'images.name as image_name']);
+        ->get(['users.*', 'images.name as image_name']); 
 
-        return view('admin/notifications', compact('profile_pic'));
+        $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
+                        ->orderBy('notifications.created_at', 'desc')
+                        ->get(['users.*', 'notifications.*']);
+      
+        return view('admin/notifications', compact('profile_pic', 'notifications'));
     }
 
 
     public function notify(){
-        $notification = Notification::where('type', 'newaccount')->count();
+        $notification = Notification::where('type', 'newaccount')
+                        ->orWhere('type', 'payment')
+                        ->orWhere('type', 'message')
+                        ->orWhere('type', 'delete')
+                        ->orWhere('type', 'calendar')
+                        ->count();
 
 
         return response()->json(['notifify'=>$notification]);

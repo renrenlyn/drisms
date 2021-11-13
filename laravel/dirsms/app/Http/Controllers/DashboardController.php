@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Dashboard;
 use App\User; 
 use App\Image; 
+use App\Notification;
+
 use Illuminate\Http\Request;
 use Auth; 
+
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -42,7 +46,20 @@ class DashboardController extends Controller
         ->get(['users.*', 'images.name as image_name']);
 
         $cstudent = User::where('role', 'Student')->count();
-        return view('admin/dashboard', compact('cstudent', 'profile_pic'));
+        $cinstructor = User::where('role', 'Instructor')->count();
+
+
+        $cnew_student = User::where([
+            ['role', '=', 'Student'],
+            ['created_at', '>=', Carbon::now()->subDays(30)]
+        ])->count();
+
+        $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
+                        ->orderBy('notifications.created_at', 'desc')
+                        ->get(['users.*', 'notifications.*']);
+
+        
+        return view('admin/dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic'));
     }
 
     /**

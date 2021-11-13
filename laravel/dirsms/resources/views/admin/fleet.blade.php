@@ -90,12 +90,14 @@
                                                             </a>
                                                         </li>
                                                         <li role="presentation">
-                                                            <form id="deleteFleet" action="{{ route('fleet.destroy', $car->id) }}" method="POST">
+                                                            <form id="deleteFleet{{$car->id}}" action="{{ route('fleet.destroy', $car->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')  
                                                                 <a  
-                                                                    href="javascript:void()" 
-                                                                    onclick="return myFunction();">
+                                                                    href="#" 
+                                                                    class="fleet_delete"
+                                                                    rel="deleteFleet{{$car->id}}"
+                                                                >
                                                                     <i class="mdi mdi-delete"></i> 
                                                                     Delete
                                                                 </a> 
@@ -124,11 +126,16 @@
  
     @include('../layouts/includes/footer') 
     <script>
-        function myFunction() {
-            if(confirm("Are you sure to delete this?"))
-                $('#deleteFleet').submit(); 
-        }
+        
+        $('.fleet_delete').on('click touchstart', function(e){ 
+            e.preventDefault();
+            if(confirm("Are you sure to delete this? This Fleet and all it's data will be deleted")){
 
+                $fleet_data = $(this).attr('rel');
+                $('#'+$fleet_data).submit();
+
+            } 
+        });
 
 
     //Edit Vehicle

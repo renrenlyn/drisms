@@ -28,10 +28,44 @@ class BranchController extends Controller
 
 
 
+
+    /**
+     * Send Email in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     
 
-    public function sendMail(){
-       
+    public function sendEmail(Request $request){
+ 
+        $to_name = $request->branch_name;
+        $to_email = $request->branch_email;
+        $subject = $request->subject;
+
+        $data = array(
+                'name'=>"$to_name", 
+                'body' => $request->message
+            );
+        $is_send = Mail::send(
+                'emails.mail', 
+                $data, 
+            function($message) use ($to_name, $to_email, $subject)
+            {
+                $message->from(Auth::user()->email,"from ".Auth::user()->fname);
+                $message->to($to_email, $to_name)->subject($subject);
+            }
+        );
+    
+        if($is_send){
+
+            return redirect()->back()->with('success', 'Email has been sent!');
+ 
+        }else{
+
+            return redirect()->back()->with('error', 'We have trouble sending your email!');
+ 
+        }
     }
 
 
@@ -129,7 +163,7 @@ class BranchController extends Controller
      */
     public function destroy( $id )
     {  
-
+        
         $existingBranch = Branch::find( $id );
 
         if( $existingBranch )

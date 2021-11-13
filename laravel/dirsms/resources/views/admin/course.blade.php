@@ -81,8 +81,7 @@
                                             <li role="presentation">
                                                 <a 
                                                     role="menuitem" 
-                                                    href="#"
-
+                                                    href="#" 
                                                     data-toggle="modal" 
                                                     data-target="#update{{$course->id}}">
                                                 > 
@@ -92,12 +91,14 @@
                                             </li>
                                             
                                             <li role="presentation"> 
-                                                <form id="deleteCourse" action="{{ route('course.destroy', $course->id) }}" method="POST">
+                                                <form id="deleteCourse{{$course->id}}" action="{{ route('course.destroy', $course->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')  
                                                     <a  
-                                                        href="javascript:void()" 
-                                                        onclick="return myFunction();">
+                                                        href=""
+                                                        class="couse_delete"  
+                                                        rel="deleteCourse{{$course->id}}"    
+                                                    >
                                                         <i class="mdi mdi-delete"></i> 
                                                         Delete
                                                     </a> 
@@ -125,10 +126,15 @@
  
         @include('../layouts/includes/footer') 
      <script>
-        function myFunction() {
-            if(confirm("Are you sure to delete this? This course and all it's data will be deleted"))
-                $('#deleteCourse').submit(); 
-        }
+         $('.couse_delete').on('click touchstart', function(e){ 
+            e.preventDefault();
+            if(confirm("Are you sure to delete this? This course and all it's data will be deleted")){
+
+                $course_data = $(this).attr('rel');
+                $('#'+$course_data).submit();
+            } 
+         })
+       
 
      </script>
 @endsection

@@ -116,7 +116,7 @@ class FleetController extends Controller
      */
     public function destroy( $id )
     { 
- 
+        
         $existingFleet = Fleet::find( $id );
 
         if( $existingFleet )

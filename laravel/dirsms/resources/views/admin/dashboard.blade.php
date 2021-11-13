@@ -14,8 +14,6 @@
             <a href="" class="btn btn-success btn-icon pull-right"><i class="mdi mdi-calendar-text"></i> Scheduling </a>
             <h3>Dashboard</h3>
         </div>
-
-
         <!-- stats -->
         <div class="row">
 
@@ -26,11 +24,14 @@
                         <i class="mdi mdi-account-convert"></i>
                     </div>
                     <div class="widget-title">
-                        <h2>Number of Student  {{ $cstudent  }}</h2>
+                        <h2>{{ $cstudent  }}</h2>
                         <p>Total Students</p>
                     </div>
                     <div class="widget-trend">
-                        <p class="text-primary"><i class="mdi mdi-menu-up"></i> growth student </p>
+                        <p class="text-primary">
+                            <i class="mdi mdi-menu-up"></i> 
+                            growth student 
+                        </p>
                     </div>
                 </div>
             </div>
@@ -42,11 +43,14 @@
                         <i class="mdi mdi-account-multiple-outline"></i>
                     </div>
                     <div class="widget-title">
-                        <h2>Total income </h2>
+                        <h2> {{ $cinstructor }} </h2>
                         <p >Total Instructors</strong></p>
                     </div>
                     <div class="widget-trend">
-                        <p class="text-warning"><i class="mdi mdi-menu-up"></i> growth income </p>
+                        <p class="text-warning">
+                            <i class="mdi mdi-menu-up"></i> 
+                            growth income 
+                        </p>
                     </div>
                 </div>
             </div> 
@@ -57,7 +61,7 @@
                         <i class="mdi mdi-calendar-clock"></i>
                     </div>
                     <div class="widget-title">
-                        <h2>total attendance</h2>
+                        <h2>0</h2>
                         <p>Class Attendance</p>
                     </div>
                     <div class="widget-trend">
@@ -78,7 +82,7 @@
                             <div class="row">
                                 <div class="col-md-6 growth-left">
                                     <div class="growth-heading">
-                                        <h1>student new</h1>
+                                        <h2>{{ $cnew_student }}</h2>
                                         <p>New Students (Last 30 Days)</p>
                                     </div>
                                     <div class="growth-pointers">
@@ -86,7 +90,7 @@
                                             <i class="mdi mdi-menu-up"></i>
                                         </div>
                                         <div class="growth-message">
-                                            <p>You have <strong class="text-success">Student Growth</strong> in comparison to the previous month.</p>
+                                            <p>You have <strong class="text-success">100% Growth</strong> in comparison to the previous month.</p>
                                         </div>
                                     </div>
                                     <div class="growth-pointers">
@@ -94,7 +98,7 @@
                                             <i class="mdi mdi-menu-right"></i>
                                         </div>
                                         <div class="growth-message">
-                                            <p>Payments perfomance has had a <strong class="text-warning">income perfomance</strong> in comparison to the previous month.</p>
+                                            <p>Payments perfomance has had a <strong class="text-warning">100% perfomance</strong> in comparison to the previous month.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +133,7 @@
                               <!-- Reload button -->
                               <div class="chart-icon"><i class="mdi mdi-chart-bubble"></i></div>
 
-                              <p class="schedule-map text-center mb-40">Comparison of all course available in <strong>( currency )</strong></p>
+                              <p class="schedule-map text-center mb-40">Comparison of all course available in <strong>( &#8369; )</strong></p>
                         </div>
 
                 </div>
@@ -146,21 +150,41 @@
                                 <div class="notifications-widget">
  
                                     <!-- single notification -->
-                                    <div class="single-notification">
-                                         
-                                        <span class="unread-notification"> <i class=" mdi mdi-circle text-primary"></i></span>
-                                      
-                                        <div class="notification-icon bg-purple"><i class=" mdi mdi-message-text-outline"></i></div>
-                                    
-                                        <div class="notification-icon bg-danger"> <i class=" mdi mdi-delete"></i> </div> 
-                                        <div class="notification-icon bg-secondary"> <i class=" mdi mdi-calendar"></i> </div> 
-                                        <div class="notification-icon bg-warning"> <i class="mdi mdi-account-plus"></i> </div> 
-                                        <div class="notification-icon bg-success"> <i class="mdi mdi-credit-card"></i> </div> 
-                                        <div class="notification-message">
-                                            <div class="notification-date">Created at</div>
-                                            notificatin messages
+                                            
+                                    @forelse($notifications as $notification)
+                                        <div class="single-notification"> 
+                                            @if ( $notification->type == "message" )
+                                                <div class="notification-icon bg-purple">
+                                                    <i class=" mdi mdi-message-text-outline"></i>
+                                                </div>
+                                            @elseif ( $notification->type == "delete" )
+                                                <div class="notification-icon bg-danger"> 
+                                                    <i class=" mdi mdi-delete"></i> 
+                                                </div>
+                                            @elseif ( $notification->type == "calendar" )
+                                                <div class="notification-icon bg-secondary"> 
+                                                    <i class=" mdi mdi-calendar"></i> 
+                                                </div>
+                                            @elseif ( $notification->type == "newaccount" )
+                                                <div class="notification-icon bg-warning"> 
+                                                    <i class="mdi mdi-account-plus"></i>  
+                                                </div>
+                                            @elseif ( $notification->type == "payment" )
+                                                <div class="notification-icon bg-success"> 
+                                                    <i class="mdi mdi-credit-card"></i> 
+                                                </div>
+                                            @endif 
+                                                <div class="notification-message">
+                                                    <div class="notification-date">{{ date('F j, Y h:ia', strtotime($notification->created_at)) }}</div>
+                                                    {!! $notification->message !!} 
+                                                </div> 
                                         </div>
-                                    </div> 
+                                    @empty 
+                                        @include("admin/empty/empty") 
+                                    @endforelse
+
+
+                                    
                                     <p class="text-center view-all-last"><a href=""><strong>View All</strong></a></p>
                                    
                                 </div>

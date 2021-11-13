@@ -99,11 +99,14 @@ class RegisterController extends Controller
             $imagemodel->user_id = $user->id;
             $is_saved = $imagemodel->save(); 
         }
-
-
+        $fname = $data['fname'];
+        $lname = $data['lname'];
+        $role = $data['role'];
+        
         $notification = new Notification();
         $notification->user_id = $user->id;
         $notification->type = 'newaccount';
+        $notification->message = "New $role account created for <strong>$fname $lname</strong>.";
         $notification->save();
 
         return $user;

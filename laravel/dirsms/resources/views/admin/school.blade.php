@@ -68,10 +68,43 @@
                             <span class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="mdi mdi-dots-horizontal"></i> </span>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation"><a role="menuitem" class="fetch-display-click" data="schoolid:{{ $school->id }}|csrf-token:{{ csrf_token() }}" url="<?=url('School@updateview');?>" holder=".update-holder" modal="#update" loader="true" href=""> <i class="mdi mdi-pencil"></i> Edit</a></li>
-                                <li role="presentation"><a role="menuitem" href="" input="schoolid" modal="#sendemail" class="pass-data" value="{{ $school->id }}"> <i class="mdi mdi-email-outline"></i> Send Email</a></li>
+                                <li role="presentation">
+                                    <a role="menuitem" 
+                                        class="pass-data" 
+                                        modal="#update{{$school->id}}"  
+                                        href="#"
+                                        > 
+                                        <i class="mdi mdi-pencil"></i> 
+                                        Edit
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem"
+                                        href="#" 
+                                        input="schoolid" 
+                                        modal="#sendemail{{$school->id}}" 
+                                        class="pass-data" 
+                                        value="{{ $school->id }}"> 
+                                        <i class="mdi mdi-email-outline"></i> 
+                                        Send Email
+                                    </a>
+                                </li>
                                 <li role="presentation"><a role="menuitem" href="" input="schoolid" modal="#sendsms" class="pass-data" value="{{ $school->id }}"> <i class="mdi mdi-message-text-outline"></i> Send SMS</a></li>
-                                <li role="presentation"><a role="menuitem" href="" class="send-to-server-click" data="schoolid:{{ $school->id }}|csrf-token:{{ csrf_token() }}" url="{{ url('School@delete') }}" warning-title="Are you sure?" warning-message="This school and all it's data will be deleted." warning-button="Continue" loader="true"> <i class="mdi mdi-delete"></i> Delete</a></li>
+                                <li role="presentation">
+                                    
+                                    <form id="deleteSchool{{$school->id}}" action="{{ route('school.destroy', $school->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')  
+                                        <a  
+                                            href="#"  
+                                            class="school_delete"
+                                            rel="deleteSchool{{$school->id}}"
+                                        >
+                                            <i class="mdi mdi-delete"></i> 
+                                            Delete
+                                        </a> 
+                                    </form> 
+                                </li>
                             </ul>
                         </div>
                         @if(($school->status) == 'Active')
@@ -83,6 +116,8 @@
                 </div>
             </div>
         </div>
+            @include("admin/modified/school")   
+            @include("admin/email/school")  
         @empty 
             @include("admin/empty/empty")   
         @endforelse
@@ -111,8 +146,17 @@
 <!-- end update -->
 
 
-@include("admin/email/school")  
 @include("admin/sms/school")  
  
-@include('../layouts/includes/footer') 
+@include('../layouts/includes/footer')
+
+<script>
+    $('.school_delete').on('click touchstart', function(e){ 
+        e.preventDefault();
+        if(confirm("Are you sure to delete this School?")){ 
+            $school_data = $(this).attr('rel');
+            $('#'+$school_data).submit();
+        } 
+    }) 
+</script>
 @endsection

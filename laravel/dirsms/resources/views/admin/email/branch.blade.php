@@ -1,7 +1,6 @@
 
-
     <!-- Send Email-->
-    <div class="modal right fade" id="sendemail" role="dialog" tabindex="-1">
+    <div class="modal right fade" id="sendemail{{$branch->id}}" role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,14 +8,15 @@
                     <h4 class="modal-title" id="myModalLabel2">Send Email</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('Branch@sendemail') }}" class="simcy-form" data-parsley-validate=""  loader="true" method="post">
+                    <form action="{{ route('branch.email') }}"  method="post">
+                        @csrf
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Subject</label> 
                                     <input class="form-control" name="subject" placeholder="Subject" type="text" required="">
-                                    <input name="csrf-token" type="hidden" value="{{csrf_token()}}">
-                                    <input name="branchid" type="hidden">
+                                    <input class="form-control" name="branch_email" type="hidden" value="{{$branch->email}}">
+                                    <input class="form-control" name="branch_name" type="hidden" value="{{$branch->name}}"> 
                                 </div>
                             </div>
                         </div>
