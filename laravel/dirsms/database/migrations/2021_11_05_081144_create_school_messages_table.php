@@ -22,7 +22,6 @@ class CreateSchoolmessagesTable extends Migration
             $table->string('contact')->default('unknown');
             $table->string('subject')->default('unknown');
             $table->longText('message')->default('unknown');
-            $table->timestamp('sent_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->enum('status', ['Sent', 'Failed'])->default('Sent'); 
             $table->timestamps();
         });
@@ -32,6 +31,8 @@ class CreateSchoolmessagesTable extends Migration
      * Reverse the migrations.
      *
      * @return void
+     *  $table->timestamp('sent_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+           
      */
     public function down()
     {

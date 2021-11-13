@@ -9,41 +9,51 @@
             <!-- close menu -->
             <a href="" class="close-aside"><i class="mdi mdi-close-circle-outline"></i></a>
             <!-- Branding -->
+
+
             <div class="side-branding">
                 <a href=""> 
-                  @forelse($profile_pic as $profile) 
-                    <img 
-                        src="{{ url('/images'). '/' .$profile->image_name }} " 
-                        class="img-responsive" 
-                    >   
-                  @empty
-                    <img 
-                        src="{{ url('/assets/images/avatar.png') }} " 
-                        class="img-responsive" 
-                    > 
-                  @endforelse 
+                  @if(!empty($profile_pic))
+                    @forelse($profile_pic as $profile) 
+                      <img 
+                          src="{{ url('/images'). '/' .$profile->image_name }} " 
+                          class="img-responsive" 
+                      >   
+                    @empty
+                      <img 
+                          src="{{ url('/assets/images/avatar.png') }} " 
+                          class="img-responsive" 
+                      > 
+                    @endforelse
+                  @endif 
                 </a>
             </div> 
             <!-- navigation -->
             <ul class="nav-parent">
                 <li class="menu-label">Main</li> 
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/dashboard') }}">
+                    <a class="nav-link" href="{{ url('dashboard') }}">
                       <i class="menu-icon mdi mdi-speedometer"></i>
                       <span class="menu-title">Dashboard</span>
                     </a>
                 </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/schedule') }}">
-                      <i class="menu-icon mdi mdi-calendar-text"></i>
-                      <span class="menu-title">Scheduling</span>
-                    </a>
-                </li>
+
+                @if(Auth::user()->role == 'Admin')
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/schedule') }}">
+                        <i class="menu-icon mdi mdi-calendar-text"></i>
+                        <span class="menu-title">Scheduling</span>
+                      </a>
+                  </li>
+                @endif
+
                 <li class="nav-item"> 
                     <a 
                         class="nav-link" 
                         style="position: relative;" 
-                        href="{{ url('admin/notification') }}"
+                        href="{{ url('notification') }}"
                     >
                       <i class="menu-icon mdi mdi-bell-outline"></i> 
                       <span class="menu-title">Notification</span>  
@@ -51,54 +61,61 @@
                     </a>  
                 </li>
                
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/student') }}" >
-                     
-                      <i class="menu-icon mdi mdi-account-convert"></i>
-                      <span class="menu-title">Students</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/instructor') }}">
-                      <i class="menu-icon mdi mdi-account-multiple-outline"></i>
-                      <span class="menu-title">Instructor</span>
-                    </a>
-                </li>
-                
+                @if(Auth::user()->role == 'Admin')
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/student') }}" >
+                      
+                        <i class="menu-icon mdi mdi-account-convert"></i>
+                        <span class="menu-title">Students</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/instructor') }}">
+                        <i class="menu-icon mdi mdi-account-multiple-outline"></i>
+                        <span class="menu-title">Instructor</span>
+                      </a>
+                  </li>
+                @endif
                 <li class="menu-label">School</li>
+                
+                @if(Auth::user()->role == 'Admin')
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/fleet') }}">
+                        <i class="menu-icon mdi mdi-car-connected"></i>
+                        <span class="menu-title">Fleet</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/branch') }}">
+                        <i class="menu-icon  mdi mdi-access-point-network"></i>
+                        <span class="menu-title">Branch</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/invoice') }}">
+                        <i class="menu-icon  mdi mdi-file-chart"></i>
+                        <span class="menu-title">Invoices</span>
+                      </a>
+                  </li>
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/fleet') }}">
-                      <i class="menu-icon mdi mdi-car-connected"></i>
-                      <span class="menu-title">Fleet</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/branch') }}">
-                      <i class="menu-icon  mdi mdi-access-point-network"></i>
-                      <span class="menu-title">Branch</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/invoice') }}">
-                      <i class="menu-icon  mdi mdi-file-chart"></i>
-                      <span class="menu-title">Invoices</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/communication') }}">
+                    <a class="nav-link" href="{{ url('communication') }}">
                       <i class="menu-icon  mdi mdi-message-text-outline"></i>
                       <span class="menu-title">Communication</span>
                     </a>
                 </li>
                
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/staff') }}">
-                      <i class="menu-icon  mdi mdi-account-edit"></i>
-                      <span class="menu-title">Staff</span>
-                    </a>
-                </li> 
+                @if(Auth::user()->role == 'Admin')
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('admin/staff') }}">
+                        <i class="menu-icon  mdi mdi-account-edit"></i>
+                        <span class="menu-title">Staff</span>
+                      </a>
+                  </li> 
+                @endif
                 <li class="menu-label">Account</li>
               
+                @if(Auth::user()->role == 'Admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/course') }}"> 
                       <i class="menu-icon mdi mdi-seal"></i>
@@ -112,9 +129,9 @@
                       <span class="menu-title">School</span>
                     </a>
                 </li>
-             
+              @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('admin/settings') }}">
+                    <a class="nav-link" href="{{ url('settings') }}">
                       <i class="menu-icon mdi mdi-settings"></i>
                       <span class="menu-title">Setting</span>
                     </a>

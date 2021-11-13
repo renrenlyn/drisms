@@ -54,22 +54,32 @@ class StudentController extends Controller
      */
 
     public function search(Request $request){ 
+
         $search = $request->search;  
 
         $students = User::join('images', 'users.id', '=', 'images.user_id')
         ->orderBy('created_at', 'DESC') 
         ->where([
             ['users.role', '=', 'Student'],
-            ['users.phone', 'LIKE', '%'.$search.'%'] 
+            ['users.phone', 'LIKE', '%'.$search.'%'],
+            ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
         ])
         ->orwhere([
             ['users.role', '=', 'Student'],
-            ['users.email', 'LIKE', '%'.$search.'%']
+            ['users.email', 'LIKE', '%'.$search.'%'],
+            ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
         ]) 
         ->orWhere([
             ['users.role', '=', 'Student'],
-            ['users.fname', 'LIKE', '%'.$search.'%'] 
+            ['users.fname', 'LIKE', '%'.$search.'%'],
+            ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
+        ])  
+        ->orWhere([
+            ['users.role', '=', 'Student'],
+            ['users.lname', 'LIKE', '%'.$search.'%'],
+            ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
         ]) 
+        ->orderBy('created_at', 'DESC')
         ->get(['users.*', 'images.name as image_name']);
         
         $courses = Course::orderBy('created_at', 'DESC')->get();

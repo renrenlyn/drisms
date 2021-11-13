@@ -56,15 +56,23 @@ class InstructorController extends Controller
             $users = User::join('images', 'users.id', '=', 'images.user_id')
             ->where([
                 ['users.role', '=', 'Instructor'],
-                ['users.phone', 'LIKE', '%'.$search.'%'] 
+                ['users.phone', 'LIKE', '%'.$search.'%'],
+                ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
             ])
             ->orwhere([
                 ['users.role', '=', 'Instructor'],
-                ['users.email', 'LIKE', '%'.$search.'%']
+                ['users.email', 'LIKE', '%'.$search.'%'],
+                ['users.gender', 'LIKE', '%'.$request->gender.'%']
             ]) 
             ->orWhere([
                 ['users.role', '=', 'Instructor'],
-                ['users.fname', 'LIKE', '%'.$search.'%'] 
+                ['users.fname', 'LIKE', '%'.$search.'%'],
+                ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
+            ]) 
+            ->orWhere([
+                ['users.role', '=', 'Instructor'],
+                ['users.lname', 'LIKE', '%'.$search.'%'],
+                ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
             ]) 
           ->orderBy('created_at', 'DESC')
           ->get(['users.*', 'images.name as image_name']);

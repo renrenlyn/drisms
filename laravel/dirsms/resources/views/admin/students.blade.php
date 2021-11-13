@@ -9,21 +9,14 @@
 
 <!-- main content -->
 <div class="main-content">
-    <div class="page-header">
-        
-        <!-- 
-            <button type="button" class="btn btn-primary btn-icon pull-right ml-5"><i class="mdi mdi-account-plus-outline"></i> Add Student </button>
-        -->
-        
+    <div class="page-header"> 
         <button type="button" class="btn btn-success btn-icon pull-right toggle-search">
-            <i class=" mdi mdi-filter-outline"></i> Filter & Search </button>
-        
-        
+            <i class=" mdi mdi-filter-outline"></i> 
+            Filter & Search 
+        </button>
         <h3>Students</h3>
     </div> 
-    <!-- page content -->
- 
-
+    <!-- page content --> 
     <div class="row"> 
         <!-- search & Filter -->
         <div class="col-md-12 search-filter" style="display: none;">

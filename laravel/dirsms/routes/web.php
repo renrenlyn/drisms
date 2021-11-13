@@ -41,26 +41,25 @@ Route::prefix('/admin')->group(function(){
 });
    
 
-Route::resource('dashboard', 'DashboardController');
-
 
 Route::prefix('admin')->group(function () {
     // Route::resource('dashboard', 'DashboardController');
     Route::resource('schedule', 'ScheduleController');
-    Route::resource('notification', 'NotificationController');
     Route::resource('student', 'StudentController');
     Route::resource('instructor', 'InstructorController');
     Route::resource('fleet', 'FleetController'); 
     Route::resource('branch', 'BranchController');
     Route::resource('invoice', 'InvoiceController');
-    Route::resource('communication', 'UsermessageController');
     Route::resource('staff', 'StaffController');
     Route::resource('course', 'CourseController');
     Route::resource('school', 'SchoolController');
-    Route::resource('settings', 'SettingController'); 
 });
 
 
+Route::resource('dashboard', 'DashboardController'); 
+Route::resource('settings', 'SettingController');  
+Route::resource('notification', 'NotificationController');
+Route::resource('communication', 'UsermessageController');
 
 Auth::routes();
 

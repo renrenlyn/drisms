@@ -71,32 +71,16 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth
-                        @if(Auth::user()->role != "Admin") 
-                            <a  href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        @else
-
-                        @endif
-                        
+                    @auth 
                         <a href="{{ url('/dashboard') }}">{{ __('Dashboard') }}</a> 
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-
+                        <a href="{{ route('login') }}">Login</a> 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
                 </div>
-            @endif
-
+            @endif 
             <div class="content">
                 <div class="title m-b-md">
                    Driving SMS

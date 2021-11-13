@@ -31,7 +31,7 @@ class SettingController extends Controller
         ->get(['users.*', 'images.name as image_name']);
       
  
-        return view('admin/settings', compact('profile_pic'));
+        return view('settings', compact('profile_pic'));
     }
 
     /**

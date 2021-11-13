@@ -29,7 +29,7 @@ class NotificationController extends Controller
                         ->orderBy('notifications.created_at', 'desc')
                         ->get(['users.*', 'notifications.status as nstatus','notifications.*', 'images.name as image_name']);
         
-        return view('admin/notifications', compact('profile_pic', 'notifications'));
+        return view('notifications', compact('profile_pic', 'notifications'));
     }
 
 
@@ -97,7 +97,7 @@ class NotificationController extends Controller
     public function update(Request $request, $id)
     { 
         Notification::where('id', $id)->update(array('status' => 'not active'));
-        return redirect('admin/notification');
+        return redirect()->back();
     }
 
     /**

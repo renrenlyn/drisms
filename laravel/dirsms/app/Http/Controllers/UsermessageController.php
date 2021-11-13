@@ -25,7 +25,7 @@ class UsermessageController extends Controller
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
 
-        return view('admin/communication', compact('profile_pic'));
+        return view('communication', compact('profile_pic'));
     }
 
     /**

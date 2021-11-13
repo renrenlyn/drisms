@@ -1,19 +1,17 @@
 
 <!-- modals -->
-<div class="modal right fade" id="create" tabindex="-1" role="dialog">
+<div class="modal right fade" id="updateStaff{{$user->id}}" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="mdi mdi-close-circle-outline"></i></span></button>
-                    <h4 class="modal-title">Add Staff</h4>
+                    <h4 class="modal-title">{{$user->fname}} {{$user->lname}} Staff</h4>
                 </div>
 
                 <div class="modal-body">
                     <form action="#" method="POST"  >
-                    
-                       
-                       
+           
                       <div class="form-group">
                         <div class="row">
                           <div class="col-md-12">

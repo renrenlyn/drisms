@@ -25,15 +25,15 @@
                               </div>
                         </div>
                         <div class="col-md-2">
-                              <div class="form-group">
-                                <label for="email">Gender</label>
-                                <select class="form-control" name="gender">
-                                    <option value="">Select Gender*</option>
-                                    <option value="">All</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                              </div>
+                            <div class="form-group">
+                            <label for="email">Gender</label>
+                            <select class="form-control" name="gender">
+                                <option value="">Select Gender*</option>
+                                <option value="">All</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            </div>
                         </div>
                         <div class="col-md-2">
                               <button class="btn btn-primary btn-icon btn-block"><i class=" mdi mdi-filter-outline"></i> Search</button>

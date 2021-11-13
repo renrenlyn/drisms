@@ -76,7 +76,7 @@
         </div>
     </div> 
     
-    @include("admin/modal/communication")  
+    @include("admin/email/communication")  
     @include("admin/sms/communication")  
     @include("admin/read/communication")  
     @include('../layouts/includes/footer') 
