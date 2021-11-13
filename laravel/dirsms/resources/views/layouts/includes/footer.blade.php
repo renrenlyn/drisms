@@ -18,8 +18,21 @@
 
 
 
-<script>
-    $(document).ready(function(){
+<script> 
+        $(document).ready(function(){
+            // $('.logout-form_').on('click touchstart', function(e){
+            //     e.preventDefault();   
+            //     var data = $(this).attr('rel');   
+            //     $('#'+data).submit(); 
+            // });
+ 
+
+            // $('a.notification-update').on('click touchstart', function(e){
+            //     e.preventDefault(); 
+            //     var data = $(this).attr('rel'); 
+            //     $('#'+data).submit(); 
+            // });
+
             function loadlink(){ 
                 $.ajaxSetup({
                     headers: {

@@ -23,14 +23,14 @@ class DashboardController extends Controller
  
     public function __construct()
     {
-        // $this->middleware('auth');  
-        $this->middleware(function ($request, $next) {
-            $this->user = Auth::user();  
-            if($this->user->role != 'Admin'){
-                return redirect('/home');
-            } 
-            return $next($request);
-        }); 
+        $this->middleware('auth');   
+        // $this->middleware(function ($request, $next) {
+        //     $this->user = Auth::user();  
+        //     if($this->user->role != 'Admin'){
+        //         return redirect()->back();
+        //     } 
+        //     return $next($request);
+        // });  
     }
 
     /**
@@ -59,7 +59,7 @@ class DashboardController extends Controller
                         ->get(['users.*', 'notifications.*']);
 
         
-        return view('admin/dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic'));
+        return view('dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic'));
     }
 
     /**

@@ -41,9 +41,11 @@ Route::prefix('/admin')->group(function(){
 });
    
 
+Route::resource('dashboard', 'DashboardController');
+
 
 Route::prefix('admin')->group(function () {
-    Route::resource('dashboard', 'DashboardController');
+    // Route::resource('dashboard', 'DashboardController');
     Route::resource('schedule', 'ScheduleController');
     Route::resource('notification', 'NotificationController');
     Route::resource('student', 'StudentController');

@@ -72,20 +72,21 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        @if(Auth::user()->role != "Admin")
-                        <a href="{{ url('/admin/dashboard') }}">{{ __('Dashboard') }}</a> 
-                        <a  href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                        @if(Auth::user()->role != "Admin") 
+                            <a  href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         @else
-                            <a href="{{ url('/admin/dashboard') }}">{{ __('Dashboard') }}</a> 
+
                         @endif
+                        
+                        <a href="{{ url('/dashboard') }}">{{ __('Dashboard') }}</a> 
                     @else
                         <a href="{{ route('login') }}">Login</a>
 

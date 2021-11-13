@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Upload Profile</label>
-                                    <input type="file" name="profile_image" class="croppie" placeholder="Course Cover Image" crop-width="400" crop-height="190" accept="image/*" required="">
+                                    <input type="file" name="profile_image" class="croppie" placeholder="Course Cover Image" crop-width="400" crop-height="190" accept="image/*" >
                                 </div>
                             </div>
                         </div>

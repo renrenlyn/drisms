@@ -10,26 +10,23 @@
             <a href="" class="close-aside"><i class="mdi mdi-close-circle-outline"></i></a>
             <!-- Branding -->
             <div class="side-branding">
-                <a href="">
-
-                @forelse($profile_pic as $profile) 
-                  <img 
-                      src="{{ url('/images'). '/' .$profile->image_name }} " 
-                      class="img-responsive" 
-                  >   
-                @empty
-                  <img 
-                      src="{{ url('/assets/images/avatar.png') }} " 
-                      class="img-responsive" 
-                  > 
-                @endforelse
-
+                <a href=""> 
+                  @forelse($profile_pic as $profile) 
+                    <img 
+                        src="{{ url('/images'). '/' .$profile->image_name }} " 
+                        class="img-responsive" 
+                    >   
+                  @empty
+                    <img 
+                        src="{{ url('/assets/images/avatar.png') }} " 
+                        class="img-responsive" 
+                    > 
+                  @endforelse 
                 </a>
             </div> 
             <!-- navigation -->
             <ul class="nav-parent">
-                <li class="menu-label">Main</li>
-             
+                <li class="menu-label">Main</li> 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/dashboard') }}">
                       <i class="menu-icon mdi mdi-speedometer"></i>
@@ -42,16 +39,16 @@
                       <span class="menu-title">Scheduling</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="position: relative;" href="{{ url('admin/notification') }}">
-                      <i class="menu-icon mdi mdi-bell-outline"></i>
-                      
-                      <span class="menu-title">Notification</span> 
-                      
-                      <span class="badge badge-pill badge-danger" id="notification" style="position: absolute; left: 16px;">
-            
-                      </span>
-                    </a>
+                <li class="nav-item"> 
+                    <a 
+                        class="nav-link" 
+                        style="position: relative;" 
+                        href="{{ url('admin/notification') }}"
+                    >
+                      <i class="menu-icon mdi mdi-bell-outline"></i> 
+                      <span class="menu-title">Notification</span>  
+                      <span class="badge badge-pill badge-danger" id="notification" style="position: absolute; left: 16px;"></span>
+                    </a>  
                 </li>
                
                 <li class="nav-item">
@@ -99,9 +96,7 @@
                       <i class="menu-icon  mdi mdi-account-edit"></i>
                       <span class="menu-title">Staff</span>
                     </a>
-                </li>
-              
-
+                </li> 
                 <li class="menu-label">Account</li>
               
                 <li class="nav-item">
@@ -126,15 +121,18 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                      onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
-                    </a>
 
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        <i class="menu-icon mdi mdi-logout"></i>
+                        {{ __('Logout') }}
+
+                    </a> 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
+                        @csrf
                     </form>
+                     
                 </li>
  
             </ul>

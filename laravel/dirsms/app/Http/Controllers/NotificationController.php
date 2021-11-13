@@ -24,20 +24,43 @@ class NotificationController extends Controller
         ->get(['users.*', 'images.name as image_name']); 
 
         $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
+                        ->leftJoin('images', 'images.id', '=', 'notifications.image_id')
+                        ->where( 'users.role', Auth::user()->role)
                         ->orderBy('notifications.created_at', 'desc')
-                        ->get(['users.*', 'notifications.*']);
-      
+                        ->get(['users.*', 'notifications.status as nstatus','notifications.*', 'images.name as image_name']);
+        
         return view('admin/notifications', compact('profile_pic', 'notifications'));
     }
 
 
     public function notify(){
-        $notification = Notification::where('type', 'newaccount')
-                        ->orWhere('type', 'payment')
-                        ->orWhere('type', 'message')
-                        ->orWhere('type', 'delete')
-                        ->orWhere('type', 'calendar')
-                        ->count();
+        $notification = Notification::where(
+                            [
+                                ['user_id', Auth::user()->id],
+                                ['type', 'newaccount'],
+                                ['status', 'active'],
+                            ]
+                        )
+                        ->orWhere([
+                            ['user_id', Auth::user()->id],
+                            ['type', 'payment'],
+                            ['status', 'active']
+                        ])
+                        ->orWhere([
+                            ['user_id', Auth::user()->id],
+                            ['type', 'message'],
+                            ['status', 'active']
+                        ])
+                        ->orWhere([
+                            ['user_id', Auth::user()->id],
+                            ['type', 'delete'],
+                            ['status', 'active']
+                        ])
+                        ->orWhere([
+                            ['user_id', Auth::user()->id],
+                            ['type', 'calendar'],
+                            ['status', 'active']
+                        ])->count();
 
 
         return response()->json(['notifify'=>$notification]);
@@ -61,8 +84,7 @@ class NotificationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Notification $notification)
-    {
-        //
+    { 
     }
 
     /**
@@ -73,10 +95,9 @@ class NotificationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
-
-
+    { 
+        Notification::where('id', $id)->update(array('status' => 'not active'));
+        return redirect('admin/notification');
     }
 
     /**

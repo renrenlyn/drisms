@@ -21,11 +21,15 @@ class CourseController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth'); 
-        // if(Auth::user()->role == 'Admin'){
-        //     return redirect('');
-        // }
-    }
+        $this->middleware('auth');  
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();  
+            if($this->user->role != 'Admin'){
+                return redirect()->back;
+            } 
+            return $next($request);
+        });  
+    } 
 
     /**
      * Display a listing of the resource.

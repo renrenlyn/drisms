@@ -74,6 +74,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        
+        $notification_user_id = User::where('role', 'Admin')->first();
+ 
         $image = $data['profile_image'];
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
@@ -97,14 +101,16 @@ class RegisterController extends Controller
             $imagemodel= new Image();
             $imagemodel->name="$imageName";
             $imagemodel->user_id = $user->id;
-            $is_saved = $imagemodel->save(); 
+            $imagemodel->save(); 
         }
         $fname = $data['fname'];
         $lname = $data['lname'];
         $role = $data['role'];
-        
+
         $notification = new Notification();
-        $notification->user_id = $user->id;
+        $notification->image_id = $imagemodel->id;
+        $notification->user_id = $notification_user_id->id;
+        $notification->status = 'active';
         $notification->type = 'newaccount';
         $notification->message = "New $role account created for <strong>$fname $lname</strong>.";
         $notification->save();
