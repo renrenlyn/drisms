@@ -1,26 +1,15 @@
 @extends('layouts.header') 
-@section('content')     
-        <!-- Admin home page --> 
-        <!-- sidebar --> 
-
-    @include("layouts/includes/sidebar")   
-    @include("admin/modal/staff")  
- 
-
+@section('content')      
+    @include("layouts/includes/sidebar")     
 <!-- main content -->
-<div class="main-content">
-
-    @if(Auth::user()->role == 'Admin')
-
+<div class="main-content"> 
+    @if(Auth::user()->role == 'Admin') 
         @include('admin/dashboard') 
     @else
         <h1>
             Dashboard    
         </h1>
     @endif
-</div>
-
-
-    @include('../layouts/includes/footer') 
-
+</div> 
+    @include('../layouts/includes/footer')  
 @endsection

@@ -49,9 +49,11 @@
 
                         <ul class="nav nav-tabs">
                           <li><a href="{{ url('Communication@get') }}" @if (!isset($_GET['view']))  class="active" @endif>To Users</a></li>
-                          <li><a href="{{ url('Communication@get') }}?view=branches"@if (isset($_GET['view']) && $_GET['view'] == "branches")  class="active" @endif>To Branches</a></li>
+                          <li><a href="{{ url('Communication@get') }}?view=branches"
+                            @if (isset($_GET['view']) && $_GET['view'] == "branches")  class="active" @endif>To Branches</a></li>
                           @if($user->role == 'superadmin')
-                          <li><a href="{{ url('Communication@get') }}?view=schools"@if (isset($_GET['view']) && $_GET['view'] == "schools")  class="active" @endif>To Schools</a></li>
+                          <li><a href="{{ url('Communication@get') }}?view=schools"
+                            @if (isset($_GET['view']) && $_GET['view'] == "schools")  class="active" @endif>To Schools</a></li>
                           @endif
                         </ul>
                             <div class="table-responsive">

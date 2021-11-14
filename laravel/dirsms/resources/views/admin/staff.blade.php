@@ -53,52 +53,55 @@
         </div> 
 
         <div class="row">    
-            @forelse($users as $user)
-            <!-- user grid -->
-            <div class="col-md-3">
-                <div class="user-grid card">
-                    <div class="user-grid-pic"> 
-                        @if($user->image_name)   
-                            <img 
-                                src="{{url('/images'). '/' .$user->image_name }} " 
-                                class="img-responsive"
-                            >  
-                        @else
-                            <img 
-                                src="{{url('/assets/images/avatar.png') }} " 
-                                class="img-responsive"
-                            > 
-                        @endif
-                        
-                    </div>
-                    <div class="user-grid-info">
-                        <h5> {{$user->fname}} {{$user->lname}} </h5>
-                        <p>branch name </p>
-                        <p>{{$user->phone}} </p>
-                    </div>
-                    <div class="row user-grid-buttons">
-                        <div class="col-md-12">
-                            <a class="btn btn-primary btn-block" href="">Profile</a>
+            @if($users)
+                @forelse($users as $user)
+                <!-- user grid -->
+                <div class="col-md-3">
+                    <div class="user-grid card">
+                        <div class="user-grid-pic"> 
+                            @if($user->image_name)   
+                                <img 
+                                    src="{{url('/images'). '/' .$user->image_name }} " 
+                                    class="img-responsive"
+                                >  
+                            @else
+                                <img 
+                                    src="{{url('/assets/images/avatar.png') }} " 
+                                    class="img-responsive"
+                                > 
+                            @endif
+                            
+                        </div>
+                        <div class="user-grid-info">
+                            <h5> {{$user->fname}} {{$user->lname}} </h5>
+                            <p>branch name </p>
+                            <p>{{$user->phone}} </p>
+                        </div>
+                        <div class="row user-grid-buttons">
+                            <div class="col-md-12">
+                                <a class="btn btn-primary btn-block" href="">Profile</a>
+                            </div>
+                        </div>
+                        <div class="user-grid-class-left">
+                            <p class="text-success"> 
+                                <a role="menuitem" 
+                                    class="pass-data" 
+                                    modal="#updateStaff{{$user->id}}"  
+                                    href="#"
+                                > 
+                                    <i class="mdi mdi-pencil"></i> 
+                                    Edit
+                                </a> 
+                            </p>
                         </div>
                     </div>
-                    <div class="user-grid-class-left">
-                        <p class="text-success"> 
-                            <a role="menuitem" 
-                                class="pass-data" 
-                                modal="#updateStaff{{$user->id}}"  
-                                href="#"
-                            > 
-                                <i class="mdi mdi-pencil"></i> 
-                                Edit
-                            </a> 
-                        </p>
-                    </div>
-                </div>
-            </div>   
-                @include("admin/modal/staff")  
-            @empty  
-                @include("admin/empty/empty")   
-            @endforelse  
+                </div>   
+                    @include("admin/modal/staff")    
+                @empty  
+                    @include("admin/empty/empty")   
+                @endforelse  
+            @endif
+
         </div> 
     </div>
  

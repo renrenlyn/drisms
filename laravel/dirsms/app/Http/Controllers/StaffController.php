@@ -40,6 +40,7 @@ class StaffController extends Controller
         ->orderBy('created_at', 'DESC')
         ->get(['users.*', 'images.name as image_name']);
 
+ 
         return view('admin/staff', compact('users', 'profile_pic'));
      
     }

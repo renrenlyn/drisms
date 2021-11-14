@@ -59,7 +59,7 @@ Route::prefix('admin')->group(function () {
 Route::resource('dashboard', 'DashboardController'); 
 Route::resource('settings', 'SettingController');  
 Route::resource('notification', 'NotificationController');
-Route::resource('communication', 'UsermessageController');
+Route::resource('communication', 'CommunicationController');
 
 Auth::routes();
 
