@@ -42,12 +42,8 @@
                                 </a>
                             </li> 
                         </ul>
-
-
-
-
-
-                        <div class="table-responsive hidden d-block" id="to-users">
+ 
+                        <div class="table-responsive hidden d-block" id="to-users" style="height: 100vh">
                             <table class="table table-striped mb-0 mw-1000" id="data-table">
                                 <thead>
                                 <tr>
@@ -59,37 +55,69 @@
                                 </tr>
                                 </thead>
                                 <tbody> 
+
+                                    @forelse($receiver_users as $key=>$value)
+
+                                    @include("admin/read/communication")  
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{ $key + 1}}</th>
                                         <td> 
-                                            <img src="" class="table-avatar communication-avatar">
-                                        
-                                            <a href=""><strong>First name and Last name</strong></a>
-                                        
-                                            <strong class="text-primary">messaeg name</strong>
-                                            
-                                            <span class="communication-contact">Contact</span></td>
-                                        <td>sent at<br> 
-                                            <span class="badge badge-success">Sent</span> 
-                                            <span class="badge badge-danger">Failed</span> 
-                                            <span class="badge badge-primary">SMS</span> 
-                                            <span class="badge badge-secondary">Email</span> 
+                                            @if($value->image_name)
+                                                <img 
+                                                    src="{{ url('/images'). '/' .$value->image_name }} " 
+                                                    class="table-avatar communication-avatar img-responsive" 
+                                                >   
+                                            @else
+                                                <img 
+                                                    src="{{ url('/assets/images/avatar.png') }} " 
+                                                    class="table-avatar communication-avatar img-responsive" 
+                                                > 
+                                            @endif  
+                                            <a href=""><strong>{{ $value->fname }} {{ $value->lname }}</strong></a> 
+                                            <span class="communication-contact">{{ $value->phone }}</span> 
+                                            <span class="badge badge-primary">{{ $value->type }}</span>  
                                         </td>
                                         <td>
-                                            Message
+                                        {{  Str::limit($value->messages, 30) }}
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-primary btn-sm btn-icon "  modal="#read"><i class=" mdi mdi-email-outline"></i>  Read Message</button>
-                                            <button class="btn btn-danger btn-sm send-to-server-click" data=" " url=" " loader="true"><i class="mdi mdi-delete"></i></button>
+                                            <button 
+                                                class="btn btn-primary btn-sm btn-icon"  
+                                                data-toggle="modal"
+                                                data-target="#read_message{{$value->id}}"
+                                            >
+                                                <i class=" mdi mdi-email-outline"></i>  
+                                                Read Message
+                                            </button>
+
+                                            <form class="d-inline" action="{{ route('communication.destroy', $value->cusb_id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')  
+
+                                                <button class="btn btn-danger btn-sm d-inline" type="submit">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                        
+                                            </form>
+                                            
                                         </td>
-                                    </tr>
-                                
-                                    <tr><th colspan="7"><p class="text-muted text-center">It's empty here.</p></th></tr>
-                            
+                                    </tr> 
+                                    @empty
+                                        <tr>
+                                            <th colspan="7">
+                                                <p class="text-muted text-center">
+                                                    It's empty here.
+                                                </p>
+                                            </th>
+                                        </tr> 
+                                    @endforelse
+ 
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive hidden" id="to-branches">
+
+
+                        <div class="table-responsive hidden" id="to-branches"  style="height: 100vh">
                             <table class="table table-striped mb-0 mw-1000" id="data-table">
                                 <thead>
                                 <tr>
@@ -101,34 +129,56 @@
                                 </tr>
                                 </thead>
                                 <tbody> 
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td> 
-                                            <img src="" class="table-avatar communication-avatar"> 
-                                            <a href=""><strong>First name and Last name</strong></a> 
-                                            <strong class="text-primary">messaeg name</strong> 
-                                            <span class="communication-contact">Contact</span></td>
-                                        <td>sent at<br> 
-                                            <span class="badge badge-success">Sent</span> 
-                                            <span class="badge badge-danger">Failed</span> 
-                                            <span class="badge badge-primary">SMS</span> 
-                                            <span class="badge badge-secondary">Email</span> 
-                                        </td>
-                                        <td>
-                                            Message
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary btn-sm btn-icon "  modal="#read"><i class=" mdi mdi-email-outline"></i>  Read Message</button>
-                                            <button class="btn btn-danger btn-sm send-to-server-click" data=" " url=" " loader="true"><i class="mdi mdi-delete"></i></button>
-                                        </td>
-                                    </tr>
-                                
-                                    <tr><th colspan="7"><p class="text-muted text-center">It's empty here.</p></th></tr>
-                            
+                                    @forelse($branch_users as $key=>$value)
+
+                                        @include("admin/read/communication")  
+                                        <tr>
+                                            <th scope="row">{{ $key + 1}}</th>
+                                            <td>  
+                                                <a href=""><strong>{{ $value->name }} </strong></a> 
+                                                <span class="communication-contact">{{ $value->phone }}</span> 
+                                                <span class="badge badge-primary">{{ $value->type }}</span>  
+                                            </td>
+                                            <td>
+                                            {{  Str::limit($value->messages, 30) }}
+                                            </td>
+                                            <td class="text-center">
+                                                <button 
+                                                    class="btn btn-primary btn-sm btn-icon"  
+                                                    data-toggle="modal"
+                                                    data-target="#read_message_{{$value->id}}"
+                                                >
+                                                    <i class=" mdi mdi-email-outline"></i>  
+                                                    Read Message
+                                                </button>
+
+                                                
+                                                
+                                            <form class="d-inline" action="{{ route('communication.destroy', $value->cusb_id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')  
+
+                                                <button class="btn btn-danger btn-sm d-inline" type="submit">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                        
+                                            </form>
+                                            </td>
+                                        </tr> 
+                                        @empty
+                                            <tr>
+                                                <th colspan="7">
+                                                    <p class="text-muted text-center">
+                                                        It's empty here.
+                                                    </p>
+                                                </th>
+                                            </tr> 
+                                        @endforelse
+
                                 </tbody>
                             </table>
                         </div>
-                        <div class="table-responsive hidden" id="to-schools">
+                        <div class="table-responsive hidden" id="to-schools" style="height: 100vh"> 
                             <table class="table table-striped mb-0 mw-1000" id="data-table">
                                 <thead>
                                 <tr>
@@ -140,40 +190,51 @@
                                 </tr>
                                 </thead>
                                 <tbody> 
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>
-                                                
-                                            <img src="" class="table-avatar communication-avatar">
-                                        
-                                            <a href=""><strong>First name and Last name</strong></a>
-                                        
-                                            <strong class="text-primary">messaeg name</strong>
-                                            
-                                            <span class="communication-contact">Contact</span></td>
-                                        <td>sent at<br> 
-                                            <span class="badge badge-success">Sent</span> 
-                                            <span class="badge badge-danger">Failed</span> 
-                                            <span class="badge badge-primary">SMS</span> 
-                                            <span class="badge badge-secondary">Email</span> 
-                                        </td>
-                                        <td>
-                                            Message
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary btn-sm btn-icon "  modal="#read"><i class=" mdi mdi-email-outline"></i>  Read Message</button>
-                                            <button class="btn btn-danger btn-sm send-to-server-click" data=" " url=" " loader="true"><i class="mdi mdi-delete"></i></button>
-                                        </td>
-                                    </tr>
-                                
-                                    <tr><th colspan="7"><p class="text-muted text-center">It's empty here.</p></th></tr>
-                            
+                                    @forelse($school_users as $key=>$value)
+
+                                        @include("admin/read/communication")  
+                                        <tr>
+                                            <th scope="row">{{ $key + 1}}</th>
+                                            <td>  
+                                                <a href=""><strong>{{ $value->name }} </strong></a> 
+                                                <span class="communication-contact">{{ $value->phone }}</span> 
+                                                <span class="badge badge-primary">{{ $value->type }}</span>  
+                                            </td>
+                                            <td>
+                                            {{  Str::limit($value->messages, 30) }}
+                                            </td>
+                                            <td class="text-center">
+                                                <button 
+                                                    class="btn btn-primary btn-sm btn-icon"  
+                                                    data-toggle="modal"
+                                                    data-target="#read_message_{{$value->id}}"
+                                                >
+                                                    <i class=" mdi mdi-email-outline"></i>  
+                                                    Read Message
+                                                </button>
+
+                                                <form class="d-inline" action="{{ route('communication.destroy', $value->cusb_id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')  
+
+                                                    <button class="btn btn-danger btn-sm d-inline" type="submit">
+                                                        <i class="mdi mdi-delete"></i>
+                                                    </button> 
+                                                </form>
+                                            </td>
+                                        </tr> 
+                                        @empty
+                                            <tr>
+                                                <th colspan="7">
+                                                    <p class="text-muted text-center">
+                                                        It's empty here.
+                                                    </p>
+                                                </th>
+                                            </tr> 
+                                    @endforelse
                                 </tbody>
                             </table>
-                        </div>
-
-
-
+                        </div> 
 
                     </div>
                 </div>
@@ -182,11 +243,22 @@
     </div> 
     
 
+ 
 
 
     @include("admin/email/communication")  
     @include("admin/sms/communication")  
-    @include("admin/read/communication")  
+    
+    <div  class="right card-body p-0 hidden" id="loading">
+        <div class="sub-loading" role="document">
+            <div class="loader-demo-box">
+                <div class="circle-loader"></div>
+            </div>
+        </div>
+    </div>  
+
+
+
     @include('../layouts/includes/footer') 
     <script>
         $(document).ready(function() {
@@ -200,7 +272,16 @@
                 $('#communication-content > div.d-block').removeClass('d-block');
                 $('#'+data).addClass('d-block');
 
-            })
+            });
+            $('#comm_send_mail').on('click touchstart', function(e){ 
+                $('#comm_form').submit();
+                $('div#loading').removeClass('hidden');
+            });
+            $('#comm_send_sms').on('click touchstart', function(e){ 
+                $('#comm_form_sms').submit();
+                $('div#loading').removeClass('hidden');
+            });
+            
         });
     </script>
 @endsection

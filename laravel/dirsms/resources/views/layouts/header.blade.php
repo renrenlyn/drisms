@@ -19,6 +19,21 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
     <style>
+        #loading{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh; 
+            background: rgba(0,0,0, 0.3); 
+            z-index: 9999;
+        }
+        .sub-loading{
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
         .hidden{
             display: none;
         }

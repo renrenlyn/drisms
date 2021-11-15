@@ -7,6 +7,11 @@ use App\Branch;
 use App\User;
 use App\Image;
 use Auth;
+
+
+use App\Communication;
+use App\Communication_user_school_branch; 
+
 use Illuminate\Http\Request;
  
 class BranchController extends Controller
@@ -24,10 +29,7 @@ class BranchController extends Controller
 
         $branches = Branch::orderBy('created_at', 'DESC')->get();
         return view('admin/branch', compact('branches', 'profile_pic'));
-    }
-
-
-
+    } 
 
     /**
      * Send Email in storage.
@@ -35,12 +37,26 @@ class BranchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
-
+     
     public function sendEmail(Request $request){
- 
-        $to_name = $request->branch_name;
-        $to_email = $request->branch_email;
+  
+        $school_ = Branch::where('id', '=', $request->branch_id)->first();
+         
+        $communication = new Communication();
+        $communication->type = 'email'; 
+        $communication->suject = $request->subject; 
+        $communication->messages =  $request->message;  
+        $communication->save();
+
+        $communication_user_school_branch = new Communication_user_school_branch();
+        $communication_user_school_branch->user_sender_id = auth()->id();
+        $communication_user_school_branch->branch_receiver_id = $request->school_id;
+        $communication_user_school_branch->comm_id =$communication->id;
+    
+        $communication_user_school_branch->save();
+  
+        $to_name = $school_->name;
+        $to_email = $school_->email;
         $subject = $request->subject;
 
         $data = array(
@@ -69,6 +85,49 @@ class BranchController extends Controller
     }
 
 
+
+    public function sendSms(Request $request){
+  
+        $branch_ = Branch::where('id', '=', $request->branch_id)->first();
+         
+        $communication = new Communication();
+        $communication->type = 'sms'; 
+        $communication->messages =  $request->message;  
+        $communication->save();
+
+        $communication_user_school_branch = new Communication_user_school_branch();
+        $communication_user_school_branch->user_sender_id = auth()->id();
+        $communication_user_school_branch->branch_receiver_id = $request->branch_id;
+        $communication_user_school_branch->comm_id =$communication->id;
+    
+        $communication_user_school_branch->save();
+
+        $apikey = '33856c4a';
+        //$to = '09676620398';  
+        $to = $branch_->phone; 
+        $message = $request->message;
+        $mobile_ip = 'http://192.168.1.18:8082/'; 
+ 
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $mobile_ip);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}");
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Authorization: ' . $apikey)
+        );
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return redirect()->back()->with('error', "We have error to send your message " . curl_error($ch) . "!");
+        }
+        curl_close($ch);
+
+        return redirect()->back()->with('success', 'Sent SMS successfully!!!');
+    }
 
     /**
      * Store a newly created resource in storage.

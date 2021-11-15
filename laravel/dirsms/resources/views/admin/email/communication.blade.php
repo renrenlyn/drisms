@@ -7,7 +7,7 @@
                         <h4 class="modal-title" id="myModalLabel2">Send Email</h4>
                     </div> 
                     <div class="modal-body">
-                        <form  action="{{ route('communication.store') }}" method="POST">
+                        <form id="comm_form" action="{{ route('communication.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="type" value="email">
                                 
@@ -50,7 +50,7 @@
                           <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary btn-block" type="submit">Send Email</button>
+                                    <button class="btn btn-primary btn-block" id="comm_send_mail" type="submit">Send Email</button>
                                 </div>
                             </div>
                           </div>
@@ -61,3 +61,7 @@
             </div><!-- modal-dialog -->
         </div>
     <!-- end Send Email--> 
+
+
+
+  

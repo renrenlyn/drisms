@@ -16,9 +16,9 @@
                             <div class="col-md-12">
                                 <label>Subject</label> 
                                 <input class="form-control" name="subject_m" placeholder="Subject" type="text" required="">
-                                <input class="form-control" name="school_email" type="hidden" value="{{$school->email}}">
-                                <input class="form-control" name="school_name" type="hidden" value="{{$school->name}}"> 
-                           
+
+                                <input class="form-control" name="school_id" type="hidden" value="{{$school->id}}">
+                                 
                             </div>
                         </div>
                     </div>

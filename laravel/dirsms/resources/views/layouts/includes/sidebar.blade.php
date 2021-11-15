@@ -76,9 +76,10 @@
                       </a>
                   </li>
                 @endif
-                <li class="menu-label">School</li>
                 
                 @if(Auth::user()->role == 'Admin')
+                
+                <li class="menu-label">School</li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/fleet') }}">
                         <i class="menu-icon mdi mdi-car-connected"></i>
@@ -97,14 +98,14 @@
                         <span class="menu-title">Invoices</span>
                       </a>
                   </li>
-                @endif
+               
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('communication') }}">
                       <i class="menu-icon  mdi mdi-message-text-outline"></i>
                       <span class="menu-title">Communication</span>
                     </a>
                 </li>
-               
+                @endif
                 @if(Auth::user()->role == 'Admin')
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/staff') }}">

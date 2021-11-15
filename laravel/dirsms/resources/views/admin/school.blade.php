@@ -89,7 +89,17 @@
                                         Send Email
                                     </a>
                                 </li>
-                                <li role="presentation"><a role="menuitem" href="" input="schoolid" modal="#sendsms" class="pass-data" value="{{ $school->id }}"> <i class="mdi mdi-message-text-outline"></i> Send SMS</a></li>
+                                <li role="presentation">
+                                    <a role="menuitem" 
+                                        href="" 
+                                        input="schoolid" 
+                                        modal="#sendsms{{ $school->id }}" 
+                                        class="pass-data" 
+                                        value="{{ $school->id }}"> 
+                                        <i class="mdi mdi-message-text-outline"></i> 
+                                        Send SMS
+                                    </a>
+                                </li>
                                 <li role="presentation">
                                     
                                     <form id="deleteSchool{{$school->id}}" action="{{ route('school.destroy', $school->id) }}" method="POST">
@@ -117,7 +127,8 @@
             </div>
         </div>
             @include("admin/modified/school")   
-            @include("admin/email/school")  
+            @include("admin/email/school")   
+            @include("admin/sms/school")  
         @empty 
             @include("admin/empty/empty")   
         @endforelse
@@ -145,8 +156,6 @@
 </div>
 <!-- end update -->
 
-
-@include("admin/sms/school")  
  
 @include('../layouts/includes/footer')
 

@@ -1,7 +1,7 @@
 
 
     <!-- Send SMS-->
-    <div class="modal right fade" id="sendsms" role="dialog" tabindex="-1">
+    <div class="modal right fade" id="sendsms{{$branch->id}}" role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,14 +9,15 @@
                     <h4 class="modal-title" id="myModalLabel2">Send SMS</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('Branch@sendsms') }}" class="simcy-form" data-parsley-validate=""  loader="true" method="post">
+                    <form action="{{ route('branch.sendSms') }}" method="post">
+
+                        @csrf
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Message</label> 
                                     <textarea class="form-control" placeholder="Message" name="message" rows="6" required=""></textarea>
-                                    <input name="csrf-token" type="hidden" value="{{ csrf_token() }}">
-                                    <input name="branchid" type="hidden">
+                                    <input name="branch_id" type="hidden" value="{{$branch->id}}"> 
                                 </div>
                             </div>
                         </div>

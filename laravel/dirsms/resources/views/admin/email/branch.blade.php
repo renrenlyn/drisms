@@ -15,8 +15,7 @@
                                 <div class="col-md-12">
                                     <label>Subject</label> 
                                     <input class="form-control" name="subject" placeholder="Subject" type="text" required="">
-                                    <input class="form-control" name="branch_email" type="hidden" value="{{$branch->email}}">
-                                    <input class="form-control" name="branch_name" type="hidden" value="{{$branch->name}}"> 
+                                    <input class="form-control" name="branch_id" type="hidden" value="{{$branch->id}}"> 
                                 </div>
                             </div>
                         </div>

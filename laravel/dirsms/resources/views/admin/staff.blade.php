@@ -79,7 +79,12 @@
                         </div>
                         <div class="row user-grid-buttons">
                             <div class="col-md-12">
-                                <a class="btn btn-primary btn-block" href="">Profile</a>
+                                <a 
+                                    class="btn btn-primary btn-block" 
+                                    href="{{ route('profiles.show',$user->username)}}"
+                                >
+                                    Profile
+                                </a>
                             </div>
                         </div>
                         <div class="user-grid-class-left">

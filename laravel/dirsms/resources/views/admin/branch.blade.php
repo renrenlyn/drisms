@@ -83,7 +83,16 @@
                                                     data-target="#sendemail{{$branch->id}}"
                                                 >
                                             <i class="mdi mdi-email-outline"></i> Send Email</a></li>
-                                          <li role="presentation"><a role="menuitem" href="" input="branchid" modal="#sendsms" class="pass-data" value="{{ $branch->id }}"> <i class="mdi mdi-message-text-outline"></i> Send SMS</a></li>
+                                            <li role="presentation">
+                                                <a role="menuitem" 
+                                                    href=""   
+                                                    data-toggle="modal" 
+                                                    data-target="#sendsms{{$branch->id}}"
+                                                > 
+                                                <i class="mdi mdi-message-text-outline"></i> 
+                                                Send SMS
+                                                </a>
+                                            </li>
                                             <li 
                                                 role="presentation"
                                             >  
@@ -115,6 +124,8 @@
                         </div>
                     </div>
                 </div> 
+                
+                @include("admin/sms/branch")   
                 @include("admin/modified/branch") 
                 @include("admin/email/branch")  
             @empty  
@@ -144,8 +155,6 @@
 
 
 
-
-        @include("admin/sms/branch")   
 
         @include('../layouts/includes/footer') 
 
