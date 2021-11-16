@@ -56,6 +56,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('staff', 'StaffController');
     Route::resource('course', 'CourseController');
     Route::resource('school', 'SchoolController');
+    Route::resource('smsGateWay', 'SmsGateWayController');
 });
 
 

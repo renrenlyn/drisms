@@ -12,6 +12,9 @@ use Auth;
 use App\Communication;
 use App\Communication_user_school_branch; 
 
+use App\SmsGateWay;
+
+
 use Illuminate\Http\Request;
  
 class BranchController extends Controller
@@ -102,30 +105,33 @@ class BranchController extends Controller
     
         $communication_user_school_branch->save();
 
-        $apikey = '33856c4a';
-        //$to = '09676620398';  
-        $to = $branch_->phone; 
-        $message = $request->message;
-        $mobile_ip = 'http://192.168.1.18:8082/'; 
- 
-        $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $mobile_ip);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}");
+        $existSmsGateWay = SmsGateWay::where('user_id', '=', Auth::user()->id)->first();
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Authorization: ' . $apikey)
-        );
+        if($existSmsGateWay){  
+            $apikey = "$existSmsGateWay->api_key"; 
+            $to = $branch_->phone; 
+            $message = $request->message;
+            $mobile_ip = "$existSmsGateWay->mobile_ip"; 
+    
+            $ch = curl_init();
 
-        $result = curl_exec($ch);
-        if (curl_errno($ch)) {
-            return redirect()->back()->with('error', "We have error to send your message " . curl_error($ch) . "!");
-        }
-        curl_close($ch);
+            curl_setopt($ch, CURLOPT_URL, $mobile_ip);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}");
 
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Authorization: ' . $apikey)
+            );
+
+            $result = curl_exec($ch);
+            if (curl_errno($ch)) {
+                return redirect()->back()->with('error', "We have error to send your message " . curl_error($ch) . "!");
+            }
+            curl_close($ch); 
+        } 
         return redirect()->back()->with('success', 'Sent SMS successfully!!!');
     }
 

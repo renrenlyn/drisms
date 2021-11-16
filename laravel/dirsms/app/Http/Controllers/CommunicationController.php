@@ -8,6 +8,7 @@ use App\User;
 use App\Image; 
 use App\Communication_user_school_branch; 
 
+use App\SmsGateWay;
  
 use App\Branch; 
 use App\School;
@@ -103,32 +104,33 @@ class CommunicationController extends Controller
                     }
                 );  
             }else if($request->type == 'sms'){
-                $apikey = '33856c4a';
-                //$to = '09676620398';  
-                $to = $value->phone; 
-                $message = $request->message;
-                $mobile_ip = 'http://192.168.1.18:8082/';  
-                $ch = curl_init(); 
-                curl_setopt($ch, CURLOPT_URL, $mobile_ip);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}");
 
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json',
-                    'Authorization: ' . $apikey)
-                ); 
-                $result = curl_exec($ch);
-                if (curl_errno($ch)) {
-                    echo 'Error:' . curl_error($ch);
-                  }
-                curl_close($ch);
+                $existSmsGateWay = SmsGateWay::where('user_id', '=', Auth::user()->id)->first();
 
+                if($existSmsGateWay){ 
+                    $apikey = "$existSmsGateWay->api_key";   
+                    $to = $value->phone; 
+                    $message = $request->message;
+                    $mobile_ip = "$existSmsGateWay->mobile_ip";  
+                    $ch = curl_init(); 
+                    curl_setopt($ch, CURLOPT_URL, $mobile_ip);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}");
+
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Content-Type: application/json',
+                        'Authorization: ' . $apikey)
+                    ); 
+                    $result = curl_exec($ch);
+                    if (curl_errno($ch)) {
+                        echo 'Error:' . curl_error($ch);
+                    }
+                    curl_close($ch);
+                }
             }else{
                 return;
-            }
-
-
+            } 
         } 
 
    }
@@ -198,10 +200,8 @@ class CommunicationController extends Controller
                 break;
             default:
                 $this->messages($request, 'id', '=', $request->recipient);  
-        } 
-
-        return redirect()->back()->with('success', 'Message has been sent');  
-
+        }  
+        return redirect()->back()->with('success', 'Message has been sent');   
     }
 
     /**

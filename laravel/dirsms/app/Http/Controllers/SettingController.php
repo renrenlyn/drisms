@@ -6,6 +6,7 @@ use App\Setting;
 use App\User;
 use App\Image;
 use Auth;
+use App\SmsGateWay;
 
 use Illuminate\Http\Request;
 
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');    
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +35,11 @@ class SettingController extends Controller
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
+
+        $existSmsGateWay = SmsGateWay::where('user_id', '=', Auth::user()->id)->first();
       
  
-        return view('settings', compact('profile_pic'));
+        return view('settings/settings', compact('profile_pic', 'existSmsGateWay'));
     }
 
     /**
@@ -121,9 +129,9 @@ class SettingController extends Controller
                 }
 
                 if($is_save){
-                    return redirect()->back()->with('success', 'Successfully update the settings!');
+                    return redirect()->back()->with('success', 'Successfully update profile info!');
                 }else{
-                    return redirect()->back()->with('error', 'Successfully update the settings!');
+                    return redirect()->back()->with('error', 'We encounter error updating your profile info!');
                 }
     
     
@@ -139,10 +147,11 @@ class SettingController extends Controller
                 $existingUser->password = Hash::make($request->password);
                 $is_save = $existingUser->save(); 
     
+                
                 if($is_save){
-                    return redirect()->back()->with('success', 'Successfully update the settings!');
+                    return redirect()->back()->with('success', 'Successfully update Account!');
                 }else{
-                    return redirect()->back()->with('error', 'Successfully update the settings!');
+                    return redirect()->back()->with('error', 'We encounter error updating your Account!');
                 }
             }else{
                 return;

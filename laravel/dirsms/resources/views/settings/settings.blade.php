@@ -11,49 +11,48 @@
         <div class="page-header">
             <h3>Settings</h3> 
 
-             
+              
+            @if( \Session::has('success'))
+                <div class="alert alert-success mt-3">
+                    {!! \Session::get('success') !!}
+                </div>
+            @endif
+            @if( \Session::has('error'))
+                <div class="alert alert-danger mt-3"> 
+                    {!! \Session::get('error') !!} 
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div> 
         <!-- page content -->
         <div class="row">
             <div class="col-md-12">
-                <div class="card settings-card">
-
-                    <ul class="nav nav-tabs">
-                        <li><a data-toggle="tab" href="#step-1" class="active">Step 1</a></li>
-                        <li><a data-toggle="tab" href="#step-2" class="">Step 2</a></li>
-                            
-                    </ul>
-
-                    @if( \Session::has('success'))
-                        <div class="alert alert-success mt-3">
-                            {!! \Session::get('success') !!}
-                        </div>
-                    @endif
-                    @if( \Session::has('error'))
-                        <div class="alert alert-danger mt-3"> 
-                            {!! \Session::get('error') !!} 
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                <div class="card settings-card"> 
+                        <ul class="nav nav-tabs">
+                            <li><a data-toggle="tab" href="#step-1" class="active mr-3">Update Profile Info</a></li>
+                            <li><a data-toggle="tab" href="#step-2" class="mr-3">Update Account</a></li> 
+                            <li><a data-toggle="tab" href="#step-3" class="mr-3">Configure Your SMS Gateway</a></li> 
+                         
+                        </ul> 
 
 
                     <div class="row">
 
                         <div class="col-md-12">
                             <div class="tab-content">  
-                                <p class="mt-3">Update your personal profile here.</p>
  
                                 <!-- Step-1  -->
                                 <div id="step-1" class="tab-pane fade in show active">
                                   
+                                <p class="mt-3">Update your personal profile here.</p>
                                     <form method="POST" action="{{ route('settings.update', Auth::user()->id) }}" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
@@ -162,6 +161,8 @@
                                 <!-- Step-2  -->
 
                                 <div id="step-2" class="tab-pane fade">
+                                    
+                                <p class="mt-3">Update your personal profile here.</p>
                                     <form method="POST" action="{{ route('settings.update', Auth::user()->id) }}" >
                                         @csrf
                                         @method('PUT')
@@ -203,6 +204,95 @@
                                         </div>
                                 
                                     </form> 
+                                </div>
+
+
+
+                                
+                                <!-- Step-3  -->
+                                <div id="step-3" class="tab-pane fade">
+
+                                    <p>
+                                        We are using <a href="https://www.traccar.org/documentation/"> traccar sms gateway </a> you can check the decumentation for traccar sms gateway here.
+                                         
+                                    </p>    
+                                    
+                                    <p>
+                                        Use this configuration to send sms to all users.     
+                                    </p>
+                                    @if(!$existSmsGateWay)
+                                    <ul>    
+                                        <li>1. Install traccar sms gateway to your mobile phone </li>
+                                        <li>2. Go to settings > gateway > start  </li>
+                                        <li>3. Register your API key here and Local API</li>
+                                        <li>4. Please avoid spacing if not required</li>
+                                        <li>5. Make sure your sim card can send a text message </li>
+                                    </ul>
+
+                                    <form method="POST" action="{{ route('smsGateWay.store') }}" >
+                                        @csrf 
+                                        <div class="form-group row">  
+                                            <div class="col-md-6">
+                                                <label for="api_key" class="col-form-label text-md-right">{{ __('Api Key') }}</label>
+                                                <input id="api_key" type="text" class="form-control @error('api_key') is-invalid @enderror" name="api_key"  autocomplete="api_key" require>
+                                            
+                                            </div>
+ 
+                                            <div class="col-md-6">
+                                                <label for="mobile_ip" class="col-form-label text-md-right">{{ __('Mobile IP') }}</label>
+                                                <input id="mobile_ip" type="text" class="form-control @error('mobile_ip') is-invalid @enderror" name="mobile_ip" autocomplete="mobile_ip" require>
+                                             
+                                            </div> 
+                                        </div>  
+                                        <div class="form-group row">
+                                        </div>
+                                        <div class="form-group row mb-0">
+                                            <div class="col-md-6 offset-md-4">
+                                                <button type="submit" class="btn btn-primary" >
+                                                    {{ __('SMS GATEWAY') }}
+                                                </button> 
+                                            </div> 
+                                        </div> 
+                                    </form> 
+                                    @else
+                                        
+                                        <p>
+                                            Use this configuration to send sms to all users.     
+                                        </p>
+                                        <ul>    
+                                            <li>1. Install traccar sms gateway to your mobile phone </li>
+                                            <li>2. Go to settings > gateway > start  </li>
+                                            <li>3. Update your API key here and Local API</li>
+                                            <li>4. Please avoid spacing if not required</li>
+                                            <li>5. Make sure your sim card can send a text message </li>
+                                        </ul>
+                                        <div> 
+                                            <form method="POST" action="{{ route('smsGateWay.update', Auth::user()->id) }}" >
+                                                @csrf 
+                                                @method('PUT')
+                                                <div class="form-group row">  
+                                                    <div class="col-md-6">
+                                                        <label for="api_key" class="col-form-label text-md-right">{{ __('Api Key') }}</label>
+                                                        <input id="api_key" type="text" class="form-control @error('api_key') is-invalid @enderror" name="api_key"  autocomplete="api_key" require>
+                                                    </div> 
+                                                    <div class="col-md-6">
+                                                        <label for="mobile_ip" class="col-form-label text-md-right">{{ __('Mobile IP') }}</label>
+                                                        <input id="mobile_ip" type="text" class="form-control @error('mobile_ip') is-invalid @enderror" name="mobile_ip" autocomplete="mobile_ip" require>
+                                                    
+                                                    </div> 
+                                                </div>  
+                                                <div class="form-group row">
+                                                </div>
+                                                <div class="form-group row mb-0">
+                                                    <div class="col-md-6 offset-md-4">
+                                                        <button type="submit" class="btn btn-primary" >
+                                                            {{ __('SMS GATEWAY') }}
+                                                        </button> 
+                                                    </div> 
+                                                </div> 
+                                            </form> 
+                                        </div>
+                                    @endif 
                                 </div>
 
                             </div>
