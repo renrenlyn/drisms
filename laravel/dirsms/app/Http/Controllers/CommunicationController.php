@@ -26,8 +26,7 @@ class CommunicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    
-
+    {     
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
             ->where('users.id', Auth::user()->id)
             ->get(['users.*', 'images.name as image_name']);
@@ -50,6 +49,9 @@ class CommunicationController extends Controller
                     ->orderBy('cusb.created_at', 'DESC') 
                     ->get(['schools.*', 'cusb.*', 'cusb.id as cusb_id', 'c.*']); 
 
+
+
+
         return view('communication', compact('profile_pic', 'users', 'receiver_users', 'branch_users', 'school_users'));
     }
 
@@ -61,6 +63,29 @@ class CommunicationController extends Controller
     public function create()
     {
         //
+        
+        // $apikey = '33856c4a';
+        // $to = '09752623146';
+        // $message = 'This is a test';
+        // $mobile_ip = 'http://192.168.1.13:8082'; 
+
+        // $ch = curl_init();
+
+        // curl_setopt($ch, CURLOPT_URL, $mobile_ip);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($ch, CURLOPT_POST, 1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"to\":\"$to\",\"message\":\"$message\"}"); 
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        //     'Content-Type: application/json',
+        //     'Authorization: ' . $apikey)
+        // );
+
+        // $result = curl_exec($ch);
+        // if (curl_errno($ch)) {
+        //     echo 'Error:' . curl_error($ch);
+        // }
+        // curl_close($ch);
+ 
     }
 
     /**
@@ -179,6 +204,8 @@ class CommunicationController extends Controller
     public function store(Request $request)
     {   
  
+
+
         switch($request->recipient){
             case('student'):
                 $this->messages($request, 'role', '=', $request->recipient);
