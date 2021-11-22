@@ -7,8 +7,8 @@
         @include('admin/dashboard') 
     @else
         <h1>
-            Dashboard    
-        </h1>
+            Welcome {{ Auth::user()->role }}
+        </h1> 
     @endif
 </div> 
     @include('../layouts/includes/footer')  

@@ -56,7 +56,10 @@ class ProfileController extends Controller
         ->get(['users.*', 'images.name as image_name']); 
 
 
-        $user = User::where('username','=',$username)->first();
+        $user = User::join('images', 'users.id', '=', 'images.user_id')
+        ->where('username','=',$username)
+        ->get(['users.*', 'images.name as image_name'])->first();
+         
 
         return view('profile', compact('user', 'profile_pic')); 
     }

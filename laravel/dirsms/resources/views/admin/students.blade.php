@@ -74,7 +74,18 @@
         </div> 
     </div>
     
-    <div class="row"> 
+    @if (\Session::has('success'))
+        <div class="alert alert-success">
+            {!! \Session::get('success') !!} 
+        </div>
+    @endif   
+    @if (\Session::has('error'))
+        <div class="alert alert-danger">
+            {!! \Session::get('error') !!} 
+        </div>
+    @endif 
+    <div class="row">  
+
     @forelse($students as $student)
         <!-- user grid -->
         <div class="col-md-4">
@@ -94,7 +105,10 @@
                 <div class="row user-grid-buttons">
 
                     <div class="col-md-6">
-                        <a class="btn btn-primary btn-block" href="">
+                        <a 
+                            class="btn btn-primary btn-block" 
+                            href="{{ route('profiles.show',$student->username)}}">
+                            
                             Profile
                         </a>
                     </div>
@@ -106,7 +120,7 @@
  
                     <div class="col-md-12 mt-2">
                         <a class="btn btn-success btn-block" href="#"  data-toggle="modal" data-target="#create{{ $student->id }}">
-                            Update
+                            Update Payment
                         </a>
                     </div>
                 </div>

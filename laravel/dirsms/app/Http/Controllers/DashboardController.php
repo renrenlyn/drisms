@@ -59,6 +59,8 @@ class DashboardController extends Controller
                         ->get(['users.*', 'notifications.*']);
 
         
+
+                        
         return view('dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic'));
     }
 

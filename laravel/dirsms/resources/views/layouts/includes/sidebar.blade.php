@@ -48,6 +48,15 @@
                       </a>
                   </li>
                 @endif
+                
+                @if(Auth::user()->role == 'Student')
+                  <li class="nav-item">
+                        <a class="nav-link" href="{{ route('enrollment.form') }}">
+                          <i class="menu-icon mdi mdi-calendar-text"></i>
+                          <span class="menu-title">Registration Form</span>
+                        </a>
+                  </li>
+                @endif
 
                 <li class="nav-item"> 
                     <a 

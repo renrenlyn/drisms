@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Course;
  
+use App\Invoice;
+use DB;
+
 use App\Image;
 use Auth;
 class StudentController extends Controller
@@ -40,11 +43,53 @@ class StudentController extends Controller
         ->where('users.role', 'Student') 
         ->get(['users.*', 'images.name as image_name']);
 
+
+        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
+        //     ->join('courses as c', 'c.id', '=', 'invoices.course_id')
+        //     ->where('u.role', 'Student') 
+        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount']);
+  
+        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
+        //     ->join('courses as c', 'c.id', '=', 'invoices.course_id')
+        //     ->where('u.role', 'Student') 
+        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount']);
+
+
+
+        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
+        //     ->leftJoin('courses as c', 'c.id', '=', 'invoices.course_id')
+        //     ->where('u.role', 'Student') 
+        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount'])->sum('total_amount');
+
+        // dd($student_payments);
  
+
+    //     $invoiceAmount = Invoice::where('user_id', $student->id)->sum('amount');
+        // $courseAmount = Course::join('invoices as i', 'i.course_id', '=', 'courses.id') 
+        //                 ->first(['courses.price']);
+        //                 dd($courseAmount);
+    // $total =  intval($courseAmount->price) - intval($invoiceAmount);
+
+ 
+
+ 
+
+
+        
+    $invoiceAmount = DB::table('invoices')
+    ->select('*', 'courses.*', DB::raw('SUM(invoices.amount) As total_amount'))
+    ->leftJoin('courses', 'courses.id', '=', 'invoices.course_id')
+    ->where('invoices.user_id', 14)
+    ->get();
+
+        //dd(intval($Total)); 
+
+       // $totalCredits = Model::where('type', 'credit')->sum('balance');
+
         $courses = Course::orderBy('created_at', 'DESC')->get();
 
         // 
-        return view('admin/students', compact('courses', 'students', 'profile_pic'));
+        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount'));
     }
 
     /**
@@ -87,6 +132,10 @@ class StudentController extends Controller
         return view('admin/students', compact('courses', 'students'));
  
     } 
+
+    public function enrollment(Request $request){
+        return view('student/enrollment');
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -15,13 +15,14 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('reference')->nullable();
-            $table->integer('school_id')->nullable();
-            $table->integer('branch_id')->nullable();
-            $table->integer('student_id')->nullable();
-            $table->integer('amount')->nullable();
-            $table->integer('amountpaid')->nullable();
-            $table->string('item')->default('unknown');
+           // $table->integer('reference')->nullable();
+            $table->integer('course_id')->nullable();
+            // $table->integer('school_id')->nullable();
+            // $table->integer('branch_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->float('amount')->nullable();
+            $table->string('method')->nullable();
+            //$table->string('item')->default('unknown');
             $table->timestamps();
         });
     }

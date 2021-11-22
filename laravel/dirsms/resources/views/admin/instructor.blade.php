@@ -59,7 +59,10 @@
                         </div>
                         <div class="row user-grid-buttons">
                             <div class="col-md-6">
-                                <a class="btn btn-primary btn-block" href="">Profile</a>
+                                <a 
+                                    class="btn btn-primary btn-block" 
+                                    href="{{ route('profiles.show',$user->username)}}"
+                                >Profile</a>
                             </div>
                             <div class="col-md-6">
                                 <a class="btn btn-default btn-block" href="">Schedule</a>

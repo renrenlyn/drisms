@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Branch;
+use App\School;
 
 use App\User;
 use App\Image;
@@ -31,7 +32,8 @@ class BranchController extends Controller
         ->get(['users.*', 'images.name as image_name']); 
 
         $branches = Branch::orderBy('created_at', 'DESC')->get();
-        return view('admin/branch', compact('branches', 'profile_pic'));
+        $schools = School::orderBy('created_at', 'DESC')->get();
+        return view('admin/branch', compact('branches', 'profile_pic', 'schools'));
     } 
 
     /**
@@ -148,7 +150,8 @@ class BranchController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|string|email|max:255|unique:branches',
             'phone' => 'required',
-            'address' => 'required' 
+            'address' => 'required',
+            'school_id' => 'required' 
         ]);
 
         $branch = new Branch(); 
@@ -156,6 +159,7 @@ class BranchController extends Controller
         $branch->email = $request->email;
         $branch->phone = $request->phone;
         $branch->address = $request->address;
+        $branch->school_id = $request->school_id;
         $is_save = $branch->save();
 
         if($is_save){

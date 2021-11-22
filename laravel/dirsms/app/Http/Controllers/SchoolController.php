@@ -9,6 +9,9 @@ use App\Image;
 use App\Communication;
 use App\Communication_user_school_branch; 
 
+use App\Course;
+use App\SchoolCourse;
+
 use Auth;
 use Mail;
 
@@ -47,16 +50,19 @@ class SchoolController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
- 
+    {  
 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
 
         $schools = School::orderBy('Created_at', 'DESC')->get();
+        
+        $courses = Course::join('school_course as sc', 'sc.course_id', '!=', 'courses.id' )
+                    ->orderBy('created_at', 'DESC')->get(['courses.*']);
 
-        return view('admin/school', compact('schools', 'profile_pic'));
+
+        return view('admin/school', compact('schools', 'profile_pic', 'courses'));
     }
 
 
@@ -196,6 +202,41 @@ class SchoolController extends Controller
         } 
     }
 
+
+
+    public function courseSchoolStore(Request $request){
+
+        
+ 
+            $newCourse = new SchoolCourse();
+    
+            $newCourse->school_id = $request->school_id;
+            $newCourse->course_id = $request->course_id;
+
+            $is_save = $newCourse->save();
+            if($is_save){
+                return  redirect()
+                        ->back()
+                        ->with('success', 'New Course record added!');
+            }else{ 
+                return  redirect()
+                        ->back()
+                        ->with('error', 'Failed to save data!!!');
+            } 
+        //DB::beginTransaction();
+
+        // try {
+        //     DB::insert(...);
+        //     DB::insert(...);
+        //     DB::insert(...);
+
+        //     DB::commit();
+        //     // all good
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     // something went wrong
+        // }
+    }
     /**
      * Display the specified resource.
      *

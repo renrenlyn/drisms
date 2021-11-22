@@ -26,7 +26,11 @@ Route::get('pages/profiles/{id}', 'ProfileController@show')->name('profiles.show
 
 Route::prefix('/course')->group(function(){
     Route::post('/store', 'CourseController@store')->name('course');
-});
+}); 
+
+Route::get('invoice/print/{id}', 'InvoiceController@paymentPrint')->name('invoice.print');
+Route::get('enrollment/form', 'StudentController@enrollment')->name('enrollment.form');
+
 
 Route::prefix('/admin')->group(function(){
     Route::get('/student/seach/', 'StudentController@search')->name('student-search');
@@ -41,6 +45,10 @@ Route::prefix('/admin')->group(function(){
   
     Route::post('/school/sendSms/', 'SchoolController@sendSms')->name('school.sendSms');
     Route::post('/branch/sendSms/', 'BranchController@sendSms')->name('branch.sendSms');
+ 
+    Route::post('school/courseSchoolStore', 'SchoolController@courseSchoolStore')->name('school.courseSchoolStore');
+    Route::post('addPayment', 'InvoiceController@addPayment')->name('invoice.addPayment');
+
 });
    
 

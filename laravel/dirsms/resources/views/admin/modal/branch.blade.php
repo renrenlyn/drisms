@@ -98,6 +98,32 @@
                             </div>
                         </div>
                       </div>
+
+                      <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"> 
+
+                             
+                            <label>Main School</label>
+                            <select class="form-control select2" name="school_id" required=""> 
+                                <option value="">Select Course</option>  
+                                @if(!empty($schools))
+                                @foreach($schools as $school)
+                                <option value="{{$school->id}}">{{ $school->name }}</option> 
+                                @endforeach
+                                @endif 
+                            </select>
+
+
+                            </div>
+                        </div>
+                      </div>
+
+
+
+
+
+
                       <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">

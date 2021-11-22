@@ -31,6 +31,8 @@
     <div class="row">
 
         @forelse($schools as $school)
+        
+    @include("admin/modal/school_course")  
         <!-- school -->
         <div class="col-md-4">
             <div class="card">
@@ -68,14 +70,15 @@
                             <span class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="mdi mdi-dots-horizontal"></i> </span>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                
+                         
                                 <li role="presentation">
                                     <a role="menuitem" 
-                                        class="pass-data" 
-                                        modal="#update{{$school->id}}"  
+                                         data-toggle="modal" data-target="#addCourse{{$school->id}}" 
                                         href="#"
                                         > 
-                                        <i class="mdi mdi-pencil"></i> 
-                                        Edit
+                                        <i class="mdi mdi-plus-circle-outline"></i>
+                                        Add Course
                                     </a>
                                 </li>
                                 <li role="presentation">
@@ -100,6 +103,18 @@
                                         Send SMS
                                     </a>
                                 </li>
+                                
+                                <li role="presentation">
+                                    <a role="menuitem" 
+                                        class="pass-data" 
+                                        modal="#update{{$school->id}}"  
+                                        href="#"
+                                        > 
+                                        <i class="mdi mdi-pencil"></i> 
+                                        Edit
+                                    </a>
+                                </li>
+
                                 <li role="presentation">
                                     
                                     <form id="deleteSchool{{$school->id}}" action="{{ route('school.destroy', $school->id) }}" method="POST">
@@ -122,6 +137,7 @@
                         @else
                         <span class="badge badge-danger">Suspended School</span>
                         @endif
+
                     </div>
                 </div>
             </div>
@@ -134,12 +150,7 @@
         @endforelse
     </div>
 
-</div>
-
-
-
-
-
+</div> 
 
 <!-- end add school -->
 <!-- update -->
@@ -167,5 +178,42 @@
             $('#'+$school_data).submit();
         } 
     }) 
+
+    $('#select-course').on('change', function(e){
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            } 
+        });
+
+        var data1 = $(this).val();
+  
+        var url = '{{ route("course.show", ":id") }}';
+            url = url.replace(':id', data1);
+ 
+        $.ajax({
+            url: url,
+            method: 'get', 
+            data: {
+                _token: '{{csrf_token()}}' 
+            },
+            success: function(result){
+                $('#school-course-table').removeClass('hidden');
+                $('.sc-title').text(result.name);
+                $('.sc-duration').text(result.duration); 
+                $('.sc-period').text(result.period);
+                $('.sc-practical').text(result.practical_classes);
+                $('.sc-price').text(result.price);
+                $('.sc-status').text(result.status);
+                console.log(result);
+ 
+            }
+        }); 
+
+    })
+        
+       
 </script>
 @endsection
