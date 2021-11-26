@@ -29,7 +29,16 @@ Route::prefix('/course')->group(function(){
 }); 
 
 Route::get('invoice/print/{id}', 'InvoiceController@paymentPrint')->name('invoice.print');
-Route::get('enrollment/form', 'StudentController@enrollment')->name('enrollment.form');
+
+
+Route::get('enrollment/form', 'EnrollmentController@enrollment')->name('enrollment.form');
+Route::get('/school/addCourse/{id}', 'SchoolController@addCourse')->name('school.course.add');
+Route::get('/school/reviewCourse/{id}', 'SchoolController@reviewCourse')->name('school.course.review');
+Route::get('get/enrollment/branch/{id}', 'EnrollmentController@getEnrollmentBranch')->name('get.enrollment.branch');
+Route::get('get/enrollment/{school_id}/course/{course_id}/', 'EnrollmentController@getEnrollmentCourse')->name('get.course'); 
+Route::post('enrollment/', 'EnrollmentController@store')->name('enrollment.store'); 
+Route::get('/student/scheduling/', 'StudentController@scheduling')->name('student.scheduling');
+
 
 
 Route::prefix('/admin')->group(function(){

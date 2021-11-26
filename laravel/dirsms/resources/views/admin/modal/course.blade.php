@@ -37,6 +37,10 @@
                             </div>
                             </div>
                         </div>
+
+
+<!--                         
+
                         <div class="form-group">
                             <div class="row">
                             <div class="col-md-6">
@@ -53,6 +57,7 @@
                             </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                             <div class="col-md-12">
@@ -61,6 +66,7 @@
                             </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="row">
                             <div class="col-md-12">
@@ -68,8 +74,9 @@
                                 <input type="number" name="theory_classes" class="form-control" placeholder="No. of Theory Classes" value="0">
                             </div>
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+
+                        <!-- <div class="form-group">
                             <div class="row">
                             <div class="col-md-12">
                                 <label for="email">Instructors</label>
@@ -80,7 +87,9 @@
                                 </select>
                             </div>
                             </div>
-                        </div>
+                        </div> -->
+
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">

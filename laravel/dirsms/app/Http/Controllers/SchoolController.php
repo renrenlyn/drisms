@@ -9,6 +9,8 @@ use App\Image;
 use App\Communication;
 use App\Communication_user_school_branch; 
 
+use App\Day;
+
 use App\Course;
 use App\SchoolCourse;
 
@@ -57,12 +59,10 @@ class SchoolController extends Controller
         ->get(['users.*', 'images.name as image_name']);
 
         $schools = School::orderBy('Created_at', 'DESC')->get();
-        
-        $courses = Course::join('school_course as sc', 'sc.course_id', '!=', 'courses.id' )
-                    ->orderBy('created_at', 'DESC')->get(['courses.*']);
+         
 
 
-        return view('admin/school', compact('schools', 'profile_pic', 'courses'));
+        return view('admin/school', compact('schools', 'profile_pic'));
     }
 
 
@@ -203,26 +203,90 @@ class SchoolController extends Controller
     }
 
 
+    public function addCourse($id){
+         
+
+        //should not included to display, to be review
+    
+        // $courses = Course::leftJoin('school_course as sc', 'sc.course_id', '=', 'courses.id' )  
+        //         ->leftJoin('schools as s', 's.id', '=', 'sc.school_id')  
+        //         ->where('s.id', '=', $id) 
+        //         ->get(['courses.*']);
+        // dd($courses);
+ 
+        $courses = Course::all(); 
+        $school_courses = SchoolCourse::all();  
+  
+        $school = School::where('id', $id)->first(); 
+        return view('admin/form/addSchoolCourse', compact('courses', 'school', 'school_courses'))->with('id', $id);
+    }
+
+
+
+    public function reviewCourse($id){
+
+        $school_corses = SchoolCourse::leftJoin('days as d', 'd.sc_id', '=', 'school_course.id')
+                        ->leftJoin('courses as c', 'c.id', '=', 'school_course.course_id')
+                        ->where('school_course.school_id', '=', $id)
+                        ->orderBy('c.created_at', 'desc') 
+                        ->get(['c.*', 'd.*', 'school_course.*']);
+ 
+  
+        return view('admin/review/reviewCourseSchool', compact('school_corses', 'id'));
+
+
+    }
+
 
     public function courseSchoolStore(Request $request){
+         
+            // $existSC = SchoolCourse::whereIn('course_id', $request->course_id, 'amd')
+            // ->whereIn('school_id', $request->school_id )->get();
+            $scs = SchoolCourse::all();
 
-        
- 
-            $newCourse = new SchoolCourse();
-    
-            $newCourse->school_id = $request->school_id;
-            $newCourse->course_id = $request->course_id;
+            $status = false;
+            foreach($scs as $sc){
+                if($sc->course_id == $request->course_id && $sc->school_id == $request->school_id){
+                    $status = true;
+                }
+            }
 
-            $is_save = $newCourse->save();
-            if($is_save){
+            if($status){
+                
                 return  redirect()
                         ->back()
-                        ->with('success', 'New Course record added!');
+                        ->with('exist', 'Course already exists.'); 
             }else{ 
-                return  redirect()
-                        ->back()
-                        ->with('error', 'Failed to save data!!!');
-            } 
+                $newCourse = new SchoolCourse(); 
+  
+                $newCourse->time_start_end = $request->start_end;
+                $newCourse->start = $request->start;
+                $newCourse->end = $request->end;
+                $newCourse->duration = $request->duration;
+                $newCourse->period = $request->period; 
+                $newCourse->school_id = $request->school_id;
+                $newCourse->course_id = $request->course_id; 
+                $newCourse->save();  
+
+                $day = new Day();
+                $day->day = $request->day;
+                $day->sc_id = $newCourse->id;
+                $is_save = $day->save(); 
+
+
+                if($is_save){ 
+
+                        return redirect('admin/school') 
+                                ->with('success', 'New Course record added!');
+                
+                 
+                }else{ 
+                    return redirect()
+                            ->back()
+                            ->with('error', 'Failed to save data!!!');
+                } 
+            
+            }
         //DB::beginTransaction();
 
         // try {

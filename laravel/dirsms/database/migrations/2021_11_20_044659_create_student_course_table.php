@@ -17,6 +17,9 @@ class CreateStudentCourseTable extends Migration
             $table->bigIncrements('id'); 
             $table->integer('course_id')->nullable();
             $table->integer('student_id')->nullable();
+            $table->integer('school_id')->nullable();
+            $table->integer('branch_id')->nullable();
+            $table->string('y_e')->default('more than a months');
             $table->timestamps();
         });
     }

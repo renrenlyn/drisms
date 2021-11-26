@@ -81,8 +81,8 @@ class InvoiceController extends Controller
     public function store(Request $request)
     { 
 
-        $invoiceAmount = Invoice::where('user_id', $student->id)->sum('amount');
-        $courseAmount = Course::join('invoices as i', 'i.course_id', '=', 'courses.id') 
+        $invoiceAmount = Invoice::where('user_id', $request->student_id)->sum('amount');
+        $courseAmount = Course::leftJoin('invoices as i', 'i.course_id', '=', 'courses.id') 
                                 ->first(['courses.price']); 
 
 

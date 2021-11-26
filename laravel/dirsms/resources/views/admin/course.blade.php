@@ -77,7 +77,7 @@
                                             <i class="mdi mdi-dots-horizontal"></i> </span>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                             <li role="presentation"><a role="menuitem" href=""> <i class="mdi mdi-eye"></i> View More</a></li>
-                                            <li role="presentation"><a role="menuitem" href=""> <i class="mdi mdi-calendar-text"></i> Schedule</a></li>
+                                            <!-- <li role="presentation"><a role="menuitem" href=""> <i class="mdi mdi-calendar-text"></i> Schedule</a></li> -->
                                             <li role="presentation">
                                                 <a 
                                                     role="menuitem" 

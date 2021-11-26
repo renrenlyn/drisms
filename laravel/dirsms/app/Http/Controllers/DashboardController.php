@@ -7,6 +7,18 @@ use App\User;
 use App\Image; 
 use App\Notification;
 
+
+
+use App\Course;
+use App\Branch; 
+use App\School;  
+use App\StudentCourse;
+use App\Classes;
+use App\Day;
+use App\SchoolCourse;
+
+
+
 use Illuminate\Http\Request;
 use Auth; 
 
@@ -56,12 +68,33 @@ class DashboardController extends Controller
 
         $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
                         ->orderBy('notifications.created_at', 'desc')
-                        ->get(['users.*', 'notifications.*']);
+                        ->get(['users.*', 'notifications.*']); 
 
-        
-
-                        
-        return view('dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic'));
+        $student_enrollment_records = StudentCourse::join('classes as c', 'c.student_id', '=', 'student_course.student_id')
+                                    ->join('schools as s', 's.id', '=', 'student_course.school_id')
+                                    ->join('courses as cr', 'cr.id', '=', 'student_course.course_id')
+                                    ->join('school_course as sc', 'sc.course_id', '=', 'student_course.course_id')
+                                    ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
+                                    ->join('days as d', 'd.sc_id', '=', 'student_course.id')
+                                    ->where('student_course.student_id', '=', Auth::user()->id ) 
+                                    ->get([
+                                        'sc.time_start_end',
+                                        'sc.start',
+                                        'sc.end',
+                                        'sc.duration',
+                                        'sc.period',
+                                        'c.type as classes_type',
+                                        'd.day',
+                                        'b.name as branch_name', 
+                                        'b.address as branch_address', 
+                                        'b.type as branch_type', 
+                                        's.name as school_name', 
+                                        's.address as school_address', 
+                                        'cr.price as price',
+                                        'cr.name as course_name',  
+                                        'student_course.*'
+                                    ]); 
+        return view('dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'student_enrollment_records'));
     }
 
     /**

@@ -17,12 +17,13 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             // $table->integer('school_id')->nullable(); 
             // $table->integer('branch_id')->nullable(); 
-            $table->integer('practical_classes')->nullable(); 
-            $table->integer('theory_classes')->nullable(); 
-            $table->integer('duration')->nullable();  
+            // $table->integer('practical_classes')->nullable(); 
+            // $table->integer('theory_classes')->nullable(); 
+
+            // $table->integer('duration')->nullable();  
             $table->float('price')->nullable(); 
             $table->string('name')->default('unknown');  
-            $table->string('period')->default('unknown'); 
+           // $table->string('period')->default('unknown'); 
             $table->enum('status', ['Available', 'Unavailable'])->default('Available');   
             $table->timestamps();
         });

@@ -73,10 +73,10 @@ class CourseController extends Controller
 
         $newCourse->name=$request->input('name');
         $newCourse->price=intval($request->input('price'));
-        $newCourse->duration=$request->input('duration');
-        $newCourse->period=$request->input('period');
-        $newCourse->practical_classes=intval($request->input('practical_classes'));
-        $newCourse->theory_classes=intval($request->input('theory_classes'));
+        // $newCourse->duration=$request->input('duration');
+        // $newCourse->period=$request->input('period');
+        // $newCourse->practical_classes=intval($request->input('practical_classes'));
+        // $newCourse->theory_classes=intval($request->input('theory_classes'));
         $newCourse->status=$request->input('status');
         $newCourse->save();
  
@@ -118,10 +118,10 @@ class CourseController extends Controller
 
             $existingCourse->name=$request->name;
             $existingCourse->price=intval($request->price);
-            $existingCourse->duration=$request->duration;
-            $existingCourse->period=$request->period;
-            $existingCourse->practical_classes=intval($request->practical_classes);
-            $existingCourse->theory_classes=intval($request->theory_classes);
+            // $existingCourse->duration=$request->duration;
+            // $existingCourse->period=$request->period;
+            // $existingCourse->practical_classes=intval($request->practical_classes);
+            // $existingCourse->theory_classes=intval($request->theory_classes);
             $existingCourse->status=$request->status;
 
             $is_save = $existingCourse->save(); 

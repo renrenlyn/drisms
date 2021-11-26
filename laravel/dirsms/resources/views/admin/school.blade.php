@@ -31,8 +31,7 @@
     <div class="row">
 
         @forelse($schools as $school)
-        
-    @include("admin/modal/school_course")  
+         
         <!-- school -->
         <div class="col-md-4">
             <div class="card">
@@ -71,11 +70,18 @@
                                 <i class="mdi mdi-dots-horizontal"></i> </span>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                 
-                         
                                 <li role="presentation">
-                                    <a role="menuitem" 
-                                         data-toggle="modal" data-target="#addCourse{{$school->id}}" 
-                                        href="#"
+                                    <a role="menuitem"  
+                                        href="{{ route('school.course.review', $school->id)}}" 
+                                        > 
+                                        <i class="mdi mdi-plus-circle-outline"></i>
+                                        Review Course
+                                    </a>
+                                </li>
+                                
+                                <li role="presentation">
+                                    <a role="menuitem"  
+                                        href="{{ route('school.course.add', $school->id)}}" 
                                         > 
                                         <i class="mdi mdi-plus-circle-outline"></i>
                                         Add Course
@@ -109,6 +115,8 @@
                                         class="pass-data" 
                                         modal="#update{{$school->id}}"  
                                         href="#"
+
+
                                         > 
                                         <i class="mdi mdi-pencil"></i> 
                                         Edit
@@ -170,7 +178,9 @@
  
 @include('../layouts/includes/footer')
 
-<script>
+<script> 
+ 
+
     $('.school_delete').on('click touchstart', function(e){ 
         e.preventDefault();
         if(confirm("Are you sure to delete this School?")){ 
@@ -179,41 +189,8 @@
         } 
     }) 
 
-    $('#select-course').on('change', function(e){
-        e.preventDefault();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            } 
-        });
-
-        var data1 = $(this).val();
-  
-        var url = '{{ route("course.show", ":id") }}';
-            url = url.replace(':id', data1);
  
-        $.ajax({
-            url: url,
-            method: 'get', 
-            data: {
-                _token: '{{csrf_token()}}' 
-            },
-            success: function(result){
-                $('#school-course-table').removeClass('hidden');
-                $('.sc-title').text(result.name);
-                $('.sc-duration').text(result.duration); 
-                $('.sc-period').text(result.period);
-                $('.sc-practical').text(result.practical_classes);
-                $('.sc-price').text(result.price);
-                $('.sc-status').text(result.status);
-                console.log(result);
- 
-            }
-        }); 
-
-    })
-        
        
 </script>
 @endsection

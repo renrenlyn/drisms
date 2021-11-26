@@ -16,7 +16,16 @@ class CreateSchoolCourseTable extends Migration
         Schema::create('school_course', function (Blueprint $table) {
             $table->bigIncrements('id'); 
             $table->integer('course_id')->nullable();
-            $table->integer('school_id')->nullable();
+            $table->integer('school_id')->nullable(); 
+             
+            $table->string('time_start_end')->default('unknown');
+
+            $table->date('start')->nullable(); 
+            $table->date('end')->nullable(); 
+            
+            $table->integer('duration')->nullable();  
+            $table->string('period')->default('unknown'); 
+
             $table->timestamps();
         });
     }

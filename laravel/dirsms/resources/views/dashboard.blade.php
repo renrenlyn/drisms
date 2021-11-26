@@ -6,9 +6,7 @@
     @if(Auth::user()->role == 'Admin') 
         @include('admin/dashboard') 
     @else
-        <h1>
-            Welcome {{ Auth::user()->role }}
-        </h1> 
+       @include('student/dashboard') 
     @endif
 </div> 
     @include('../layouts/includes/footer')  

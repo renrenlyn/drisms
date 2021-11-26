@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClasses extends Migration
+class CreateDaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateClasses extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('days', function (Blueprint $table) {
             $table->bigIncrements('id'); 
-            $table->enum('type', ['Theory', 'Practical'])->default('Theory');
-            $table->integer('course_id')->nullable();
-            $table->integer('student_id')->nullable();
-            $table->integer('school_id')->nullable();
+            $table->integer('sc_id')->nullable();  
+            $table->string('day')->default('unknown');  
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateClasses extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('days');
     }
 }

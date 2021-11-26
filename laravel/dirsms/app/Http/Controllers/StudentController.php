@@ -6,9 +6,19 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\User;
 use App\Course;
+use App\Branch;
  
+use App\Day;
+use App\SchoolCourse;
+
+
 use App\Invoice;
+use App\School;
 use DB;
+
+
+use App\StudentCourse;
+use App\Classes;
 
 use App\Image;
 use Auth;
@@ -42,53 +52,15 @@ class StudentController extends Controller
         ->orderBy('created_at', 'DESC')
         ->where('users.role', 'Student') 
         ->get(['users.*', 'images.name as image_name']);
-
-
-        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
-        //     ->join('courses as c', 'c.id', '=', 'invoices.course_id')
-        //     ->where('u.role', 'Student') 
-        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount']);
-  
-        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
-        //     ->join('courses as c', 'c.id', '=', 'invoices.course_id')
-        //     ->where('u.role', 'Student') 
-        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount']);
-
-
-
-        // $student_payments = Invoice::join('users as u', 'u.id', '=', 'invoices.user_id')     
-        //     ->leftJoin('courses as c', 'c.id', '=', 'invoices.course_id')
-        //     ->where('u.role', 'Student') 
-        //     ->get(['invoices.*', 'u.*', 'c.*', 'invoices.amount as total_amount'])->sum('total_amount');
-
-        // dd($student_payments);
  
-
-    //     $invoiceAmount = Invoice::where('user_id', $student->id)->sum('amount');
-        // $courseAmount = Course::join('invoices as i', 'i.course_id', '=', 'courses.id') 
-        //                 ->first(['courses.price']);
-        //                 dd($courseAmount);
-    // $total =  intval($courseAmount->price) - intval($invoiceAmount);
-
+        $invoiceAmount = DB::table('invoices')
+        ->select('*', 'courses.*', DB::raw('SUM(invoices.amount) As total_amount'))
+        ->leftJoin('courses', 'courses.id', '=', 'invoices.course_id')
+        ->where('invoices.user_id', 14)
+        ->get();
  
-
- 
-
-
-        
-    $invoiceAmount = DB::table('invoices')
-    ->select('*', 'courses.*', DB::raw('SUM(invoices.amount) As total_amount'))
-    ->leftJoin('courses', 'courses.id', '=', 'invoices.course_id')
-    ->where('invoices.user_id', 14)
-    ->get();
-
-        //dd(intval($Total)); 
-
-       // $totalCredits = Model::where('type', 'credit')->sum('balance');
-
         $courses = Course::orderBy('created_at', 'DESC')->get();
-
-        // 
+ 
         return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount'));
     }
 
@@ -131,10 +103,53 @@ class StudentController extends Controller
  
         return view('admin/students', compact('courses', 'students'));
  
-    } 
+    }  
 
-    public function enrollment(Request $request){
-        return view('student/enrollment');
+
+
+    public function scheduling(){
+
+        // $student_enrollment_records = StudentCourse::join('classes as c', 'c.student_id', '=', 'student_course.student_id')
+        // ->join('schools as s', 's.id', '=', 'student_course.school_id')
+        // ->join('courses as cr', 'cr.id', '=', 'student_course.course_id')
+        // ->join('school_course as sc', 'sc.course_id', '=', 'student_course.course_id')
+        // ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
+        // ->join('days as d', 'd.sc_id', '=', 'student_course.id')
+        // ->where('student_course.student_id', '=', Auth::user()->id ) 
+        // ->get([
+        //     'sc.time_start_end',
+        //     'sc.start',
+        //     'sc.end',
+        //     'sc.duration',
+        //     'sc.period',
+        //     'c.type as classes_type',
+        //     'd.day',
+        //     'b.name as branch_name', 
+        //     'b.address as branch_address', 
+        //     'b.type as branch_type', 
+        //     's.name as school_name', 
+        //     's.address as school_address', 
+        //     'cr.price as price',
+        //     'cr.name as course_name',  
+        //     'student_course.*'
+        // ]); 
+
+
+            $schools=School::all();
+ 
+            $branches = Branch::all();
+            $courses = Course::all();
+ 
+
+ 
+            $school_courses =SchoolCourse::all();
+            $days =Day::all();
+            // Day;
+            // SchoolCourse;
+
+            // days
+            // school_course 
+        return view('student/schedule', compact('schools', 'branches', 'school_courses', 'courses', 'days'));
     }
 
     /**
@@ -144,8 +159,9 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {  
+
+  
     }
 
     /**

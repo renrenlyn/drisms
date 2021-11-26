@@ -44,17 +44,21 @@
         </div>
     </div>
  
-    @include("admin/modal/scheduling")  
-
-
-    @include('../layouts/includes/footer') 
-
-
+    @include("admin/modal/scheduling")   
+ 
+    @include('../layouts/includes/footer')  
     <script src="{{ asset('libs/datetimepicker/js/bootstrap-datetimepicker.js') }}"></script> 
     <script src="{{ asset('libs/fullcalendar/moment.min.js') }}"></script> 
     <script src="{{ asset('libs/fullcalendar/fullcalendar.min.js') }}"></script> 
     <script src="{{ asset('libs/jquery-ui/jquery-ui.min.js') }}"></script> 
     <script src="{{ asset('js/components/schedule.js') }}"></script> 
- 
+
+        <script type="text/javascript">
+            var filter='';
+            var filterid='';
+            var schedulesUrl='{{route("schedule.index")}}';
+            var schedulesUpdateView='';
+       </script>
+
 
 @endsection
