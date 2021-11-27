@@ -9,17 +9,14 @@
 
 
     <!-- students growth -->
-    <div class="row">
-
-
-        @if(Auth::user()->enrollment_status == 1)  
+    <div class="row"> 
 
                 @forelse($schools as $school)
 
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>{{$school->name}}</h5> 
+                                <h5>{{$school->name}} ( School )</h5> 
                                 <small>{{$school->address}}</small>
                             </div> 
 
@@ -31,7 +28,7 @@
                                             @if($branch->school_id == $school->id)
                                                
 
-                                                <h5>{{$branch->name}}</h5> 
+                                                <h5>{{$branch->name}} ( Branch )</h5> 
                                                 <small>{{$branch->address}}</small>
                                     
                                                     <table class="table table-striped">
@@ -102,9 +99,7 @@
                         </div>
                     </div>  
                 @empty
-                @endforelse
-        @endif
-
+                @endforelse 
     </div> 
 </div>
 @endsection

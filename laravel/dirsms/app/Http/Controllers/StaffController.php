@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Branch;
 use App\Staff; 
 use App\User; 
 use App\Image;
@@ -40,8 +41,10 @@ class StaffController extends Controller
         ->orderBy('created_at', 'DESC')
         ->get(['users.*', 'images.name as image_name']);
 
+        $branches = Branch::all();
  
-        return view('admin/staff', compact('users', 'profile_pic'));
+
+        return view('admin/staff', compact('users', 'profile_pic', 'branches'));
      
     }
 
@@ -100,7 +103,7 @@ class StaffController extends Controller
      */
     public function show(Staff $staff)
     {
-        //
+        
     }
 
     /**

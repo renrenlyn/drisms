@@ -73,7 +73,7 @@
                             
                         </div>
                         <div class="user-grid-info">
-                            <h5> {{$user->fname}} {{$user->lname}} </h5>
+                            <h5> {{ ucfirst($user->fname) }} {{ucfirst($user->lname)}} </h5>
                             <p>branch name </p>
                             <p>{{$user->phone}} </p>
                         </div>

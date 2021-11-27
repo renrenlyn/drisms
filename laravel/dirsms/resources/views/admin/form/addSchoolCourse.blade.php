@@ -44,7 +44,8 @@
 
                 <div class="col-md-6"> 
                     <label>Day</label>
-                    <select name="day" class="form-control" required="">
+
+                    <select class="form-control select2" name="day[]" multiple=""> 
                         <option value="Monday">Monday</option>
                         <option value="Tuesday">Tuesday</option>
                         <option value="Wednesday">Wednesday</option>

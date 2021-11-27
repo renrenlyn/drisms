@@ -178,8 +178,10 @@
                         _token: '{{csrf_token()}}' 
                     },
                     success: function(items){ 
+
+                        console.log(items);
                         if(items){
- 
+  
                             $('#school-course').removeClass('hidden');
                             $('.course-append').remove();
                             $.each(items, function (i, item) {
@@ -194,7 +196,7 @@
                             console.log('No course found!!!')
                             }
         
-                    }
+                        }
                 }); 
         })
 

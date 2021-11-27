@@ -28,7 +28,7 @@
                             <input type="text" class="form-control" placeholder="Search Name, Email or Phone" name="search">
                             </div>
                     </div>
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                             <div class="form-group">
                                 <label for="email">Progress</label>
                                 <select class="form-control" name="status">
@@ -39,8 +39,8 @@
                                     <option value="New">New</option>
                                 </select>
                             </div>
-                    </div>
-                    <div class="col-md-2">
+                    </div> -->
+                    <!-- <div class="col-md-2">
                         <div class="form-group">
                             <label for="email">Fees</label>
                             <select class="form-control" name="istatus"> 
@@ -51,7 +51,7 @@
                                 <option value="Updaid">Unpaid</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-2">
                             <div class="form-group">
                             <label for="email">Gender</label>
@@ -98,8 +98,8 @@
                     @endif
                 </div>
                 <div class="user-grid-info">
-                    <h5>{{ $student->fname }} {{ $student->lname }}</h5>
-                    <p>{{ $student->courses }} course(s) Enrolled </p>
+                    <h5>{{ ucfirst($student->fname) }} {{ ucfirst($student->lname) }}</h5>
+                    <p>{{ $student->courses }} </p>
                     <p>{{ $student->phone }}</p>
                 </div>
                 <div class="row user-grid-buttons">
@@ -113,7 +113,7 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a class="btn btn-default btn-block" href="">
+                        <a class="btn btn-default btn-block" href="{{ route('dashboard.show', $student->username) }}">
                             Schedule
                         </a>
                     </div>
@@ -124,9 +124,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="user-grid-class-left">
+                <!-- <div class="user-grid-class-left">
                     <p class="text-success"><i class=" mdi mdi-counter"></i> student completed Class(es) Completed</p>
-                </div>
+                </div> -->
             </div>
         </div>
         @empty 

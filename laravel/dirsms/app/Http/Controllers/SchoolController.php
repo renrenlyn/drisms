@@ -218,6 +218,7 @@ class SchoolController extends Controller
         $school_courses = SchoolCourse::all();  
   
         $school = School::where('id', $id)->first(); 
+ 
         return view('admin/form/addSchoolCourse', compact('courses', 'school', 'school_courses'))->with('id', $id);
     }
 
@@ -229,12 +230,13 @@ class SchoolController extends Controller
                         ->leftJoin('courses as c', 'c.id', '=', 'school_course.course_id')
                         ->where('school_course.school_id', '=', $id)
                         ->orderBy('c.created_at', 'desc') 
-                        ->get(['c.*', 'd.*', 'school_course.*']);
- 
-  
-        return view('admin/review/reviewCourseSchool', compact('school_corses', 'id'));
+                        ->get(['c.*', 'd.*', 'school_course.*']); 
 
 
+
+
+                        
+        return view('admin/review/reviewCourseSchool', compact('school_corses', 'id')); 
     }
 
 
@@ -242,6 +244,15 @@ class SchoolController extends Controller
          
             // $existSC = SchoolCourse::whereIn('course_id', $request->course_id, 'amd')
             // ->whereIn('school_id', $request->school_id )->get();
+
+            $data = ''; 
+            foreach($request->day as $key => $val){ 
+                if($key == array_key_last($request->day)){
+                    $data .= '' . $val;
+                }else{ 
+                    $data .= '' . $val . ', ';
+                }
+            } 
             $scs = SchoolCourse::all();
 
             $status = false;
@@ -251,12 +262,12 @@ class SchoolController extends Controller
                 }
             }
 
-            if($status){
+            // if($status){
                 
-                return  redirect()
-                        ->back()
-                        ->with('exist', 'Course already exists.'); 
-            }else{ 
+            //     return  redirect()
+            //             ->back()
+            //             ->with('exist', 'Course already exists.'); 
+            // }else{ 
                 $newCourse = new SchoolCourse(); 
   
                 $newCourse->time_start_end = $request->start_end;
@@ -269,15 +280,16 @@ class SchoolController extends Controller
                 $newCourse->save();  
 
                 $day = new Day();
-                $day->day = $request->day;
+                $day->day = $data;
                 $day->sc_id = $newCourse->id;
                 $is_save = $day->save(); 
 
 
                 if($is_save){ 
 
-                        return redirect('admin/school') 
-                                ->with('success', 'New Course record added!');
+                    return redirect() 
+                            ->back()
+                            ->with('success', 'New Course record added!');
                 
                  
                 }else{ 
@@ -286,7 +298,7 @@ class SchoolController extends Controller
                             ->with('error', 'Failed to save data!!!');
                 } 
             
-            }
+           // }
         //DB::beginTransaction();
 
         // try {
@@ -300,6 +312,25 @@ class SchoolController extends Controller
         //     DB::rollback();
         //     // something went wrong
         // }
+    }
+
+    public function scDelete($id){
+        
+        $existingSC = SchoolCourse::find( $id );
+        
+        if( $existingSC )
+        {
+
+            $existingSC->delete();  
+
+            $day = Day::where('sc_id', '=', $id)->first();
+            $existingDay = Day::find($day->id); 
+
+            $existingDay->delete(); 
+
+            return  redirect()->back()->with('success', 'School Course deleted successfully!');
+        } 
+        return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from School ');
     }
     /**
      * Display the specified resource.
@@ -362,11 +393,15 @@ class SchoolController extends Controller
         $existingSchool = School::find( $id );
 
         if( $existingSchool )
-        {
-            $existingSchool->delete();  
-            return  redirect()->back()->with('success', 'School deleted successfully!');
+        { 
+
+            $existingSchool->status = "Suspended";
+            $is_save = $existingSchool->save();
+
+
+            return  redirect()->back()->with('success', 'School Suspended successfully!');
         } 
-        return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from School');
+        return redirect()->back()->with('error', 'Sorry, we have trouble to update data from School');
  
     }
 }

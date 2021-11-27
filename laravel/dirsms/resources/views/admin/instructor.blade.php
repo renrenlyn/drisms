@@ -53,8 +53,8 @@
                         
                         </div>
                         <div class="user-grid-info">
-                            <h5>{{$user->fname}} {{$user->lname}}</h5>
-                            <p>Instructor of instructor Course(s)</p>
+                            <h5>{{ ucfirst($user->fname) }} {{ucfirst($user->lname)}}</h5>
+                            <p>{{ $user->status }}</p>
                             <p>{{$user->phone}}</p>
                         </div>
                         <div class="row user-grid-buttons">

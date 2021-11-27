@@ -1,32 +1,26 @@
+@extends('layouts.header') 
+@section('content')      
+    @include("layouts/includes/sidebar")     
 
+<div class="main-content">
     <div class="page-header">
-        <a href="{{ route('student.scheduling') }}" class="btn btn-success btn-icon pull-right">
-            <i class="mdi mdi-calendar-text"></i> 
-            Scheduling 
+        <a href="{{ url('admin/student') }}" class="btn btn-default btn-icon pull-right">
+            <i class="mdi mdi-backup-restore"></i> 
+            Student Page 
         </a>
-        <h3>Dashboard</h3>
+        <h3></h3>
     </div> 
-
-
-        <!-- students growth -->
+  
         <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                                <h5>Welcome {{Auth::user()->fname}} {{Auth::user()->lname}}</h5>
-                        </div>
-
-
+                                <h5> {{ ucfirst($user->fname) }} {{ ucfirst($user->lname) }} </h5>
+                        </div> 
                         <div class="card-body p-0">
                             <div class="row">
-                                <div class="col-md-12 growth-left">
-                                @if(Auth::user()->enrollment_status == 1)  
-  
-
-
-
-
-
+                                <div class="col-md-12 growth-left"> 
+   
                                         @if($student_courses)
                                             <table class="table table-striped">
                                                 <thead>
@@ -55,7 +49,7 @@
                                                                             @if($sc->course_id == $course->id)  
                                                                                 @foreach($days as $day) 
                                                                                     @if($sc->id == $day->sc_id)  
-                                                                                        @if(Auth::user()->id == $val->student_id)  
+                                                                                        @if($user->id == $val->student_id)  
                                                                                             @foreach($classes as $class)    
                                                                                                 <tr>
                                                                                                     <th scope="row">{{ $school->name }}</th>
@@ -97,8 +91,7 @@
  
                                         @else
                                             @include("admin/empty/empty")         
-                                        @endif
-                                    @endif 
+                                        @endif 
                                 </div>
                                 <div class="col-md-6">
                                     <div class="student-growth-chart mt-15"></div>
@@ -107,5 +100,8 @@
                         </div>
                     </div>
                 </div>
-        </div>
- 
+        </div> 
+    </div> 
+
+    @include('../layouts/includes/footer')  
+@endsection

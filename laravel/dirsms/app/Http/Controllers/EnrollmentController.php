@@ -73,7 +73,8 @@ class EnrollmentController extends Controller
         $schools = School::leftJoin('school_course as sc', 'sc.school_id', '=', 'schools.id')
                     ->leftJoin('courses as c', 'sc.course_id', '=', 'c.id')    
                     ->where('sc.school_id', '=', $school_id)
-                    ->get(['c.*']);   
+                    ->get(['c.*', 'sc.*']);   
+ 
         return $schools; 
     }
     /**
@@ -94,7 +95,7 @@ class EnrollmentController extends Controller
         $newStudentEnrollment->student_id = Auth::user()->id;
         $newStudentEnrollment->school_id = $request->school_id;
         $newStudentEnrollment->branch_id = $request->branch_id;
-        $newStudentEnrollment->course_id = $request->course_id;
+        $newStudentEnrollment->school_course_id = $request->course_id;
         $newStudentEnrollment->y_e = $request->y_e;
         $is_save = $newStudentEnrollment->save(); 
         

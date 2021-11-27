@@ -16,10 +16,17 @@
                         <div class="row">
                           <div class="col-md-12">
                             <label for="email">Branch</label>
-                            <select class="form-control" name="branch" required>
-                                <option value="">Select Branch *</option> 
-                                <option value="branch id">Branch Name</option> 
+
+ 
+                            <select class="form-control select2" name="course_id" id="select-course" required=""> 
+                                <option value="">Select Branch</option> 
+                                @if(!empty($branches))
+                                    @foreach($branches as $branch)
+                                    <option value="{{$branch->id}}">{{ $branch->name }}</option> 
+                                    @endforeach
+                                @endif
                             </select>
+
                           </div>
                         </div>
                       </div>

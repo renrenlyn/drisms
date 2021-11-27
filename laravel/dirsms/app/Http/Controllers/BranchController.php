@@ -214,11 +214,11 @@ class BranchController extends Controller
             if($is_save){
                 return  redirect()
                     ->back()
-                    ->with('success', 'New branch record saved!');
+                    ->with('success', 'Update branch record saved!');
             }else{
                 return  redirect()
                     ->back()
-                    ->with('error', 'Failed to save data!!!');
+                    ->with('error', 'Failed to update data!!!');
             }
         } 
 

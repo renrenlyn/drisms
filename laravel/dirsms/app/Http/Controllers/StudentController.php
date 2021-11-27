@@ -49,9 +49,10 @@ class StudentController extends Controller
 
 
         $students = User::join('images', 'users.id', '=', 'images.user_id')
-        ->orderBy('created_at', 'DESC')
+        ->orderBy('users.fname')
         ->where('users.role', 'Student') 
         ->get(['users.*', 'images.name as image_name']);
+ 
  
         $invoiceAmount = DB::table('invoices')
         ->select('*', 'courses.*', DB::raw('SUM(invoices.amount) As total_amount'))

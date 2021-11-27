@@ -113,9 +113,25 @@ class InstructorController extends Controller
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instructor $instructor)
-    {
-        //
+    public function update(Request $request, $id)
+    { 
+
+        $existsUser = User::find($id);
+
+
+        if($existsUser){ 
+            $existsUser->status = $request->status;  
+            $is_save = $existsUser->save();
+            if($is_save){
+                return  redirect()
+                    ->back()
+                    ->with('success', 'Update instructor status!');
+            }else{
+                return  redirect()
+                    ->back()
+                    ->with('error', 'Failed to update instructor status!!!');
+            }
+        } 
     }
 
     /**
