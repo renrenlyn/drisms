@@ -7,6 +7,8 @@ use App\User;
  
 use App\Image;
 use Auth;
+use App\Permission;
+
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
@@ -39,8 +41,16 @@ class InstructorController extends Controller
         ->where('users.role', 'Instructor')
         ->orderBy('created_at', 'DESC')
         ->get(['users.*', 'images.name as image_name']);
-           
-        return view('admin/instructor', compact('users', 'profile_pic'));
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+
+        $permission_status = "";
+        if($permission) {
+            if($permission->instructor == "read_only") {
+                $permission_status = "disabled";
+            } 
+        }
+            
+        return view('admin/instructor', compact('users', 'profile_pic', 'permission_status'));
     }
 
     /**

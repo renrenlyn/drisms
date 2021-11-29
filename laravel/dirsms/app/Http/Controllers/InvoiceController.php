@@ -9,9 +9,10 @@ use App\Image;
 
 use App\Course;
 use DB;
-
-
 use Auth;
+
+use App\Permission;
+
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -67,9 +68,16 @@ class InvoiceController extends Controller
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
 
- 
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
 
-        return view('admin/invoice', compact('profile_pic', 'invoices'));
+        $permission_status = "";
+        if($permission) {
+            if($permission->invoice == "read_only") {
+                $permission_status = "disabled";
+            } 
+        }
+
+        return view('admin/invoice', compact('profile_pic', 'invoices', 'permission_status'));
     }
 
     /**

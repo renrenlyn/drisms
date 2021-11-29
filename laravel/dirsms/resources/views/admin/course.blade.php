@@ -14,7 +14,12 @@
             type="button" 
             class="btn btn-primary btn-icon pull-right ml-5" 
             data-toggle="modal" 
-            data-target="#create">
+            data-target="#create"
+
+            {{ $permission_status }}
+            {{ $permission_delete }}
+
+            >
             <i class=" mdi mdi-plus-circle-outline"></i> 
             Add Course 
         </button>
@@ -83,8 +88,10 @@
                                                     role="menuitem" 
                                                     href="#" 
                                                     data-toggle="modal" 
-                                                    data-target="#update{{$course->id}}">
-                                                > 
+                                                    data-target="#update{{$course->id}}"
+                                                    class="{{ $permission_status }}"    
+                                                    >
+                                                
                                                     <i class="mdi mdi-pencil"></i> 
                                                     Edit
                                                 </a>
@@ -96,7 +103,7 @@
                                                     @method('DELETE')  
                                                     <a  
                                                         href=""
-                                                        class="couse_delete"  
+                                                        class="couse_delete {{ $permission_status }} {{ $permission_delete }}"  
                                                         rel="deleteCourse{{$course->id}}"    
                                                     >
                                                         <i class="mdi mdi-delete"></i> 

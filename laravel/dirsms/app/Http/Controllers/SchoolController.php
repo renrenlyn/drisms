@@ -17,6 +17,7 @@ use App\SchoolCourse;
 use Auth;
 use Mail;
 
+use App\Permission;
 use App\SmsGateWay;
 
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class SchoolController extends Controller
         $this->middleware('auth');   
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();  
-            if($this->user->role != 'Admin'){
+            if($this->user->role == 'Instructor' || $this->user->role == 'Student'){
                 return redirect()->back();
             } 
             return $next($request);
@@ -60,9 +61,23 @@ class SchoolController extends Controller
 
         $schools = School::orderBy('Created_at', 'DESC')->get();
          
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+        $permission_status = "";
+        $permission_delete = "";
+        if($permission) {
+            if($permission->branch == "read_only") {
+                $permission_status = "disabled";
+            }else if($permission->branch == "read_write") {
+                $permission_delete = "disabled";
+                $permission_status = "";
+            }else if($permission->branch == "read_write_delete") {
+                $permission_status = "";
+                $permission_delete = "";
+            } 
+        }
 
 
-        return view('admin/school', compact('schools', 'profile_pic'));
+        return view('admin/school', compact('schools', 'profile_pic', 'permission_status', 'permission_delete'));
     }
 
 
@@ -213,13 +228,18 @@ class SchoolController extends Controller
         //         ->where('s.id', '=', $id) 
         //         ->get(['courses.*']);
         // dd($courses);
+
+
+
  
         $courses = Course::all(); 
         $school_courses = SchoolCourse::all();  
   
         $school = School::where('id', $id)->first(); 
+
+        $instructors = User::where('role', '=', 'Instructor')->get();
  
-        return view('admin/form/addSchoolCourse', compact('courses', 'school', 'school_courses'))->with('id', $id);
+        return view('admin/form/addSchoolCourse', compact('courses', 'school', 'school_courses', 'instructors'))->with('id', $id);
     }
 
 
@@ -232,11 +252,25 @@ class SchoolController extends Controller
                         ->orderBy('c.created_at', 'desc') 
                         ->get(['c.*', 'd.*', 'school_course.*']); 
 
-
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+        $permission_status = "";
+        $permission_delete = "";
+        if($permission) {
+            if($permission->branch == "read_only") {
+                $permission_status = "disabled";
+            }else if($permission->branch == "read_write") {
+                $permission_delete = "disabled";
+                $permission_status = "";
+            }else if($permission->branch == "read_write_delete") {
+                $permission_status = "";
+                $permission_delete = "";
+            } 
+        }
+                
 
 
                         
-        return view('admin/review/reviewCourseSchool', compact('school_corses', 'id')); 
+        return view('admin/review/reviewCourseSchool', compact('school_corses', 'id', 'permission_status', 'permission_delete')); 
     }
 
 

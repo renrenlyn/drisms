@@ -11,7 +11,7 @@
 <!-- main content -->
 <div class="main-content">
     <div class="page-header">
-        <button type="button" class="btn btn-primary btn-icon pull-right ml-5" data-toggle="modal" data-target="#create"><i class=" mdi mdi-plus-circle-outline"></i> Add School </button>
+        <button type="button" class="btn btn-primary btn-icon pull-right ml-5 " {{ $permission_status }} data-toggle="modal" data-target="#create"><i class=" mdi mdi-plus-circle-outline"></i> Add School </button>
         <h3>Schools</h3>
         <p>These are independent schools that signed up. </p>
     </div>
@@ -75,6 +75,7 @@
                                         <li role="presentation">
                                             <a role="menuitem"  
                                                 href="{{ route('school.course.review', $school->id)}}" 
+                                                 
                                                 >   
                                                 <i class="mdi mdi-eye"></i>
                                                 Review Course
@@ -84,6 +85,7 @@
                                         <li role="presentation">
                                             <a role="menuitem"  
                                                 href="{{ route('school.course.add', $school->id)}}" 
+                                                class="{{ $permission_status }}"
                                                 > 
                                                 <i class="mdi mdi-plus-circle-outline"></i>
                                                 Add Course
@@ -94,8 +96,9 @@
                                                 href="#" 
                                                 input="schoolid" 
                                                 modal="#sendemail{{$school->id}}" 
-                                                class="pass-data" 
-                                                value="{{ $school->id }}"> 
+                                                class="pass-data {{ $permission_status }}" 
+                                                value="{{ $school->id }}"
+                                                > 
                                                 <i class="mdi mdi-email-outline"></i> 
                                                 Send Email
                                             </a>
@@ -105,7 +108,7 @@
                                                 href="" 
                                                 input="schoolid" 
                                                 modal="#sendsms{{ $school->id }}" 
-                                                class="pass-data" 
+                                                class="pass-data {{ $permission_status }}" 
                                                 value="{{ $school->id }}"> 
                                                 <i class="mdi mdi-message-text-outline"></i> 
                                                 Send SMS
@@ -114,7 +117,7 @@
                                         
                                         <li role="presentation">
                                             <a role="menuitem" 
-                                                class="pass-data" 
+                                                class="pass-data {{ $permission_status }}" 
                                                 modal="#update{{$school->id}}"  
                                                 href="#" 
                                                 > 
@@ -130,7 +133,7 @@
                                                 @method('DELETE')  
                                                 <a  
                                                     href="#"  
-                                                    class="school_delete"
+                                                    class="school_delete {{ $permission_status }} {{ $permission_delete }}"
                                                     rel="deleteSchool{{$school->id}}"
                                                 >
                                                     <i class="mdi mdi-server-remove"></i> 

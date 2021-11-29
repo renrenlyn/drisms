@@ -15,6 +15,7 @@ class CreateSchoolCourseTable extends Migration
     {
         Schema::create('school_course', function (Blueprint $table) {
             $table->bigIncrements('id'); 
+            $table->integer('instructor_id')->nullable();
             $table->integer('course_id')->nullable();
             $table->integer('school_id')->nullable(); 
              

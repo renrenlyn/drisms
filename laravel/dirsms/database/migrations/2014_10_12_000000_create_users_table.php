@@ -29,8 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('branch_id')->nullable();
             $table->integer('course_id')->nullable();
             $table->enum('role', ['Admin','Staff','Superadmin','Instructor','Student'])->default('Student');
-            $table->string('positions')->default('unknown');
-            $table->string('permissions')->default('unknown');
+            $table->string('positions')->default('unknown'); 
             $table->integer('enrollment_status')->nullable();
             $table->enum('status', ['Active', 'Suspended', 'Inactive'])->default('Active'); 
             $table->timestamp('email_verified_at')->nullable(); 

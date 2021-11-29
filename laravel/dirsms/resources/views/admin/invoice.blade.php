@@ -79,7 +79,7 @@
                                                         <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> 
                                                             @if($balance < 0) 
                                                                 <li role="presentation">
-                                                                    <a role="menuitem" href=""  input="invoice" modal="#addpayment{{ $invoice->user_id }}" rel="print-payment-record{{ $invoice->user_id }}" class="pass-data" value="" > 
+                                                                    <a role="menuitem" href=""  input="invoice" modal="#addpayment{{ $invoice->user_id }}" rel="print-payment-record{{ $invoice->user_id }}" class="pass-data {{ $permission_status }}" value="" > 
                                                                         <i class="mdi mdi-credit-card-plus"></i> 
                                                                         Add Payment
                                                                     </a>

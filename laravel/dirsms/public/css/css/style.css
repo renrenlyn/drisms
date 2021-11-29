@@ -37,6 +37,10 @@ a:focus {
     text-decoration: none;
     color: #297FE8;
 }
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
 
 /*aside*/
 

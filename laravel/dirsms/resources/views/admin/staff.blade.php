@@ -16,6 +16,19 @@
             </button>
             <h3>Staff</h3>
         </div> 
+
+            
+        @if (\Session::has('success'))
+            <div class="alert alert-success">
+                {!! \Session::get('success') !!} 
+            </div>
+        @endif   
+        @if (\Session::has('error'))
+            <div class="alert alert-danger">
+                {!! \Session::get('error') !!} 
+            </div>
+        @endif 
+
         <!-- page content -->
         <div class="row">
             <!-- search & Filter -->

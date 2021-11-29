@@ -6,6 +6,7 @@ use App\Fleet;
 use App\User;  
 use App\Image;
 use Auth;
+use App\Permission;
 use Illuminate\Http\Request;
 
 class FleetController extends Controller
@@ -29,7 +30,15 @@ class FleetController extends Controller
                 ->orderBy('fleet.created_at', 'DESC')
                 ->get(['fleet.*', 'users.fname', 'users.lname']);
 
-        return view('admin/fleet', compact('users', 'fleet', 'profile_pic'));
+
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+        $permission_status = "";
+        if($permission) {
+            if($permission->fleet == "read_only") {
+                $permission_status = "disabled";
+            } 
+        }
+        return view('admin/fleet', compact('users', 'fleet', 'profile_pic', 'permission_status'));
     }
 
 

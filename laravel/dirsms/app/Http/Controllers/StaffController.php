@@ -6,6 +6,7 @@ use App\Branch;
 use App\Staff; 
 use App\User; 
 use App\Image;
+use App\Permission;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -113,9 +114,36 @@ class StaffController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, $id)
     {
-        //
+
+        $permission = Permission::where('staff_id', '=', $id)->first();
+        if($permission){
+            $permission->scheduling = $request->p_schedule;
+            $permission->studens = $request->p_student;
+            $permission->instructor = $request->p_instructor;
+            $permission->fleet = $request->p_fleet;
+            $permission->branch = $request->p_branch;
+            $permission->invoice = $request->p_invoice;
+            $permission->course = $request->p_course;
+            $permission->school = $request->p_school;
+            $is_save = $permission->save();
+                
+            if($is_send){
+
+                return redirect()->back()->with('success', 'Staff update successfully!');
+    
+            }else{
+
+                return redirect()->back()->with('error', 'We have trouble updating staff.');
+            }
+        }else{
+
+            return redirect()->back()->with('error', 'We have trouble updating staff.');
+        }
+
+
+ 
     }
 
     /**

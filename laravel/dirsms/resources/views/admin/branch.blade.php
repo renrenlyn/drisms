@@ -10,7 +10,7 @@
     <!-- main content -->
     <div class="main-content">
         <div class="page-header">
-            <button type="button" class="btn btn-primary btn-icon pull-right ml-5 addbranch" data-toggle="modal" data-target="#create"><i class=" mdi mdi-plus-circle-outline"></i> Add Branch </button>
+            <button type="button" class="btn btn-primary btn-icon pull-right ml-5 addbranch" {{  $permission_status }} data-toggle="modal" data-target="#create"><i class=" mdi mdi-plus-circle-outline"></i> Add Branch </button>
             <h3>Branches</h3>
             <p>These are branches of your school. </p>
         </div>
@@ -71,6 +71,7 @@
                                                     data-toggle="modal" 
                                                     data-target="#update{{ $branch->id }}"
                                                     href="#"
+                                                    class="{{ $permission_status }}"
                                                 > 
                                                     <i class="mdi mdi-pencil"></i> 
                                                     Edit
@@ -81,6 +82,7 @@
                                                     href="" 
                                                     data-toggle="modal" 
                                                     data-target="#sendemail{{$branch->id}}"
+                                                    class="{{ $permission_status }} {{ $permission_delete }}"
                                                 >
                                             <i class="mdi mdi-email-outline"></i> Send Email</a></li>
                                             <li role="presentation">
@@ -88,6 +90,7 @@
                                                     href=""   
                                                     data-toggle="modal" 
                                                     data-target="#sendsms{{$branch->id}}"
+                                                    class="{{ $permission_status }} {{ $permission_delete }}"
                                                 > 
                                                 <i class="mdi mdi-message-text-outline"></i> 
                                                 Send SMS
@@ -101,8 +104,9 @@
                                                     @method('DELETE')  
                                                     <a  
                                                         href="#"  
-                                                        class="branch_delete"  
-                                                        rel="deleteBranch{{$branch->id}}"     
+                                                        class="branch_delete   {{ $permission_status }} {{ $permission_delete }}"  
+                                                        rel="deleteBranch{{$branch->id}}"
+
                                                     >
                                                         <i class="mdi mdi-delete"></i> 
                                                         Delete

@@ -119,9 +119,11 @@
                     </div>
  
                     <div class="col-md-12 mt-2">
-                        <a class="btn btn-success btn-block" href="#"  data-toggle="modal" data-target="#create{{ $student->id }}">
+                   
+                        <button class="btn btn-success btn-block"  {{$permission_status}} data-toggle="modal" data-target="#create{{ $student->id }}" >
                             Update Payment
-                        </a>
+                        </button>
+
                     </div>
                 </div>
                 <!-- <div class="user-grid-class-left">

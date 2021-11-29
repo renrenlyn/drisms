@@ -19,6 +19,7 @@ use DB;
 
 use App\StudentCourse;
 use App\Classes;
+use App\Permission;
 
 use App\Image;
 use Auth;
@@ -61,8 +62,18 @@ class StudentController extends Controller
         ->get();
  
         $courses = Course::orderBy('created_at', 'DESC')->get();
- 
-        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount'));
+
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+
+        $permission_status = "";
+        if($permission) {
+            if($permission->students == "read_only") {
+                $permission_status = "disabled";
+            } 
+        }
+            
+
+        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount', 'permission_status'));
     }
 
     /**

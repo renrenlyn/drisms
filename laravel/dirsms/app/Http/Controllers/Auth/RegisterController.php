@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Image;
+use App\Permission;
 use App\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -114,6 +115,13 @@ class RegisterController extends Controller
         $notification->type = 'newaccount';
         $notification->message = "New $role account created for <strong>$fname $lname</strong>.";
         $notification->save();
+
+
+        if($role == 'Staff'){
+            $permission = new Permission();
+            $permission->staff_id = $user->id;
+            $permission->save();
+        }
 
         return $user;
     }

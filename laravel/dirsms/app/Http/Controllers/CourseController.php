@@ -6,6 +6,8 @@ use App\Course;
 use App\Image;
 use App\User;
 use Auth; 
+use App\Permission;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Validator,Redirect,Response,File; 
@@ -24,8 +26,8 @@ class CourseController extends Controller
         $this->middleware('auth');  
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();  
-            if($this->user->role != 'Admin'){
-                return redirect()->back;
+            if($this->user->role == 'Instructor' || $this->user->role == 'Student'){
+                return redirect()->back();
             } 
             return $next($request);
         });  
@@ -52,7 +54,24 @@ class CourseController extends Controller
         ->orderBy('created_at', 'DESC')->get();
         //$courses = Course::with('image.course')->orderBy('created_at', 'DESC')->get();
          
-        return view('admin/course', compact('courses', 'users', 'profile_pic'));
+
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+        $permission_status = "";
+        $permission_delete = "";
+        if($permission) {
+            if($permission->branch == "read_only") {
+                $permission_status = "disabled";
+            }else if($permission->branch == "read_write") {
+                $permission_delete = "disabled";
+                $permission_status = "";
+            }else if($permission->branch == "read_write_delete") {
+                $permission_status = "";
+                $permission_delete = "";
+            } 
+        }
+
+
+        return view('admin/course', compact('courses', 'users', 'profile_pic', 'permission_status', 'permission_delete'));
     }
 
     /**

@@ -61,10 +61,7 @@
                                 </select>  
                             </div>
                         </div> 
-                    </div> 
-
-
-                    
+                    </div>  
 
                     <div class="form-group hidden" id="school-course">
                         <div class="row">

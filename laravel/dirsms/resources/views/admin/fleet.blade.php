@@ -14,6 +14,7 @@
                 class="btn btn-primary btn-icon pull-right ml-5" 
                 data-toggle="modal" 
                 data-target="#create"
+                {{$permission_status}}
             >
                 <i class=" mdi mdi-plus-circle-outline"></i> 
                 Add Vehicle 

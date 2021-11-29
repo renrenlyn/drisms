@@ -9,6 +9,7 @@ use App\User;
 use App\Image;
 use Auth;
 
+use App\Permission;
 
 use App\Communication;
 use App\Communication_user_school_branch; 
@@ -33,7 +34,25 @@ class BranchController extends Controller
 
         $branches = Branch::orderBy('created_at', 'DESC')->get();
         $schools = School::orderBy('created_at', 'DESC')->get();
-        return view('admin/branch', compact('branches', 'profile_pic', 'schools'));
+
+
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+        $permission_status = "";
+        $permission_delete = "";
+        if($permission) {
+            if($permission->branch == "read_only") {
+                $permission_status = "disabled";
+            }else if($permission->branch == "read_write") {
+                $permission_delete = "disabled";
+                $permission_status = "";
+            }else if($permission->branch == "read_write_delete") {
+                $permission_status = "";
+                $permission_delete = "";
+            } 
+        }
+
+
+        return view('admin/branch', compact('branches', 'profile_pic', 'schools', 'permission_status', 'permission_delete'));
     } 
 
     /**

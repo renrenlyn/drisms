@@ -23,10 +23,7 @@
                                 @if(Auth::user()->enrollment_status == 1)  
   
 
-
-
-
-
+ 
                                         @if($student_courses)
                                             <table class="table table-striped">
                                                 <thead>

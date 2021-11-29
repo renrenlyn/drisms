@@ -68,7 +68,7 @@
                                 <a class="btn btn-default btn-block" href="">Schedule</a>
                             </div>
                             <div class="col-md-12 mt-2">
-                                <a class="btn btn-success btn-block" data-toggle="modal" data-target="#create{{$user->id}}" href="#">Update</a>
+                                <button class="btn btn-success btn-block" {{$permission_status}} data-toggle="modal" data-target="#create{{$user->id}}"  >Update</button>
                             </div>
                         </div>
                         <div class="user-grid-class-left">

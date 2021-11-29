@@ -40,7 +40,7 @@
                     </a>
                 </li> 
 
-                @if(Auth::user()->role == 'Admin')
+                @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Staff')
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/schedule') }}">
                         <i class="menu-icon mdi mdi-calendar-text"></i>
@@ -51,13 +51,13 @@
                 
                 @if(Auth::user()->role == 'Student')
 
-
+<!-- 
                   <li class="nav-item">
                         <a class="nav-link" href="{{ route('enrollment.form') }}">
                           <i class="menu-icon mdi mdi-calendar-text"></i>
                           <span class="menu-title">Registration Form</span>
                         </a>
-                  </li>
+                  </li> -->
 
                   
                 @endif
@@ -74,7 +74,7 @@
                     </a>  
                 </li>
                
-                @if(Auth::user()->role == 'Admin')
+                @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Staff')
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/student') }}" >
                       
@@ -90,7 +90,7 @@
                   </li>
                 @endif
                 
-                @if(Auth::user()->role == 'Admin')
+                @if(Auth::user()->role == 'Admin'  || Auth::user()->role == 'Staff')
                 
                 <li class="menu-label">School</li>
                   <li class="nav-item">
@@ -129,7 +129,7 @@
                 @endif
                 <li class="menu-label">Account</li>
               
-                @if(Auth::user()->role == 'Admin')
+                @if(Auth::user()->role == 'Admin'  || Auth::user()->role == 'Staff')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/course') }}"> 
                       <i class="menu-icon mdi mdi-seal"></i>

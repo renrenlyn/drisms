@@ -83,9 +83,8 @@
             @endif 
             <div class="content">
                 <div class="title m-b-md">
-                   Driving SMS
-                </div>
- 
+                   DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS
+                </div> 
             </div>
         </div>
     </body>

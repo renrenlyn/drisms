@@ -11,7 +11,7 @@
 <div class="main-content">
     <div class="page-header">
 
-    <a href="{{ route('school.course.add', $id) }}" class="btn btn-primary btn-icon pull-right ml-5" >
+    <a href="{{ route('school.course.add', $id) }}" class="btn btn-primary btn-icon pull-right ml-5 {{ $permission_status }}" >
         <i class=" mdi mdi-plus-circle-outline">
 
         </i> 
@@ -64,7 +64,7 @@
                                 @method('DELETE')  
                                 <a  
                                     href="#"  
-                                    class="btn btn-danger sc_delete" 
+                                    class="btn btn-danger sc_delete {{ $permission_status }} {{ $permission_delete }} " 
                                     rel="deleteSC{{$val->id}}"
                                 >
                                     <i class="mdi mdi-delete"></i>  

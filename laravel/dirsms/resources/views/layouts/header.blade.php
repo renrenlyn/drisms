@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
-    <title>{{ config('app.name', 'Laravel') }}</title> 
+    <title>{{ config('app.name', 'DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS') }}</title> 
     <link rel="stylesheet" href="{{ asset('css/css/simcify.min.css') }}" />
      <!-- Material design icons -->
     <link rel="stylesheet" href="{{ asset('css/fonts/mdi/css/materialdesignicons.min.css') }}" />
