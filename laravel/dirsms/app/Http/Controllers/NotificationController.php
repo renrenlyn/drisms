@@ -97,8 +97,12 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     { 
-        Notification::where('id', $id)->update(array('status' => 'not active'));
-        return redirect()->back();
+        $notification = Notification::where('id', $id)->update(array('status' => 'not active'));
+        $status = false;
+        if($notification ){
+            $status= true;
+        }
+        return $status; 
     }
 
     /**

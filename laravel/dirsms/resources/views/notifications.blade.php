@@ -18,7 +18,10 @@
                     <div class="notifications"> 
                         <!-- single notification --> 
                         @forelse($notifications as $notification) 
-                            <div class="single-notification @if($notification->nstatus == 'active') notification-active @endif">
+
+                            @include("admin/modal/notification")  
+
+                            <div class="single-notification notification-identifier{{$notification->id}} @if($notification->nstatus == 'active') notification-active @endif">
 
                                 <div style="display:flex">
                                     @if ( $notification->type == "message" )
@@ -56,25 +59,18 @@
                                             {!! $notification->message !!} 
                                         </div> 
                                 </div>
-                                <div class="" style="display: flex;">
-                                    <form id="deleteNotification{{$notification->id}}" action="{{ route('notification.update', $notification->id) }}" method="POST" >
-                                        @csrf
-                                        @method('PUT') 
-
-                                        <a href="#" class="delete_notification" rel="deleteNotification{{$notification->id}}">
-                                            <i class="mdi mdi-eye"></i> 
-                                        </a>
-
-                                    </form>
-
+                                <div class="" style="display: flex;"> 
+                                    <a href="#" class="delete_notification" rel="{{$notification->id}}" 
+                                                    data-toggle="modal" 
+                                                    data-target="#notificationModal{{ $notification->id }}">
+                                        <i class="mdi mdi-eye"></i> 
+                                    </a> 
                                     <form id="deleteNot{{$notification->id}}" action="{{ route('notification.destroy', $notification->id) }}" method="POST" >
                                         @csrf
-                                        @method('DELETE') 
-    
-                                        <a href="#" class="tash-notification" rel="deleteNot{{$notification->id}}">
+                                        @method('DELETE')  
+                                        <a href="#" class="trash-notification" rel="deleteNot{{$notification->id}}">
                                             <i class="mdi mdi-delete " style="color: red;"></i> 
-                                        </a>
-
+                                        </a> 
                                     </form>
                                 </div>
                             </div> 
@@ -89,13 +85,42 @@
 </div>  
 @include('../layouts/includes/footer') 
 <script> 
-    $('.delete_notification').on('click touchstart', function(e){
-        e.preventDefault();
-        var data = $(this).attr('rel');
-        $('#'+data).submit();
+
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        } 
     });
 
-    $('.tash-notification').on('click touchstart', function(e){
+    $('.delete_notification').on('click touchstart', function(e){
+        e.preventDefault();
+        
+       
+        var data = $(this).attr('rel');  
+            var url = '{{ route("notification.update", ":id") }}';
+                url = url.replace(':id', data);
+ 
+            $.ajax({
+                url: url,
+                method: 'PUT', 
+                data: {
+                    _token: '{{csrf_token()}}' 
+                },
+                success: function(status){ 
+                    if(status == true){
+                        $('.notification-identifier'+data).removeClass('notification-active');
+                    } 
+                }
+            }); 
+
+
+
+
+    });
+
+    $('.trash-notification').on('click touchstart', function(e){
         e.preventDefault();
         var data = $(this).attr('rel');
         $('#'+data).submit();
