@@ -56,14 +56,27 @@
                                             {!! $notification->message !!} 
                                         </div> 
                                 </div>
-                                <form id="deleteNotification{{$notification->id}}" action="{{ route('notification.update', $notification->id) }}" method="POST" >
-                                    @csrf
-                                    @method('PUT') 
+                                <div class="" style="display: flex;">
+                                    <form id="deleteNotification{{$notification->id}}" action="{{ route('notification.update', $notification->id) }}" method="POST" >
+                                        @csrf
+                                        @method('PUT') 
 
-                                    <a href="#" class="delete_notification" rel="deleteNotification{{$notification->id}}">
-                                        <i class="mdi mdi-eye"></i> 
-                                    </a>
-                                </form>
+                                        <a href="#" class="delete_notification" rel="deleteNotification{{$notification->id}}">
+                                            <i class="mdi mdi-eye"></i> 
+                                        </a>
+
+                                    </form>
+
+                                    <form id="deleteNot{{$notification->id}}" action="{{ route('notification.destroy', $notification->id) }}" method="POST" >
+                                        @csrf
+                                        @method('DELETE') 
+    
+                                        <a href="#" class="tash-notification" rel="deleteNot{{$notification->id}}">
+                                            <i class="mdi mdi-delete " style="color: red;"></i> 
+                                        </a>
+
+                                    </form>
+                                </div>
                             </div> 
                         @empty 
                             @include("admin/empty/empty") 
@@ -77,6 +90,12 @@
 @include('../layouts/includes/footer') 
 <script> 
     $('.delete_notification').on('click touchstart', function(e){
+        e.preventDefault();
+        var data = $(this).attr('rel');
+        $('#'+data).submit();
+    });
+
+    $('.tash-notification').on('click touchstart', function(e){
         e.preventDefault();
         var data = $(this).attr('rel');
         $('#'+data).submit();

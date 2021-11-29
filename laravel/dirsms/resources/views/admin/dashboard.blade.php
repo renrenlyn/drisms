@@ -16,12 +16,12 @@
                         <h2>{{ $cstudent  }}</h2>
                         <p>Total Students</p>
                     </div>
-                    <div class="widget-trend">
+                    <!-- <div class="widget-trend">
                         <p class="text-primary">
                             <i class="mdi mdi-menu-up"></i> 
                             growth student 
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -35,12 +35,12 @@
                         <h2> {{ $cinstructor }} </h2>
                         <p >Total Instructors</strong></p>
                     </div>
-                    <div class="widget-trend">
+                    <!-- <div class="widget-trend">
                         <p class="text-warning">
                             <i class="mdi mdi-menu-up"></i> 
                             growth income 
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div> 
             <!-- stat 1 -->
@@ -53,9 +53,9 @@
                         <h2>0</h2>
                         <p>Class Attendance</p>
                     </div>
-                    <div class="widget-trend">
+                    <!-- <div class="widget-trend">
                         <p class="text-success"><i class="mdi mdi-menu-up"></i> growth attendance</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -112,17 +112,42 @@
                                 <h5>Course Available</h5>
                         </div>
                         <div class="card-body p-0 comparison-widget">
+
+                            <table class="border borderless table">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+
+                                    @foreach($courses as $course)
+                                        <tr>
+                                            <td> {{ $course->name }}</td>
+                                            <td> {{ $course->price }}</td>
+                                            <td> {{ $course->status }}</td> 
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+
                             <!-- <p>Different course sales comparison.</p> -->
-                              <!-- Canvas for Chart.js -->
+                              <!-- Canvas for Chart.js
                               <canvas id="canvas" class="mt-40" height="200"></canvas>
-                              
-                              <!-- Custom tooltip canvas -->
+                               -->
+                              <!-- Custom tooltip canvas 
                               <canvas id="tooltip-canvas" width="150" height="100"></canvas>
-                              
-                              <!-- Reload button -->
+                              -->
+                              <!-- Reload butto
                               <div class="chart-icon"><i class="mdi mdi-chart-bubble"></i></div>
 
-                              <p class="schedule-map text-center mb-40">Comparison of all course available in <strong>( &#8369; )</strong></p>
+n -->
+
+                              <!-- <p class="schedule-map text-center mb-40">Comparison of all course available in <strong>( &#8369; )</strong></p> -->
+
+
                         </div>
 
                 </div>

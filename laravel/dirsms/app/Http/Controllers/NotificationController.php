@@ -30,6 +30,7 @@ class NotificationController extends Controller
                         ->get(['users.*', 'notifications.status as nstatus','notifications.*', 'images.name as image_name']);
         
         return view('notifications', compact('profile_pic', 'notifications'));
+
     }
 
 
@@ -106,8 +107,14 @@ class NotificationController extends Controller
      * @param  \App\Notification  $notification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Notification $notification)
+    public function destroy($id)
     {
         //
+        $exists = Notification::find($id);
+
+        if($exists){ 
+            $exists->delete();   
+            return  redirect()->back()->with('success', 'Deleted notification successfully!'); 
+        }
     }
 }
