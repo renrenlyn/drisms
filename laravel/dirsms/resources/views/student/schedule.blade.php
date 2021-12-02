@@ -38,6 +38,8 @@
                                     <div class="col-md-12 growth-left">
  
                                         @forelse($branches as $branch)
+
+                                        
                                             @if($branch->school_id == $school->id)
                                                
 
@@ -101,29 +103,33 @@
                                                                                             <form action="{{ route('enrollment.store' )}}" method="POST">
                                                                                                 @csrf 
                                                                                                     
+                                                                                                <input type="hidden" name="school_id" value="{{$school->id}}" />
+                                                                                                <input type="hidden" name="branch_id" value="{{$branch->id}}" />
+                                                                                                <input type="hidden" name="course_id" value="{{$course->id}}" />
+                                                                                                
                                                                                                 <div class="form-group">
                                                                                                     <div class="row">
                                                                                                         <div class="col-md-4"> 
                                                                                                             <table class="table table-borderless form-drisms">
                                                                                                                 <tbody>
                                                                                                                     <tr>
-                                                                                                                        <td class=""><input type="checkbox" name=""/></td>
+                                                                                                                        <td class=""><input type="checkbox" name="driving_lto_requirement" value="Driving for LTO requirement"/></td>
                                                                                                                         <td> <label>Driving for LTO requirement</label></td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="theoretical_driving_course" value="15 Hours Theoretical Driving Course"/></td>
                                                                                                                         <td><label>15 Hours Theoretical Driving Course</label> </td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="practical_driving_course_mv" value="8 Hours Practical Driving Course (MV)"/></td>
                                                                                                                         <td><label>8 Hours Practical Driving Course (MV)</label> </td>
                                                                                                                     </tr> 
                                                                                                                     <tr> 
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="manual_transmission_mv" value="Manual Transmission"/></td>
                                                                                                                         <td>  <label>Manual Transmission</label> </td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="automatic_transmission_mv" value="Automatic Transmission"/></td>
                                                                                                                         <td><label>Automatic Transmission</label></td>
                                                                                                                     </tr>
                                                                                                                 </tbody>
@@ -134,26 +140,26 @@
                                                                                                             <table class="table table-borderless form-drisms">
                                                                                                                 <tbody> 
                                                                                                                     <tr>
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="practical_driving_course_mc" value="8 Hours Practical Driving Course (MC)" /></td>
                                                                                                                         <td><label>8 Hours Practical Driving Course (MC)</label> </td>
                                                                                                                     </tr>  
                                                                                                                     <tr> 
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="manual_transmission_mc" value="Manual Transmission" /></td>
                                                                                                                         <td>  <label>Manual Transmission</label> </td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" name="automatic_transmission_mc" value="Automatic Transmission"/></td>
                                                                                                                         <td><label>Automatic Transmission</label></td>
                                                                                                                     </tr>
                                                                                                                     
                                                                                                                     <tr >
-                                                                                                                        <td><input type="checkbox" name=""/></td>
+                                                                                                                        <td><input type="checkbox" class="others_mc" /></td>
                                                                                                                         <td><label>OTHERS</label></td>
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td colspan="2">
+                                                                                                                        <td colspan="2" class="hidden other-transmission">
                                                                                                                             <label>
-                                                                                                                                <input type="text" name=""/>
+                                                                                                                                <input type="text" name="others_mc"/>
                                                                                                                             </label>
                                                                                                                         </td> 
                                                                                                                     </tr>
@@ -169,26 +175,25 @@
                                                                                                                 
                                                                                                                 <div class="col-md-6"> 
                                                                                                                     <table class="table table-borderless form-drisms">
-                                                                                                                        <tbody>
-                                                                                                                            
+                                                                                                                        <tbody> 
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Facebook" /></td>
                                                                                                                                 <td><label>Facebook</label> </td>
                                                                                                                             </tr>
                                                                                                                             
                                                                                                                             <tr> 
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Radio" /></td>
                                                                                                                                 <td>  <label>Radio</label> </td>
                                                                                                                             </tr>
 
                                                                                                                             
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Google" /></td>
                                                                                                                                 <td><label>Google</label></td>
                                                                                                                             </tr>
                                                                                                                             
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Refferal" /></td>
                                                                                                                                 <td><label>Refferal</label></td>
                                                                                                                             </tr>
                                                                                                                             
@@ -199,26 +204,30 @@
                                                                                                                     <table class="table table-borderless form-drisms">
                                                                                                                         <tbody> 
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="TV" /></td>
                                                                                                                                 <td><label>TV</label> </td>
                                                                                                                             </tr> 
                                                                                                                             <tr> 
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Flyers"/></td>
                                                                                                                                 <td>  <label>Flyers</label> </td>
                                                                                                                             </tr> 
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" name="where_did_you_know_school_[]" value="Billboard"/></td>
                                                                                                                                 <td><label>Billboard</label></td>
                                                                                                                             </tr> 
                                                                                                                             <tr>
-                                                                                                                                <td><input type="checkbox" name=""/></td>
+                                                                                                                                <td><input type="checkbox" class="others_"/></td>
                                                                                                                                 <td><label>Others</label></td>
                                                                                                                             </tr> 
                                                                                                                         </tbody>
                                                                                                                     </table>   
                                                                                                                 </div> 
-                                                                                                                    <label> Refered by: </label> 
-                                                                                                                    <input type="text" name=""> 
+                                                                                                                <div class="hidden other_inform">
+
+                                                                                                                        <label> Refered by: </label> 
+                                                                                                                    <input type="text" name="where_did_you_know_school_[]"> 
+
+                                                                                                                </div>
                                                                                                             </div> 
                                                                                                         </div>
 
@@ -237,25 +246,25 @@
                                                                                                                    
                                                                                                                     <tr>
                                                                                                                         <td><label>Civil Status</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="civil_status" /></td>
                                                                                                                     </tr> 
                                                                                                                     <tr> 
                                                                                                                         <td>  <label>Place of Birth</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="pob" /></td>
                                                                                                                     </tr> 
                                                                                                                     <tr> 
                                                                                                                         <td><label>Height</label></td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="height" /></td>
                                                                                                                     </tr>
                                                                                                                     
                                                                                                                     <tr> 
                                                                                                                         <td><label>Weigth</label></td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="weigth"/></td>
                                                                                                                     </tr>
                                                                                                                     
                                                                                                                     <tr> 
                                                                                                                         <td><label>Blood Type</label></td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="blood_type"/></td>
                                                                                                                     </tr>
                                                                                                                 </tbody>
                                                                                                             </table>  
@@ -266,32 +275,33 @@
                                                                                                             <table class="table table-borderless form-drisms">
                                                                                                                 <tbody> 
                                                                                                                     <tr>
-                                                                                                                         <td> <label>Name of Mother</label></td>  <td class=""><input type="text" name=""/></td>
+                                                                                                                         <td> <label>Name of Mother</label></td>  
+                                                                                                                         <td class=""><input type="text" name="name_of_mother"/></td>
                                                                                                                      
                                                                                                                     </tr> 
                                                                                                                     <tr>
                                                                                                                         <td><label>Name of Father</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="name_of_father"/></td>
                                                                                                                     </tr> 
                                                                                                                     <tr>      
                                                                                                                         <td> <label>Person to Notify in Case of Emergency:</label></td> 
-                                                                                                                        <td class=""><input type="text" name=""/></td>
+                                                                                                                        <td class=""><input type="text" name="person_notify_in_case_of_emergency"/></td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
                                                                                                                         <td><label>Address</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="guardian_address"/></td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
                                                                                                                         <td><label>Contact Number</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="guardian_number"/></td>
                                                                                                                     </tr> 
                                                                                                                     <tr> 
                                                                                                                         <td>  <label>Place of Birth</label> </td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="guardian_pob"/></td>
                                                                                                                     </tr> 
                                                                                                                     <tr>
                                                                                                                         <td><label>Relation</label></td>
-                                                                                                                        <td><input type="text" name=""/></td>
+                                                                                                                        <td><input type="text" name="guardian_relation"/></td>
                                                                                                                     </tr>
                                                                                                                      
                                                                                                                 </tbody>
@@ -422,6 +432,26 @@
             $('.dc-cls').addClass('hidden'); 
             $('#'+$data).removeClass('hidden'); 
          
+    });
+
+    $('.others_mc').on('change', function(){
+
+        if($(this).is(":checked")){ 
+            $('.other-transmission').removeClass('hidden');
+        }else{
+
+            $('.other-transmission').addClass('hidden');
+        }
+    })
+
+    $('.others_').on('change', function(){
+
+        if($(this).is(":checked")){ 
+            $('.other_inform').removeClass('hidden');
+        }else{
+
+            $('.other_inform').addClass('hidden');
+        }
     })
 </script>
 @endsection

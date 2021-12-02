@@ -23,11 +23,9 @@ Route::get('/school/addCourse/{id}', 'SchoolController@addCourse')->name('school
 Route::get('/school/reviewCourse/{id}', 'SchoolController@reviewCourse')->name('school.course.review');
 Route::get('get/enrollment/branch/{id}', 'EnrollmentController@getEnrollmentBranch')->name('get.enrollment.branch');
 Route::get('get/enrollment/{school_id}/course/{course_id}/', 'EnrollmentController@getEnrollmentCourse')->name('get.course'); 
-Route::post('enrollment/', 'EnrollmentController@store')->name('enrollment.store'); 
+Route::post('enrollment/', 'EnrollmentController@store')->name('enrollment.store');  
 
-
-Route::get('/student/scheduling/', 'StudentController@scheduling')->name('student.scheduling');
-
+Route::get('/student/scheduling/', 'StudentController@scheduling')->name('student.scheduling'); 
 
 Route::prefix('/admin')->group(function(){
     Route::get('/student/seach/', 'StudentController@search')->name('student-search');
@@ -42,7 +40,14 @@ Route::prefix('/admin')->group(function(){
     Route::post('school/courseSchoolStore', 'SchoolController@courseSchoolStore')->name('school.courseSchoolStore');
     Route::delete('school/scDelete/{id}', 'SchoolController@scDelete')->name('school.scDelete');
     Route::post('addPayment', 'InvoiceController@addPayment')->name('invoice.addPayment');
+    Route::get('fleet/form/{id}', 'FleetController@showSchedule')->name('fleet.form.show'); 
+    Route::post('fleet/form/store', 'FleetController@storeSchedule')->name('fleet.form.store');  
+    Route::get('instructor/fleet/schedule/form/edit/{id}', 'FleetController@editInstructorSchedule')->name('fleet.form.edit');  
+    Route::put('instructor/fleet/schedule/form/update/{id}', 'FleetController@updateInstructorSchedule')->name('fleet.form.update');  
+    Route::delete('instructor/fleet/schedule/form/delete/{id}', 'FleetController@destroyFleetSchedule')->name('fleet.form.delete');  
+
 });
+
 Route::prefix('admin')->group(function () {
     // Route::resource('dashboard', 'DashboardController');
     Route::resource('schedule', 'ScheduleController');

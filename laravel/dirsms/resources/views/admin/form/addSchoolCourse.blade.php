@@ -93,10 +93,7 @@
                 </div> 
             </div> 
         </div>
-
-
-
-
+ 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
@@ -119,7 +116,7 @@
                 <div class="col-md-6"> 
                     <label>Instructor</label>
                     @if(!empty($instructors))
-                        <select class="form-control select2" name="course_id" id="select-course" required=""> 
+                        <select class="form-control select2" name="instructor_id" id="select-instructor" required=""> 
                             <option value="">Select Instructors</option>  
                             @foreach($instructors as $instructor)   
                                 <option value="{{$instructor->id}}" @if($instructor->status == "Suspended" || $instructor->status == "Inactive") disabled @endif >{{ $instructor->fname }} {{ $instructor->lname }} ({{$instructor->status}})</option>    
@@ -127,7 +124,7 @@
                         </select> 
                     @else
                         <span class="alert alert-success">
-                            <strong>Empty Course</strong>
+                            <strong>Empty Instructors</strong>
                         </span> 
                     @endif  
                 </div>

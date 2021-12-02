@@ -91,12 +91,56 @@ class EnrollmentController extends Controller
             'student_id' => 'unique:student_course', 
         ]);
  
+ 
+        $data = ''; 
+        foreach($request->where_did_you_know_school_ as $key => $val){ 
+            if($key == array_key_last($request->where_did_you_know_school_)){
+                $data .= '' . $val;
+            }else{ 
+                $data .= '' . $val . ', ';
+            }
+        } 
+
+
         $newStudentEnrollment = new StudentCourse();
+
         $newStudentEnrollment->student_id = Auth::user()->id;
         $newStudentEnrollment->school_id = $request->school_id;
         $newStudentEnrollment->branch_id = $request->branch_id;
-        $newStudentEnrollment->school_course_id = $request->course_id;
+        $newStudentEnrollment->school_course_id = $request->course_id; 
+
+        $newStudentEnrollment->driving_lto_requirement = $request->driving_lto_requirement;
+        $newStudentEnrollment->theoretical_driving_course = $request->theoretical_driving_course;
+        
+        $newStudentEnrollment->practical_driving_course_mv = $request->practical_driving_course_mv;
+        $newStudentEnrollment->manual_transmission_mv = $request->manual_transmission_mv;
+        $newStudentEnrollment->automatic_transmission_mv = $request->automatic_transmission_mv;
+
+
+        $newStudentEnrollment->practical_driving_course_mc = $request->practical_driving_course_mc;
+        $newStudentEnrollment->manual_transmission_mc = $request->manual_transmission_mc;
+        $newStudentEnrollment->automatic_transmission_mc = $request->automatic_transmission_mc;
+        $newStudentEnrollment->others_mc = $request->others_mc;
+
+        $newStudentEnrollment->where_did_you_know_school_ = $data;
+
+        $newStudentEnrollment->civil_status = $request->civil_status;
+        $newStudentEnrollment->pob = $request->pob;
+        $newStudentEnrollment->height = $request->height;
+        $newStudentEnrollment->weigth = $request->weigth;
+        $newStudentEnrollment->blood_type = $request->blood_type;
+
+        $newStudentEnrollment->name_of_mother = $request->name_of_mother;
+        $newStudentEnrollment->name_of_father = $request->name_of_father;
+        $newStudentEnrollment->person_notify_in_case_of_emergency = $request->person_notify_in_case_of_emergency;
+        $newStudentEnrollment->guardian_address = $request->guardian_address;
+        $newStudentEnrollment->guardian_number = $request->guardian_number;
+        $newStudentEnrollment->guardian_pob = $request->guardian_pob;
+        $newStudentEnrollment->guardian_relation = $request->guardian_relation;
+
         $newStudentEnrollment->y_e = $request->y_e;
+
+
         $is_save = $newStudentEnrollment->save(); 
         
         if($is_save){

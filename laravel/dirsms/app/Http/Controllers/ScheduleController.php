@@ -6,6 +6,12 @@ use App\Schedule;
 
 use App\User;
 use App\Image;
+
+
+use App\Fleet; 
+use App\FleetSchedule;
+
+
 use Auth;
 use Illuminate\Http\Request;
 
@@ -43,9 +49,15 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function show(Schedule $schedule)
-    {
-        //
+    public function show($id)
+    { 
+        $user = User::where('id', '=', $id)->first(); 
+        $fleets = Fleet::leftJoin('fleet_schedules as fs', 'fs.fleet_id', '=', "fleet.id") 
+                            ->where('fs.instructor_id', '=', $id)
+                            ->orderBy('fs.created_at', 'desc')
+                            ->get(['fleet.*', 'fs.*']);
+ 
+        return view('admin/review/reviewInstructorSchedule', compact('user', 'fleets')); 
     }
 
     /**

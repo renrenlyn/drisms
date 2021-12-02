@@ -20,31 +20,23 @@ class StaffController extends Controller
     public function __construct()
     {
         $this->middleware('auth'); 
-    } 
-
-
-
+    }  
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    { 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
-        ->get(['users.*', 'images.name as image_name']);
-
-
+        ->get(['users.*', 'images.name as image_name']); 
         $users = User::join('images', 'users.id', '=', 'images.user_id')
-        ->where('users.role', 'Staff')
-        ->orderBy('created_at', 'DESC')
-        ->get(['users.*', 'images.name as image_name']);
-
-        $branches = Branch::all();
- 
-
+                ->leftJoin('permissions as p', 'p.staff_id', '=', 'users.id')
+            ->where('users.role', 'Staff')
+            ->orderBy('users.created_at', 'DESC')
+            ->get(['images.name as image_name', 'p.*','users.*']); 
+        $branches = Branch::all(); 
         return view('admin/staff', compact('users', 'profile_pic', 'branches'));
      
     }

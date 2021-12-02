@@ -18,9 +18,9 @@
                           <div class="col-md-12">
                             <label for="email">Scheduling</label>
                             <select class="form-control" name="p_schedule" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option> 
+                                <option value="read_only" {{ $user->scheduling == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write"  {{ $user->scheduling == "read_write" ? 'selected' : '' }}>Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->scheduling == "read_write_delete" ? 'selected' : '' }} >Read, Write & Delete</option> 
                             </select>
                           </div>
                         </div>
@@ -30,9 +30,9 @@
                           <div class="col-md-12">
                             <label for="email">Students</label>
                             <select class="form-control" name="p_student" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option> 
+                                <option value="read_only" {{ $user->students == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write" {{ $user->students == "read_write" ? 'selected' : '' }}>Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->students == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option> 
                             </select>
                           </div>
                         </div>
@@ -42,9 +42,9 @@
                           <div class="col-md-12">
                             <label for="email">Instructor</label>
                             <select class="form-control" name="p_instructor" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option> 
+                                <option value="read_only" {{ $user->instructor == "read_only" ? 'selected' : '' }} >Read Only</option>
+                                <option value="read_write" {{ $user->instructor == "read_write" ? 'selected' : '' }} >Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->instructor == "read_write_delete" ? 'selected' : '' }} >Read, Write & Delete</option> 
                             </select>
                           </div>
                         </div>
@@ -54,9 +54,9 @@
                           <div class="col-md-12">
                             <label for="email">Fleet</label>
                             <select class="form-control" name="p_fleet" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option> 
+                                <option value="read_only" {{ $user->fleet == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write" {{ $user->fleet == "read_write" ? 'selected' : '' }} >Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->fleet == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option> 
                             </select>
                           </div>
                         </div>
@@ -66,9 +66,9 @@
                           <div class="col-md-12">
                             <label for="email">Branch</label>
                             <select class="form-control" name="p_branch" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option> 
+                                <option value="read_only" {{ $user->branch == "read_only" ? 'selected' : '' }} >Read Only</option>
+                                <option value="read_write" {{ $user->branch == "read_write" ? 'selected' : '' }} >Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->branch == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option> 
                             </select>
                           </div>
                         </div>
@@ -79,9 +79,9 @@
                           <div class="col-md-12">
                             <label for="email">Invoice</label>
                             <select class="form-control" name="p_invoice" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option>
+                                <option value="read_only" {{ $user->invoice == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write" {{ $user->invoice == "read_write" ? 'selected' : '' }}>Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->invoice == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option>
                             </select>
                           </div>
                         </div>
@@ -92,9 +92,9 @@
                           <div class="col-md-12">
                             <label for="email">Courses</label>
                             <select class="form-control" name="p_course" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option> 
-                                <option value="read_write_delete">Read, Write & Delete</option>
+                                <option value="read_only" {{ $user->course == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write" {{ $user->course == "read_write" ? 'selected' : '' }}>Read & Write</option> 
+                                <option value="read_write_delete" {{ $user->course == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option>
                             </select>
                           </div>
                         </div>
@@ -105,9 +105,9 @@
                           <div class="col-md-12">
                             <label for="email">School</label>
                             <select class="form-control" name="p_school" required>
-                                <option value="read_only">Read Only</option>
-                                <option value="read_write">Read & Write</option>
-                                <option value="read_write_delete">Read, Write & Delete</option>
+                                <option value="read_only" {{ $user->	school == "read_only" ? 'selected' : '' }}>Read Only</option>
+                                <option value="read_write" {{ $user->	school == "read_write" ? 'selected' : '' }}>Read & Write</option>
+                                <option value="read_write_delete" {{ $user->	school == "read_write_delete" ? 'selected' : '' }}>Read, Write & Delete</option>
                             </select>
                           </div>
                         </div>

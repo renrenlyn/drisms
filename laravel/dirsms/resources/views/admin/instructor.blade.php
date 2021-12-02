@@ -60,20 +60,20 @@
                         <div class="row user-grid-buttons">
                             <div class="col-md-6">
                                 <a 
-                                    class="btn btn-primary btn-block" 
-                                    href="{{ route('profiles.show',$user->username)}}"
+                                    class="btn btn-primary btn-block @if($user->status == 'Inactive' || $user->status == 'Suspended') disabled @endif" 
+                                    href="{{ route('profiles.show', $user->username)}}"
                                 >Profile</a>
                             </div>
                             <div class="col-md-6">
-                                <a class="btn btn-default btn-block" href="">Schedule</a>
+                                <a class="btn btn-default btn-block @if($user->status == 'Inactive' || $user->status == 'Suspended') disabled @endif" href="{{route('schedule.show', $user->id)}}">Schedule</a>
                             </div>
                             <div class="col-md-12 mt-2">
                                 <button class="btn btn-success btn-block" {{$permission_status}} data-toggle="modal" data-target="#create{{$user->id}}"  >Update</button>
                             </div>
                         </div>
-                        <div class="user-grid-class-left">
+                        <!-- <div class="user-grid-class-left">
                             <p class="text-success"><i class=" mdi mdi-counter"></i> instructor completed Class(es) Completed</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

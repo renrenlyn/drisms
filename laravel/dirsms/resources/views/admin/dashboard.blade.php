@@ -1,13 +1,13 @@
 
     <div class="page-header">
-        <a href="" class="btn btn-success btn-icon pull-right"><i class="mdi mdi-calendar-text"></i> Scheduling </a>
+        <!-- <a href="" class="btn btn-success btn-icon pull-right"><i class="mdi mdi-calendar-text"></i> Scheduling </a> -->
         <h3>Dashboard</h3>
     </div>
         <!-- stats -->
         <div class="row">
 
             <!-- stat 1 -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-primary">
                         <i class="mdi mdi-account-convert"></i>
@@ -26,7 +26,7 @@
             </div>
 
             <!-- stat 1 -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-warning">
                         <i class="mdi mdi-account-multiple-outline"></i>
@@ -43,21 +43,92 @@
                     </div> -->
                 </div>
             </div> 
-            <!-- stat 1 -->
-            <div class="col-md-4">
+
+             <!-- stat 1 -->
+             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-success">
-                        <i class="mdi mdi-calendar-clock"></i>
+                    <div class="widget-icon widget-info ">
+                        <i class="mdi mdi-account-multiple-outline"></i>
                     </div>
                     <div class="widget-title">
-                        <h2>0</h2>
-                        <p>Class Attendance</p>
+                        <h2> {{ $cstaff }} </h2>
+                        <p >Total Staff</strong></p>
+                    </div>
+                    <!-- <div class="widget-trend">
+                        <p class="text-warning">
+                            <i class="mdi mdi-menu-up"></i> 
+                            growth income 
+                        </p>
+                    </div> -->
+                </div>
+            </div> 
+
+            <!-- stat 1 -->
+            <div class="col-md-3">
+                <div class="card widget">
+                    <div class="widget-icon widget-success">
+                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    </div>
+                    <div class="widget-title">
+                        <h2>{{ $cschool }}</h2>
+                        <p>Total School</p>
                     </div>
                     <!-- <div class="widget-trend">
                         <p class="text-success"><i class="mdi mdi-menu-up"></i> growth attendance</p>
                     </div> -->
                 </div>
             </div>
+
+            <!-- stat 1 -->
+            <div class="col-md-3">
+                <div class="card widget">
+                    <div class="widget-icon widget-success">
+                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    </div>
+                    <div class="widget-title">
+                        <h2>{{ $branches->count() }}</h2>
+                        <p>Total Branch</p>
+                    </div>
+                    <!-- <div class="widget-trend">
+                        <p class="text-success"><i class="mdi mdi-menu-up"></i> growth attendance</p>
+                    </div> -->
+                </div>
+            </div>
+            
+            <!-- stat 1 -->
+            <div class="col-md-3">
+                <div class="card widget">
+                    <div class="widget-icon widget-success">
+                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    </div>
+                    <div class="widget-title">
+                        <h2>{{ $courses->count() }}</h2>
+                        <p>Total Course</p>
+                    </div>
+                    <!-- <div class="widget-trend">
+                        <p class="text-success"><i class="mdi mdi-menu-up"></i> growth attendance</p>
+                    </div> -->
+                </div>
+            </div>
+
+            
+            <!-- stat 1 -->
+            <div class="col-md-3">
+                <div class="card widget">
+                    <div class="widget-icon widget-success">
+                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    </div>
+                    <div class="widget-title">
+                        <h2>{{ $fleets->count() }}</h2>
+                        <p>Total Fleet</p>
+                    </div>
+                    <!-- <div class="widget-trend">
+                        <p class="text-success"><i class="mdi mdi-menu-up"></i> growth attendance</p>
+                    </div> -->
+                </div>
+            </div>
+
+
         </div>
 
         <!-- students growth -->
@@ -71,25 +142,25 @@
                             <div class="row">
                                 <div class="col-md-6 growth-left">
                                     <div class="growth-heading">
-                                        <h2>{{ $cnew_student }}</h2>
-                                        <p>New Students (Last 30 Days)</p>
+                                     
+                                        <p>{{ $cnew_student }} New Students (Last 30 Days)</p>
                                     </div>
-                                    <div class="growth-pointers">
+                                    <!-- <div class="growth-pointers">
                                         <div class="growth-icon success">
                                             <i class="mdi mdi-menu-up"></i>
                                         </div>
                                         <div class="growth-message">
                                             <p>You have <strong class="text-success">100% Growth</strong> in comparison to the previous month.</p>
                                         </div>
-                                    </div>
-                                    <div class="growth-pointers">
+                                    </div> -->
+                                    <!-- <div class="growth-pointers">
                                         <div class="growth-icon warning">
                                             <i class="mdi mdi-menu-right"></i>
                                         </div>
                                         <div class="growth-message">
                                             <p>Payments perfomance has had a <strong class="text-warning">100% perfomance</strong> in comparison to the previous month.</p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="student-growth-chart mt-15"></div>

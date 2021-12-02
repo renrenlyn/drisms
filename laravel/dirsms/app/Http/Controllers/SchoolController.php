@@ -310,6 +310,7 @@ class SchoolController extends Controller
                 $newCourse->duration = $request->duration;
                 $newCourse->period = $request->period; 
                 $newCourse->school_id = $request->school_id;
+                $newCourse->instructor_id = $request->instructor_id; 
                 $newCourse->course_id = $request->course_id; 
                 $newCourse->save();  
 

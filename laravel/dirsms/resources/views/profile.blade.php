@@ -43,7 +43,7 @@
                             <div class="profile-more-section">
                                 <ul class="nav nav-tabs">
                                 <li><a data-toggle="tab" href="#account" class="active">Account Info</a></li>
-                                <li><a data-toggle="tab" href="#activity">Activity</a></li>
+                                <!-- <li><a data-toggle="tab" href="#activity">Activity</a></li> -->
                                 </ul>
 
                                 <div class="tab-content">

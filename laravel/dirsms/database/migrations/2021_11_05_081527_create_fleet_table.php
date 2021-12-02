@@ -17,8 +17,8 @@ class CreateFleetTable extends Migration
             $table->bigIncrements('id');
     
             $table->integer('instructor_id')->nullable();
-            $table->integer('school_id')->nullable();
-            $table->integer('branch_id')->nullable(); 
+            // $table->integer('school_id')->nullable();
+            // $table->integer('branch_id')->nullable(); 
 
 
             $table->string('car_no')->default('unknown');

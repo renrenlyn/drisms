@@ -8,6 +8,7 @@ use App\Image;
 use App\Notification;
  
 use App\Course;
+use App\Fleet;
 use App\Branch; 
 use App\School;  
 use App\StudentCourse;
@@ -49,78 +50,33 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        
+    {  
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
 
-        $cstudent = User::where('role', 'Student')->count();
-        $cinstructor = User::where('role', 'Instructor')->count();
+        $cstudent = User::where([ ['role', '=','Student'], ['status', '=','Active'] ])->count();
+        $cinstructor = User::where([ ['role', '=','Instructor'], ['status', '=','Active'] ] )->count();
+        $cstaff = User::where('role', 'Staff')->count();
 
-
+        $cschool = School::all()->count();
         $cnew_student = User::where([
             ['role', '=', 'Student'],
             ['created_at', '>=', Carbon::now()->subDays(30)]
-        ])->count();
-
+        ])->count(); 
         $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
                         ->orderBy('notifications.created_at', 'desc')
-                        ->get(['users.*', 'notifications.*']); 
-
-        // $student_enrollment_records = StudentCourse::join('classes as c', 'c.student_id', '=', 'student_course.student_id')
-        //                             ->join('schools as s', 's.id', '=', 'student_course.school_id')
-        //                             ->join('courses as cr', 'cr.id', '=', 'student_course.course_id')
-        //                             ->join('school_course as sc', 'sc.course_id', '=', 'student_course.course_id')
-        //                             ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
-        //                             ->join('days as d', 'd.sc_id', '=', 'student_course.id')
-        //                             ->where('student_course.student_id', '=', Auth::user()->id ) 
-        //                             ->get([
-        //                                 'sc.time_start_end',
-        //                                 'sc.start',
-        //                                 'sc.end',
-        //                                 'sc.duration',
-        //                                 'sc.period',
-        //                                 'c.type as classes_type',
-        //                                 'd.day',
-        //                                 'b.name as branch_name', 
-        //                                 'b.address as branch_address', 
-        //                                 'b.type as branch_type', 
-        //                                 's.name as school_name', 
-        //                                 's.address as school_address', 
-        //                                 'cr.price as price',
-        //                                 'cr.name as course_name',  
-        //                                 'student_course.*'
-        //                             ]); 
-
-
-
-
-//    $student_enrollment_records = StudentCourse::join('classes as c', 'c.student_id', '=', 'student_course.student_id')
-//                                     ->join('schools as s', 's.id', '=', 'student_course.school_id')
-//                                     ->join('courses as cr', 'cr.id', '=', 'student_course.course_id')
-//                                     ->join('school_course as sc', 'sc.course_id', '=', 'student_course.course_id')
-//                                     ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id') 
-//                                     ->join('days as d', 'd.sc_id', '=', 'sc.id') 
-//                                     ->where('student_course.student_id', '=', Auth::user()->id ) 
-//                                     ->get([
-//                                         '*'
-//                                     ]); 
-
-//         dd($student_enrollment_records); 
- 
- 
-        $student_courses = StudentCourse::all(); 
-   
+                        ->get(['users.*', 'notifications.*']);  
+        $student_courses = StudentCourse::all();  
         $classes = Classes::all(); 
         $schools = School::all();
         $courses = Course::all();
         $school_courses = SchoolCourse::all();
         $branches = Branch::all();
         $days = Day::all();
-
+        $fleets = Fleet::all(); 
         
-        return view('dashboard', compact('cstudent', 'cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
+        return view('dashboard', compact('cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
     }
 
     /**
@@ -128,10 +84,7 @@ class DashboardController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
-
-
-
+     */ 
     public function store(Request $request)
     {
         //
@@ -144,26 +97,18 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($username)
-    {
-        // 
-
+    { 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
-        ->get(['users.*', 'images.name as image_name']);
-        
-        $user = User::where('username', '=', $username)->first();
- 
-        $student_courses = StudentCourse::all(); 
-         
-
+        ->get(['users.*', 'images.name as image_name']); 
+        $user = User::where('username', '=', $username)->first(); 
+        $student_courses = StudentCourse::all();  
         $classes = Classes::all(); 
         $schools = School::all();
         $courses = Course::all();
         $school_courses = SchoolCourse::all();
         $branches = Branch::all();
-        $days = Day::all();
-
-
+        $days = Day::all(); 
         return view('admin/student_schedule',compact( 'student_courses', 'classes', 'schools', 'courses', 'school_courses', 'branches', 'days', 'user', 'profile_pic'));
     }
 

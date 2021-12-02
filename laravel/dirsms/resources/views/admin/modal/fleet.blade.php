@@ -52,7 +52,9 @@
                                 
                                 <select class="form-control select" name="instructor" required> 
                                     @foreach($users as $user)
-                                        <option class="item" value="{{ $user->id }}">{{ $user->fname }} {{ $user->lname}}</option>
+
+                                        <option class="item" value="{{ $user->id }}" @if($user->status == "Suspended" || $user->status == "Inactive") disabled @endif >{{ $user->fname }} {{ $user->lname}}</option>
+
                                     @endforeach
                                 </select>
                             </div>

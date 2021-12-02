@@ -61,7 +61,7 @@
                                             <td>{{$car->model_year}}</td>
                                             <td><strong>{{$car->fname}} {{ $car->lname}}</strong></td>
                                             <td class="text-center">
-                                                <a class="btn btn-primary btn-sm btn-icon" href="">
+                                                <a class="btn btn-primary btn-sm btn-icon" href="{{route('fleet.show', $car->id)}}" >
                                                     <i class="mdi mdi-calendar-text"></i> 
                                                     Schedule
                                                 </a>
@@ -81,6 +81,16 @@
                                                         aria-labelledby="menu1"
                                                     >
                                                         <li role="presentation">
+                                                            <a   
+                                                                href="{{ route('fleet.form.show', $car->id)}}"
+                                                             >  
+                                                                <i class="mdi mdi-calendar-plus"></i> 
+                                                                add schedule
+                                                            </a>
+                                                        </li>
+
+
+                                                        <li role="presentation">
                                                             <a  
                                                                 data-toggle="modal" 
                                                                 data-target="#update{{ $car->id }}"
@@ -90,6 +100,8 @@
                                                                 Edit
                                                             </a>
                                                         </li>
+
+
                                                         <li role="presentation">
                                                             <form id="deleteFleet{{$car->id}}" action="{{ route('fleet.destroy', $car->id) }}" method="POST">
                                                                 @csrf
