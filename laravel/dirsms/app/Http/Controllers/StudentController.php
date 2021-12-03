@@ -18,6 +18,9 @@ use DB;
 
 
 use App\StudentCourse;
+use App\Fleet;
+use App\FleetSchedule;
+
 use App\Classes;
 use App\Permission;
 
@@ -119,51 +122,32 @@ class StudentController extends Controller
 
 
 
-    public function scheduling(){
-
-        // $student_enrollment_records = StudentCourse::join('classes as c', 'c.student_id', '=', 'student_course.student_id')
-        // ->join('schools as s', 's.id', '=', 'student_course.school_id')
-        // ->join('courses as cr', 'cr.id', '=', 'student_course.course_id')
-        // ->join('school_course as sc', 'sc.course_id', '=', 'student_course.course_id')
-        // ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
-        // ->join('days as d', 'd.sc_id', '=', 'student_course.id')
-        // ->where('student_course.student_id', '=', Auth::user()->id ) 
-        // ->get([
-        //     'sc.time_start_end',
-        //     'sc.start',
-        //     'sc.end',
-        //     'sc.duration',
-        //     'sc.period',
-        //     'c.type as classes_type',
-        //     'd.day',
-        //     'b.name as branch_name', 
-        //     'b.address as branch_address', 
-        //     'b.type as branch_type', 
-        //     's.name as school_name', 
-        //     's.address as school_address', 
-        //     'cr.price as price',
-        //     'cr.name as course_name',  
-        //     'student_course.*'
-        // ]); 
-
-
-            $schools=School::all();
- 
+    public function schedulinTheoretical(){ 
+            $schools=School::all(); 
             $branches = Branch::all();
-            $courses = Course::all();
- 
-
- 
+            $courses = Course::all(); 
             $school_courses =SchoolCourse::all();
-            $days =Day::all();
-            // Day;
-            // SchoolCourse;
-
-            // days
-            // school_course 
-        return view('student/schedule', compact('schools', 'branches', 'school_courses', 'courses', 'days'));
+            $days =Day::all(); 
+        return view('student/schedule_theoretical', compact('schools', 'branches', 'school_courses', 'courses', 'days'));
     }
 
+
+    public function schedulingPractical(){  
+
+        $fleet_schedules = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
+                                        ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id') 
+                                        ->get(['u.fname as fname', 'u.lname as lname', 'f.*','fleet_schedules.*']);
+ 
+        
+ 
+
+        return view('student/schedule_practical', compact('fleet_schedules'));
+    }
+
+
+    public function schedule(){ 
+        return view('classes/index');
+    }
     /**
      * Store a newly created resource in storage.
      *

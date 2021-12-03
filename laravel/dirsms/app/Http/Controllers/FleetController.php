@@ -70,7 +70,7 @@ class FleetController extends Controller
         $fleet->make = $request->make;
         $fleet->model = $request->model;
         $fleet->model_year = $request->modelyear;
-        $fleet->instructor_id = $request->instructor;
+       // $fleet->instructor_id = $request->instructor;
 
         $is_save = $fleet->save();
         if($is_save){

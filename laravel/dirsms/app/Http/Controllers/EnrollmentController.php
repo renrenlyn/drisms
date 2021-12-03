@@ -41,19 +41,13 @@ class EnrollmentController extends Controller
         $this->middleware('auth'); 
     } 
     
-    public function enrollment(){ 
-
-
+    public function enrollment(){  
         // $school_corses = SchoolCourse::leftJoin('days as d', 'd.sc_id', '=', 'school_course.id')
         // ->leftJoin('courses as c', 'c.id', '=', 'school_course.course_id')
         // ->where('school_course.school_id', '=', 3)
         // ->orderBy('c.created_at', 'desc') 
-        // ->get(['c.*', 'd.*', 'school_course.*']);
-
-
-        // dd($school_corses);
-
-
+        // ->get(['c.*', 'd.*', 'school_course.*']); 
+        // dd($school_corses); 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
@@ -107,7 +101,7 @@ class EnrollmentController extends Controller
         $newStudentEnrollment->student_id = Auth::user()->id;
         $newStudentEnrollment->school_id = $request->school_id;
         $newStudentEnrollment->branch_id = $request->branch_id;
-        $newStudentEnrollment->school_course_id = $request->course_id; 
+        $newStudentEnrollment->school_course_id = $request->school_course_id; 
 
         $newStudentEnrollment->driving_lto_requirement = $request->driving_lto_requirement;
         $newStudentEnrollment->theoretical_driving_course = $request->theoretical_driving_course;
@@ -137,7 +131,9 @@ class EnrollmentController extends Controller
         $newStudentEnrollment->guardian_number = $request->guardian_number;
         $newStudentEnrollment->guardian_pob = $request->guardian_pob;
         $newStudentEnrollment->guardian_relation = $request->guardian_relation;
-
+        $newStudentEnrollment->orno = $request->or_no;
+        $newStudentEnrollment->amount_paid = $request->amount_paid;
+        
         $newStudentEnrollment->y_e = $request->y_e;
 
 

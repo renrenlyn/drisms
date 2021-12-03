@@ -45,21 +45,12 @@
                             </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="email">Assigned Instructor</label>
-                                
-                                <select class="form-control select" name="instructor" required> 
-                                    @foreach($users as $user)
 
-                                        <option class="item" value="{{ $user->id }}" @if($user->status == "Suspended" || $user->status == "Inactive") disabled @endif >{{ $user->fname }} {{ $user->lname}}</option>
 
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                      </div>
+              
+
+
+
                       <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">

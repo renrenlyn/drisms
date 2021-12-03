@@ -10,8 +10,7 @@
     @endif
 </div> 
     @include('../layouts/includes/footer')  
-    <script>
-
+    <script> 
         $('#student-enrollment-record').on('click touchstart', function(){
             window.print();
         })
