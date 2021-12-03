@@ -46,7 +46,7 @@ aside {
     position: fixed;
     float: left;
     z-index: 99;
-    background: rgb(3, 207, 190);
+    background: rgb(55, 0, 253);
     border-right: 1px solid #D4D9DD;
     -webkit-transition: all 0.9s ease;
     -moz-transition: all 0.9s ease;

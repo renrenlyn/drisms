@@ -7,8 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS') }}</title>
-
+    <title>{{ config('app.name', 'Drisms') }}</title>
+    <link rel="shortcut icon" href="/images/icon.ico">
+    
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -20,6 +21,21 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/css/simcify.min.css') }}" />
 
+    <style>
+
+        html, body{
+            background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/images/login.jpg");
+            
+        }
+        .card{
+            border: 1px solid black;
+            width: 70%;
+            margin: auto;
+        }
+        .card-body{
+            
+        }
+    </style>
 
 
 </head>
@@ -28,7 +44,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS') }}
+                    {{ config('app.name', 'Drisms') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

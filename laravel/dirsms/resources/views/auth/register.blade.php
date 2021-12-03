@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">Register here!</div>
                 @if (\Session::has('error'))
                     <div class="alert alert-danger">
                         {!! \Session::get('error') !!} 

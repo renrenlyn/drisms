@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Drisms</title>
+        <link rel="shortcut icon" href="/images/icon.ico">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -16,7 +17,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/images/driving.jpg");
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -53,7 +54,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #fff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -64,6 +65,13 @@
 
             .m-b-md {
                 margin-bottom: 30px;
+                color: #fff;
+                font-size: 100px;
+            }
+            p{
+                margin: 10px 4px;
+                font-size: 14px;
+                color: #fff;
             }
         </style>
     </head>
@@ -83,7 +91,8 @@
             @endif 
             <div class="content">
                 <div class="title m-b-md">
-                   DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS
+                        <h1>DriSMS || Driving School Management System</h1>
+                        <p> Driving School System For those who wants an easy access askds</p>
                 </div> 
             </div>
         </div>

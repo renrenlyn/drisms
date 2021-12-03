@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
-    <title>{{ config('app.name', 'DRIVING SCHOOL MANAGEMENT SYSTEM DriSMS') }}</title> 
+    <title>{{ config('app.name', 'Drisms') }}</title> 
+    <link rel="shortcut icon" href="/images/icon.ico">
+
     <link rel="stylesheet" href="{{ asset('css/css/simcify.min.css') }}" />
      <!-- Material design icons -->
     <link rel="stylesheet" href="{{ asset('css/fonts/mdi/css/materialdesignicons.min.css') }}" />
@@ -19,6 +21,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
     <style>
+       
+
         #loading{
             position: absolute;
             right: 0;
