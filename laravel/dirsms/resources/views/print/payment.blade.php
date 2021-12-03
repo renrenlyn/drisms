@@ -8,7 +8,19 @@
     @media print
     {
         #non-printable { display: none; }
-        #printable { display: block; }
+        #printable { 
+			display: block; 
+			
+		}
+		.print-body{
+			color:#000;
+		}
+		.text-right{
+			color:#000;
+		}
+		.table-responsive{
+			color:#000;
+		}
     }
     footer{
         margin: 0;
@@ -16,23 +28,24 @@
     .text-right {
         display: block;
     }
-    .h1{
+    h1{
         text-align: center;
     }
-    .h5{
+    h5{
         text-align: center;
     }
+	
   </style>
 
 
-<div>
+<div class="print-body">
     
 
 
     @forelse($invoices as $invoice)
 
      <h1>DriSMS</h1>
-    <h5>Address</h5>
+    <h5>Cagayan de Oro City</h5>
     <h5>============================</h5>
 
     <div class="container bootstrap snippets bootdey">
@@ -74,12 +87,12 @@
 					<tbody>
 						<tr>
 							<td>
-								<div><strong>{{ $invoice->name }}</strong></div>
+								<div style="color: white;"><strong>{{ $invoice->name }}</strong></div>
 							</td>
-							<td>{{ $invoice->fname }} {{ $invoice->lname }}</td>
-							<td>{{ $invoice->created_at }}</td>
-							<td>{{ $invoice->updated_at }}</td>
-							<td>{{ $invoice->price }}</td>
+							<td style="color: white;">{{ $invoice->fname }} {{ $invoice->lname }}</td>
+							<td style="color: white;">{{ $invoice->created_at }}</td>
+							<td style="color: white;">{{ $invoice->updated_at }}</td>
+							<td style="color: white;">{{ $invoice->price }}</td>
 						</tr>
 						
 					</tbody>

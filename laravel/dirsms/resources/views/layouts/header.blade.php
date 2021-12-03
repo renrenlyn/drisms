@@ -22,7 +22,26 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
     <style>
        
-
+       html, body{
+        background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/images/regis.jpg");
+            font-family: 'Poppins', sans-serif;
+            color:#fff;
+        }
+        
+        
+        .reg_card{
+            background-color: #0b1c4d;
+            font-family: 'Poppins', sans-serif;
+            color:#fff;
+        }
+        .reg_card-header{
+            font-family: 'Poppins', sans-serif;
+            font-size: 200%;
+            color: #800000;
+            text-align: center;
+            background-color: #f5ad42;
+        }
+       
         #loading{
             position: absolute;
             right: 0;

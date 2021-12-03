@@ -3,8 +3,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Register here!</div>
+            <div class="reg_card">
+                <div class="reg_card-header">Register</div>
                 @if (\Session::has('error'))
                     <div class="alert alert-danger">
                         {!! \Session::get('error') !!} 
