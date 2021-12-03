@@ -63,20 +63,23 @@ class DashboardController extends Controller
         $cnew_student = User::where([
             ['role', '=', 'Student'],
             ['created_at', '>=', Carbon::now()->subDays(30)]
-        ])->count(); 
+        ])->count();  
+
         $notifications = Notification::join('users', 'users.id', '=', 'notifications.user_id') 
                         ->orderBy('notifications.created_at', 'desc')
                         ->get(['users.*', 'notifications.*']);  
+                         
         $student_courses = StudentCourse::all();  
+ 
         $classes = Classes::all(); 
         $schools = School::all();
         $courses = Course::all();
         $school_courses = SchoolCourse::all();
         $branches = Branch::all();
         $days = Day::all();
-        $fleets = Fleet::all(); 
-        
-        return view('dashboard', compact('cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
+        $fleets = Fleet::all();  
+
+        return view('dashboard', compact( 'cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
     }
 
     /**
@@ -99,8 +102,9 @@ class DashboardController extends Controller
     public function show($username)
     { 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
-        ->where('users.id', Auth::user()->id)
-        ->get(['users.*', 'images.name as image_name']); 
+                        ->where('users.id', Auth::user()->id)
+                        ->get(['users.*', 'images.name as image_name']); 
+
         $user = User::where('username', '=', $username)->first(); 
         $student_courses = StudentCourse::all();  
         $classes = Classes::all(); 
@@ -109,6 +113,7 @@ class DashboardController extends Controller
         $school_courses = SchoolCourse::all();
         $branches = Branch::all();
         $days = Day::all(); 
+        
         return view('admin/student_schedule',compact( 'student_courses', 'classes', 'schools', 'courses', 'school_courses', 'branches', 'days', 'user', 'profile_pic'));
     }
 
