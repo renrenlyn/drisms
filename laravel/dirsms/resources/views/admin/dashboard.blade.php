@@ -48,7 +48,7 @@
              <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-info ">
-                        <i class="mdi mdi-account-multiple-outline"></i>
+                        <i class="mdi mdi-account-settings-variant"></i>
                     </div>
                     <div class="widget-title">
                         <h2> {{ $cstaff }} </h2>
@@ -67,7 +67,7 @@
             <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-success">
-                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    <i class="menu-icon mdi mdi-table-large"></i>
                     </div>
                     <div class="widget-title">
                         <h2>{{ $cschool }}</h2>
@@ -83,7 +83,7 @@
             <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-success">
-                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    <i class="menu-icon mdi mdi-source-branch"></i>
                     </div>
                     <div class="widget-title">
                         <h2>{{ $branches->count() }}</h2>
@@ -99,7 +99,7 @@
             <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-success">
-                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    <i class="menu-icon mdi mdi-book-open"></i>
                     </div>
                     <div class="widget-title">
                         <h2>{{ $courses->count() }}</h2>
@@ -116,7 +116,7 @@
             <div class="col-md-3">
                 <div class="card widget">
                     <div class="widget-icon widget-success">
-                    <i class="menu-icon mdi mdi-blur-radial"></i>
+                    <i class="menu-icon mdi mdi-truck"></i>
                     </div>
                     <div class="widget-title">
                         <h2>{{ $fleets->count() }}</h2>
@@ -136,7 +136,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                                <h5>Students Growth</h5>
+                                <h5>Overall Students for this month</h5>
                         </div>
                         <div class="card-body p-0">
                             <div class="row">

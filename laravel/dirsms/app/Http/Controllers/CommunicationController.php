@@ -148,8 +148,14 @@ class CommunicationController extends Controller
                         'Authorization: ' . $apikey)
                     ); 
                     $result = curl_exec($ch);
+
                     if (curl_errno($ch)) {
-                        echo 'Error:' . curl_error($ch);
+                       echo 'Error:' . curl_error($ch);
+
+                     //   return redirect()->back()->with('error', "Sending message failed!!");
+                    }else{
+                         
+                      //  return redirect()->back()->with('success', "Messsage Sent.");
                     }
                     curl_close($ch);
                 }

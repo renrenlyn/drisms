@@ -25,7 +25,7 @@
     <!-- page content -->
     <div class="row">
 
-        <table class="table table-striped">
+        <table class="table table-striped" style="background-color:white;">
             <thead>
                 <tr>
                     <th scope="col">#</th>
