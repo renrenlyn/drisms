@@ -61,8 +61,7 @@
                             <form action="{{route('student.fleet.form.update', $val->id)}}" method="POST">
 
                                 @csrf
-                                @method('PUT')
-
+                                @method('PUT') 
                                 <input type="hidden" name="_student_id" value="{{ Auth::user()->id }}" />
                                     <tr> 
                                         <td> {{ $key + 1 }} </td> 

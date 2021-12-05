@@ -60,7 +60,14 @@ class ScheduleController extends Controller
     }
 
     public function practical(){    
-        return view('student/practical'); 
+
+            $fleet_schedule = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
+                        ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id')
+                        ->where('fleet_schedules.student_id', '=', Auth::user()->id )
+                        ->first(['u.*', 'f.*', 'fleet_schedules.*']);
+ 
+         
+        return view('student/practical', compact('fleet_schedule')); 
     }
     /**
      * Store a newly created resource in storage.

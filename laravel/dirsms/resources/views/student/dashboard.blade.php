@@ -11,11 +11,13 @@
         }
          
   </style>
-<div class="page-header">
-    <a href="{{ route('student.scheduling') }}" class="btn btn-success btn-icon pull-right">
-        <i class="mdi mdi-calendar-text"></i> 
-        Scheduling 
-    </a>
+<div class="page-header"> 
+    @if(Auth::user()->role == 'Student')
+        <a href="{{ route('student.scheduling') }}" class="btn btn-success btn-icon pull-right">
+            <i class="mdi mdi-calendar-text"></i> 
+            Scheduling 
+        </a>
+    @endif
     <h3>Dashboard</h3>
 </div>  
 

@@ -70,7 +70,15 @@
                                                     <span class="badge badge-success">{{ $balance }}</span> 
                                                 @endif 
                                             </td>
-                                            <td>@if($invoice->total_amount >= $invoice->price) Paid @else @endif</td>
+                                            <td>
+                                                @if($invoice->total_amount >= $invoice->price)  
+                                                    <span class="badge badge-danger">Paid </span>   
+                                                @else  
+                                                    <span class="badge badge-danger">Not Paid </span>  
+                                                @endif
+                                            </td>
+                                            
+                                            <td>{{ $invoice->created_at }}</td>
                                             <td class="text-center">
                                                 <!-- <a class="btn btn-primary btn-sm btn-icon" target="_blank" href=""><i class="mdi mdi-eye"></i> Preview</a> -->
                                                 <div class="dropdown inline-block">
@@ -97,12 +105,10 @@
                                                 </div>
                                                 
                                             </td>
-                                        </tr>  
-
-
-
  
-                                        
+
+                                        </tr>  
+ 
                                             @include("admin/modal/invoice")  
                                     @empty 
                                         <tr>

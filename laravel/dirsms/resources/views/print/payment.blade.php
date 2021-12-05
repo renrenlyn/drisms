@@ -21,6 +21,12 @@
 		.table-responsive{
 			color:#000;
 		}
+		#print-payment{
+			display: none;
+		}
+		footer{
+			display: none;
+    	}
     }
     footer{
         margin: 0;
