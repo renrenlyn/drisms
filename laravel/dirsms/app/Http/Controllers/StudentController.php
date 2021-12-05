@@ -128,6 +128,7 @@ class StudentController extends Controller
             $courses = Course::all(); 
             $school_courses =SchoolCourse::all();
             $days =Day::all(); 
+ 
         return view('student/schedule_theoretical', compact('schools', 'branches', 'school_courses', 'courses', 'days'));
     }
 
@@ -136,12 +137,14 @@ class StudentController extends Controller
 
         $fleet_schedules = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
                                         ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id') 
+                                        ->where('fleet_schedules.student_id', '!=', Auth::user()->id)
                                         ->get(['u.fname as fname', 'u.lname as lname', 'f.*','fleet_schedules.*']);
- 
-        
- 
 
-        return view('student/schedule_practical', compact('fleet_schedules'));
+
+        $single_fleet = FleetSchedule::where('student_id', '=', Auth::user()->id)->first();
+
+
+        return view('student/schedule_practical', compact('fleet_schedules', 'single_fleet'));
     }
 
 

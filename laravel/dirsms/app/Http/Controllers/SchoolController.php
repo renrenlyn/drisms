@@ -12,6 +12,7 @@ use App\Communication_user_school_branch;
 use App\Day;
 
 use App\Course;
+use App\Branch;
 use App\SchoolCourse;
 
 use Auth;
@@ -228,9 +229,6 @@ class SchoolController extends Controller
         //         ->where('s.id', '=', $id) 
         //         ->get(['courses.*']);
         // dd($courses);
-
-
-
  
         $courses = Course::all(); 
         $school_courses = SchoolCourse::all();  
@@ -238,8 +236,11 @@ class SchoolController extends Controller
         $school = School::where('id', $id)->first(); 
 
         $instructors = User::where('role', '=', 'Instructor')->get();
- 
-        return view('admin/form/addSchoolCourse', compact('courses', 'school', 'school_courses', 'instructors'))->with('id', $id);
+         
+
+        $branches = Branch::where('school_id', '=', $id)->get();
+
+        return view('admin/form/addSchoolCourse', compact('branches','courses', 'school', 'school_courses', 'instructors'))->with('id', $id);
     }
 
 
@@ -267,8 +268,6 @@ class SchoolController extends Controller
             } 
         }
                 
-
-
                         
         return view('admin/review/reviewCourseSchool', compact('school_corses', 'id', 'permission_status', 'permission_delete')); 
     }
@@ -302,14 +301,17 @@ class SchoolController extends Controller
             //             ->back()
             //             ->with('exist', 'Course already exists.'); 
             // }else{ 
+
+                
                 $newCourse = new SchoolCourse(); 
-  
+                
                 $newCourse->time_start_end = $request->start_end;
                 $newCourse->start = $request->start;
                 $newCourse->end = $request->end;
                 $newCourse->duration = $request->duration;
                 $newCourse->period = $request->period; 
                 $newCourse->school_id = $request->school_id;
+                $newCourse->branch_id = $request->branch_id;
                 $newCourse->instructor_id = $request->instructor_id; 
                 $newCourse->course_id = $request->course_id; 
                 $newCourse->save();  

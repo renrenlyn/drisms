@@ -14,8 +14,7 @@ class CreateFleetSchedulesTable extends Migration
     public function up()
     {
         Schema::create('fleet_schedules', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
+            $table->bigIncrements('id'); 
             $table->integer('instructor_id')->nullable(); 
             $table->integer('student_id')->nullable(); 
             $table->integer('school_id')->nullable(); 

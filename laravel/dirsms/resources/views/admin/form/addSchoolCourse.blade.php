@@ -96,46 +96,60 @@
  
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6">
- 
-                    <label>Course</label>
-                    @if(!empty($courses))
+                @if(!empty($courses))
+                    <div class="col-md-3">
+    
+                        <label>Course</label>
                         <select class="form-control select2" name="course_id" id="select-course" required=""> 
                             <option value="">Select Course</option>  
                             @foreach($courses as $course)   
                                 <option value="{{$course->id}}">{{ $course->name }}</option>    
                             @endforeach 
-                        </select> 
-                    @else
-                        <span class="alert alert-success">
-                            <strong>Empty Course</strong>
-                        </span> 
-                    @endif  
-                </div>
+                        </select>  
+                    </div>  
+                @else
+                    <span class="alert alert-success">
+                        <strong>Empty Course</strong>
+                    </span> 
+                @endif  
 
-                <div class="col-md-6"> 
-                    <label>Instructor</label>
-                    @if(!empty($instructors))
+                @if(!empty($instructors))
+                    <div class="col-md-3"> 
+                        <label>Instructor</label>
                         <select class="form-control select2" name="instructor_id" id="select-instructor" required=""> 
                             <option value="">Select Instructors</option>  
                             @foreach($instructors as $instructor)   
                                 <option value="{{$instructor->id}}" @if($instructor->status == "Suspended" || $instructor->status == "Inactive") disabled @endif >{{ $instructor->fname }} {{ $instructor->lname }} ({{$instructor->status}})</option>    
                             @endforeach 
-                        </select> 
-                    @else
-                        <span class="alert alert-success">
-                            <strong>Empty Instructors</strong>
-                        </span> 
-                    @endif  
+                        </select>  
+                    </div>
+                @else
+                    <span class="alert alert-success">
+                        <strong>Empty Instructors</strong>
+                    </span> 
+                @endif  
+ 
+                @if(!empty($branches))
+                <div class="col-md-3"> 
+                    <label>Branch</label>
+                    <select class="form-control select2" name="branch_id" id="select-branch" required=""> 
+                        <option value="">Select Branch</option>  
+                        @foreach($branches as $branch)   
+                            <option value="{{$branch->id}}"> {{$branch->name}} {{  $branch->email }} {{  $branch->address }}</option>    
+                        @endforeach 
+                    </select>  
                 </div>
-            </div>
-
+                @else
+                    <span class="alert alert-success">
+                        <strong>Empty Branch</strong>
+                    </span> 
+                @endif   
+            </div> 
         </div>   
 
 
         <div class="hidden" id="school-course-table" >
-            <table class="table">
-                
+            <table class="table"> 
                 <tbody>
                     <tr>
                         <th scope="row" >Course: </th>
@@ -151,8 +165,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
+        </div> 
 
         <div class="form-group">
             <div class="row">
@@ -172,9 +185,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         } 
-    });
- 
- 
+    }); 
 
 
     $('#select-course').on('change', function(e){
@@ -201,6 +212,8 @@
         }); 
 
     })
+
+
         
        
 </script>

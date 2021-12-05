@@ -78,6 +78,12 @@ class RegisterController extends Controller
 
         
         $notification_user_id = User::where('role', 'Admin')->first();
+
+        if($notification_user_id){
+            $notification_user_id = $notification_user_id->id;
+        }else{
+            $notification_user_id = NULL;
+        }
  
         $image = $data['profile_image'];
         $image = str_replace('data:image/png;base64,', '', $image);
@@ -110,7 +116,7 @@ class RegisterController extends Controller
 
         $notification = new Notification();
         $notification->image_id = $imagemodel->id;
-        $notification->user_id = $notification_user_id->id;
+        $notification->user_id = $notification_user_id;
         $notification->status = 'active';
         $notification->type = 'newaccount';
         $notification->message = "New $role account created for <strong>$fname $lname</strong>.";

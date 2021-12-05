@@ -87,12 +87,12 @@
 					<tbody>
 						<tr>
 							<td>
-								<div style="color: white;"><strong>{{ $invoice->name }}</strong></div>
+								<div><strong>{{ $invoice->name }}</strong></div>
 							</td>
-							<td style="color: white;">{{ $invoice->fname }} {{ $invoice->lname }}</td>
-							<td style="color: white;">{{ $invoice->created_at }}</td>
-							<td style="color: white;">{{ $invoice->updated_at }}</td>
-							<td style="color: white;">{{ $invoice->price }}</td>
+							<td>{{ $invoice->fname }} {{ $invoice->lname }}</td>
+							<td>{{ $invoice->created_at }}</td>
+							<td>{{ $invoice->updated_at }}</td>
+							<td>{{ $invoice->price }}</td>
 						</tr>
 						
 					</tbody>

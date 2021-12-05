@@ -45,21 +45,20 @@
                                         <th>Car Type</th>
                                         <th>Car No.</th>
                                         <th>Plate</th>
-                                        <th>M. Year</th>
-                                        <th>Instructor</th>
+                                        <th>M. Year</th> 
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if(!empty($fleet))
+
                                         @foreach($fleet as $key => $car)
                                         <tr>
                                             <th scope="row">{{$key+1}}</th>
                                             <td><strong>{{$car->make}} {{$car->model}}</strong></td>
                                             <td>#{{$car->car_no}}</td>
                                             <td>{{$car->car_plate}}</td>
-                                            <td>{{$car->model_year}}</td>
-                                            <td><strong>{{$car->fname}} {{ $car->lname}}</strong></td>
+                                            <td>{{$car->model_year}}</td> 
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm btn-icon" href="{{route('fleet.show', $car->id)}}" >
                                                     <i class="mdi mdi-calendar-text"></i> 
