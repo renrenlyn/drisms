@@ -27,31 +27,7 @@
                             <label>Search Name, Email or Phone</label>
                             <input type="text" class="form-control" placeholder="Search Name, Email or Phone" name="search">
                             </div>
-                    </div>
-                    <!-- <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="email">Progress</label>
-                                <select class="form-control" name="status">
-                                    <option value="0">Select Progress*</option>
-                                    <option value="All">All</option>
-                                    <option value="Complete">Complete</option>
-                                    <option value="Ongoing">Ongoing</option>
-                                    <option value="New">New</option>
-                                </select>
-                            </div>
-                    </div> -->
-                    <!-- <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="email">Fees</label>
-                            <select class="form-control" name="istatus"> 
-                                <option value="0">Select Fee Category*</option>
-                                <option value="All">All</option>
-                                <option value="Paid">Paid</option>
-                                <option value="Partially">Partially</option>
-                                <option value="Updaid">Unpaid</option>
-                            </select>
-                        </div>
-                    </div> -->
+                    </div> 
                     <div class="col-md-2">
                             <div class="form-group">
                             <label for="email">Gender</label>

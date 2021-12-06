@@ -7,7 +7,7 @@
 <div class="main-content">
     <div class="page-header">
 
-    <a href=" " class="btn btn-primary btn-icon pull-right ml-5 " >
+    <a href="{{ route('fleet.form.show', $fleet_single->id)}}" class="btn btn-primary btn-icon pull-right ml-5 " >
         <i class=" mdi mdi-plus-circle-outline"> 
         </i> 
         Add Schedule

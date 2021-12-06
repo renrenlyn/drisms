@@ -8,9 +8,7 @@
         <div class="slimscroll-menu">
             <!-- close menu -->
             <a href="" class="close-aside"><i class="mdi mdi-close-circle-outline"></i></a>
-            <!-- Branding -->
-
-
+            <!-- Branding --> 
             <div class="side-branding">
                 <a href=""> 
                   @if(!empty($profile_pic))
@@ -41,12 +39,12 @@
                 </li> 
 
                 @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Staff')
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                       <a class="nav-link" href="{{ url('admin/schedule') }}">
                         <i class="menu-icon mdi mdi-calendar-text"></i>
                         <span class="menu-title">Scheduling</span>
                       </a>
-                  </li>
+                  </li> -->
                 @endif
                 
                 @if(Auth::user()->role == 'Student')

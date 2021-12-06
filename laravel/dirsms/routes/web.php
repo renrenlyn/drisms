@@ -23,21 +23,19 @@ Route::get('/school/addCourse/{id}', 'SchoolController@addCourse')->name('school
 Route::get('/school/reviewCourse/{id}', 'SchoolController@reviewCourse')->name('school.course.review');
 Route::get('get/enrollment/branch/{id}', 'EnrollmentController@getEnrollmentBranch')->name('get.enrollment.branch');
 Route::get('get/enrollment/{school_id}/course/{course_id}/', 'EnrollmentController@getEnrollmentCourse')->name('get.course'); 
-Route::post('enrollment/', 'EnrollmentController@store')->name('enrollment.store');  
-
-
-
+Route::post('enrollment/', 'EnrollmentController@store')->name('enrollment.store');   
 
 Route::get('/student/scheduling/theoretical', 'StudentController@schedulinTheoretical')->name('student.scheduling.theoretical');  
  
 Route::get('/student/scheduling/practical', 'StudentController@schedulingPractical')->name('student.scheduling.practical');  
 Route::get('/student/scheduling/', 'StudentController@schedule')->name('student.scheduling');  
-
-
-
-
+  
 Route::get('schedule/theoretical/', 'ScheduleController@theoretical')->name('schedule.theoretical');  
 Route::get('schedule/practical/', 'ScheduleController@practical')->name('schedule.practical');  
+
+Route::put('student/fleet/schedule/form/submit/{id}', 'FleetController@fleetStudentSchedule')->name('student.fleet.form.update');  
+
+
 
 Route::prefix('/admin')->group(function(){
     Route::get('/student/seach/', 'StudentController@search')->name('student-search');

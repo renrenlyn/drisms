@@ -74,7 +74,12 @@
                                                                                                     <td>{{ $sc->start }}</td> 
                                                                                                     <td>{{ $sc->duration }}</td> 
                                                                                                     <td>{{ $sc->period }}</td>  
+
+ 
                                                                                                 </tr>
+
+
+                                                                                                
                                                                                             @endforeach  
                                                                                          @endif
                                                                                     @endif

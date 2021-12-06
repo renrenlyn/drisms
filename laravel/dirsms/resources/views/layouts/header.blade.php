@@ -23,9 +23,7 @@
     <style>
        
        html, body{
-        background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), url("/images/regis.jpg");
             font-family: 'Poppins', sans-serif;
-            color:#fff;
         }
         
         

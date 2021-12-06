@@ -17,6 +17,7 @@ class CreateSchoolCourseTable extends Migration
             $table->bigIncrements('id'); 
             $table->integer('instructor_id')->nullable();
             $table->integer('course_id')->nullable();
+            $table->integer('branch_id')->nullable();
             $table->integer('school_id')->nullable(); 
              
             $table->string('time_start_end')->default('unknown');
