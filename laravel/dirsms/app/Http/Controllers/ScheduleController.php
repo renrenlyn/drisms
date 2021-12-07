@@ -13,12 +13,24 @@ use App\FleetSchedule;
 
 
 use App\StudentCourse;
+use App\SchoolCourse;
 
 use Auth;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
-{
+{ 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    } 
+ 
     /**
      * Display a listing of the resource.
      *
@@ -48,8 +60,14 @@ class ScheduleController extends Controller
     }
 
     public function practical(){    
-        return view('student/practical');
 
+            $fleet_schedule = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
+                        ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id')
+                        ->where('fleet_schedules.student_id', '=', Auth::user()->id )
+                        ->first(['u.*', 'f.*', 'fleet_schedules.*']);
+ 
+         
+        return view('student/practical', compact('fleet_schedule')); 
     }
     /**
      * Store a newly created resource in storage.
@@ -71,12 +89,34 @@ class ScheduleController extends Controller
     public function show($id)
     { 
         $user = User::where('id', '=', $id)->first(); 
+ 
         $fleets = Fleet::leftJoin('fleet_schedules as fs', 'fs.fleet_id', '=', "fleet.id") 
                             ->where('fs.instructor_id', '=', $id)
                             ->orderBy('fs.created_at', 'desc')
                             ->get(['fleet.*', 'fs.*']);
+
+                            
+        $school_course_instructors = SchoolCourse::join('users as u', 'u.id', '=', 'school_course.instructor_id')
+                            ->join('courses as c', 'c.id', '=', 'school_course.course_id')
+                            ->join('schools as s', 's.id', '=', 'school_course.school_id')
+                            ->leftJoin('branches as b', 'b.id', '=', 'school_course.branch_id')
+                            ->join('days as d', 'd.sc_id','=', 'school_course.id')
+                            ->where('school_course.instructor_id', '=', $id)
+                            ->orderBy('school_course.created_at', 'desc')
+                            ->get(
+                                ['u.fname as fname', 
+                                'u.lname as lname', 
+                                'c.name as c_name', 
+                                'c.price', 
+                                's.name as s_name',
+                                'b.name as b_name',
+                                'd.day as days',
+                                'school_course.*'
+                                ]
+                            );
  
-        return view('admin/review/reviewInstructorSchedule', compact('user', 'fleets')); 
+ 
+        return view('admin/review/reviewInstructorSchedule', compact('user', 'fleets', 'school_course_instructors')); 
     }
 
     /**

@@ -25,9 +25,9 @@ class CreateUsersTable extends Migration
             $table->string('address')->default('unknown');
             $table->string('password')->default('unknown'); 
             $table->string('token')->default('unknown');
-            $table->integer('school_id')->nullable();
-            $table->integer('branch_id')->nullable();
-            $table->integer('course_id')->nullable();
+            // $table->integer('school_id')->nullable();
+            // $table->integer('branch_id')->nullable();
+            // $table->integer('course_id')->nullable();
             $table->enum('role', ['Admin','Staff','Superadmin','Instructor','Student'])->default('Student');
             $table->string('positions')->default('unknown'); 
             $table->integer('enrollment_status')->nullable();

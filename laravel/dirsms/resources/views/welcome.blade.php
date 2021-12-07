@@ -114,8 +114,7 @@
             <div class="content">
                 <div class="title m-b-md">
                         <h1><b><i> DriSMS </i></b></h1>
-                        <p> Driving School System For those who wants an easy access askds</p>
-                        <a href="" class="hero-btn">Visit us to know more.</a>
+                        <p> Designing your driving future. </p>
                 </div> 
             </div>
         </div>

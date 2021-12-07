@@ -38,20 +38,19 @@ class FleetController extends Controller
         $users= User::orderBy('created_at', 'DESC')
                 ->where('role', 'Instructor')
                 ->get();
- 
-
-        $fleet = Fleet::join('users', 'fleet.instructor_id', '=', 'users.id')
-                ->orderBy('fleet.created_at', 'DESC')
-                ->get(['fleet.*', 'users.fname', 'users.lname']);
+  
+        $fleet = Fleet::orderBy('created_at', 'DESC')->get();
 
 
         $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
         $permission_status = "";
+
         if($permission) {
             if($permission->fleet == "read_only") {
                 $permission_status = "disabled";
             } 
         }
+
         return view('admin/fleet', compact('users', 'fleet', 'profile_pic', 'permission_status'));
     }
 
@@ -139,13 +138,27 @@ class FleetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function editInstructorSchedule($id){ 
-        $fleet = FleetSchedule::find($id); 
+
+
+        //$fleet = FleetSchedule::find($id); 
+         
+        $fleet = FleetSchedule::join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id')
+                                ->join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
+                                ->where('fleet_schedules.id', '=', $id)
+                                ->first(['f.*', 'u.fname as fname', 'u.lname as lname', 'fleet_schedules.*']);  
+  
+
         return view('admin/modified/instructorFleetSchedule', compact('fleet'))->with('id', $id);
+
+
     } 
 
     public function updateInstructorSchedule(Request $request, $id){ 
          
-        $fleetExists = FleetSchedule::find($id); 
+
+
+        $fleetExists = FleetSchedule::find($id);
+
         $data = ''; 
         foreach($request->day as $key => $val){ 
             if($key == array_key_last($request->day)){
@@ -153,16 +166,17 @@ class FleetController extends Controller
             }else{ 
                 $data .= '' . $val . ', ';
             }
-        }    
+        }     
 
         if($fleetExists){  
-            $newFleetSchedule->time_start_end = $request->start_end;
-            $newFleetSchedule->day = $data;
-            $newFleetSchedule->start = $request->start;
-            $newFleetSchedule->end = $request->end;
-            $newFleetSchedule->duration = $request->duration;
-            $newFleetSchedule->period = $request->period; 
-            $is_save = $newFleetSchedule->save();
+             
+            $fleetExists->time_start_end = $request->start_end; 
+            $fleetExists->day = $data;
+            $fleetExists->start = $request->start;
+            $fleetExists->end = $request->end;
+            $fleetExists->duration = $request->duration;
+            $fleetExists->period = $request->period; 
+            $is_save = $fleetExists->save();
 
             if($is_save){
                 return  redirect()
@@ -190,7 +204,6 @@ class FleetController extends Controller
                             ->where('fleet.id', '=', $id)
                             ->orderBy('fs.created_at', 'desc')
                             ->get(['fleet.*', 's.fname as fname', 's.lname as lname', 'fs.*']);
-
         $fleet_single = Fleet::where('id', '=', $id)->first();
 
         $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
@@ -205,6 +218,24 @@ class FleetController extends Controller
         return view('admin/review/reviewFleetSchedule', compact('fleets', 'fleet_single'));
     } 
 
+
+
+    public function fleetStudentSchedule(Request $request, $id){
+        $exists = FleetSchedule::find($id);
+        if($exists){
+            $exists->student_id = $request->_student_id;
+            $is_save = $exists->save(); 
+            if($is_save){
+                return  redirect()->back()->with('success', 'Thanks for the practical registration!');
+      
+            }else{
+                return  redirect()->back()->with('error', 'Something went wrong!!!');
+      
+            }
+         
+        }
+
+    }
 
     public function destroyFleetSchedule($id){
         
