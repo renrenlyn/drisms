@@ -75,7 +75,7 @@
                                         <td>{{ $val->end }}</td> 
                                         <td>{{ $val->day }}</td> 
                                         <td>{{ $val->duration }} {{ $val->period }}</td>  
-                                        <td>  <input type="submit" value="Register" class="btn btn-primary @if(!empty($single_fleet)) disabled @endif"> </td>  
+                                        <td>  <input type="submit" value="Register" class="btn btn-primary " @if(!empty($single_fleet)) disabled @endif> </td>  
                                     </tr> 
                             
                             </form>

@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <title>{{ config('app.name', 'Drisms') }}</title> 
-    <link rel="shortcut icon" href="/images/icon.ico">
+    <link rel="shortcut icon" href="{{ asset('/assets/images/icon.ico') }}">
 
     <link rel="stylesheet" href="{{ asset('css/css/simcify.min.css') }}" />
      <!-- Material design icons -->
@@ -76,9 +76,11 @@
 </head>
 <body>
     <div id="app">  
-        <main class=""> 
+        <main class="">
             @yield('content') 
         </main>
     </div> 
+
+   
 </body>
 </html>

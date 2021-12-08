@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Drisms') }}</title>
-    <link rel="shortcut icon" href="/images/icon.ico">
+    <link rel="shortcut icon" href="{{ asset('/assets/images/icon.ico') }}">
     
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -107,6 +107,7 @@
         </nav>
 
         <main class="py-4">
+
             @yield('content')
         </main>
     </div>

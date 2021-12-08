@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Drisms</title>
-        <link rel="shortcut icon" href="/images/icon.ico">
+        <link rel="shortcut icon" href="{{ asset('/assets/images/icon.ico') }}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">

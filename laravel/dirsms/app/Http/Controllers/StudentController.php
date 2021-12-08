@@ -138,12 +138,12 @@ class StudentController extends Controller
         $fleet_schedules = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
                                         ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id') 
                                         ->where('fleet_schedules.student_id', '!=', Auth::user()->id)
+                                        ->orWhere('fleet_schedules.student_id', '=', null)
                                         ->get(['u.fname as fname', 'u.lname as lname', 'f.*','fleet_schedules.*']);
 
 
         $single_fleet = FleetSchedule::where('student_id', '=', Auth::user()->id)->first();
-
-
+ 
         return view('student/schedule_practical', compact('fleet_schedules', 'single_fleet'));
     }
 

@@ -18,7 +18,9 @@
         {
             .page-header { display: none; }
             #student-enrollment-record { display: none; }
+            footer{ display: none;}
         } 
+       
     </style> 
     
 <!-- main content -->
@@ -271,4 +273,16 @@
     @endif
 
 </div> 
+
+
+@include('layouts/includes/footer')
+
+<script>
+    $('#student-enrollment-record').on('click touchstart', function(e){
+        e.preventDefault();
+
+        window.print();
+    });
+
+</script>
 @endsection
