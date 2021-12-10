@@ -1,0 +1,8 @@
+create new branch
+~ git checkout -b <new-branch>
+
+remote branch
+~git remote set-url https://github.com/renrenlyn/drisms.git
+
+git pull from origin master
+~git pull origin master
