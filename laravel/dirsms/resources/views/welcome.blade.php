@@ -118,9 +118,9 @@
             <div class="content">
                 <div class="title m-b-md">
 
-
+<!-- 
                 <input id="text" type="text" value="https://hogangnono.com" style="width:80%" /><br />
-                        <div id="qrcode"></div>
+                        <div id="qrcode"></div> -->
 
                 
                         <h1><b><i> DriSMS </i></b></h1>
@@ -132,31 +132,31 @@
         <script>  
 
 
-        var qrcode = new QRCode("qrcode");
+        // var qrcode = new QRCode("qrcode");
 
-            function makeCode () {    
-            var elText = document.getElementById("text");
+        //     function makeCode () {    
+        //     var elText = document.getElementById("text");
             
-            if (!elText.value) {
-                alert("Input a text");
-                elText.focus();
-                return;
-            }
+        //     if (!elText.value) {
+        //         alert("Input a text");
+        //         elText.focus();
+        //         return;
+        //     }
             
-            qrcode.makeCode(elText.value);
-            }
+        //     qrcode.makeCode(elText.value);
+        //     }
 
-            makeCode();
+        //     makeCode();
 
-            $("#text").
-            on("blur", function () {
-                makeCode();
-            }).
-            on("keydown", function (e) {
-                if (e.keyCode == 13) {
-                makeCode();
-                }
-            });
+        //     $("#text").
+        //     on("blur", function () {
+        //         makeCode();
+        //     }).
+        //     on("keydown", function (e) {
+        //         if (e.keyCode == 13) {
+        //         makeCode();
+        //         }
+        //     });
 
     </script>
     </body>
