@@ -8,6 +8,9 @@ use App\Image;
 use App\FleetSchedule;
 use Auth;
 use App\Permission;
+
+use App\Notification;
+
 use Illuminate\Http\Request;
 
 class FleetController extends Controller
@@ -113,6 +116,8 @@ class FleetController extends Controller
             if($exist){
                 return redirect()->back()->with('exists', 'Time and instructor is already exists please go to the fleet schedule and you can just update if you want to add something.');
             }else{ 
+
+
                 $newFleetSchedule = new FleetSchedule(); 
                 $newFleetSchedule->fleet_id = $request->fleet_id;
                 $newFleetSchedule->instructor_id = $request->instructor_id;
@@ -122,9 +127,23 @@ class FleetController extends Controller
                 $newFleetSchedule->end = $request->end;
                 $newFleetSchedule->duration = $request->duration;
                 $newFleetSchedule->period = $request->period;
-                $is_save = $newFleetSchedule->save();
-    
+                $is_save = $newFleetSchedule->save(); 
+
                 if($is_save){
+
+                    // $user = User::Where('id', '=', Auth::user()->id)->first();
+
+
+                    // $notification = new Notification();
+                    // // $notification->image_id = $imagemodel->id;
+                    // // $notification->user_id = $notification_user_id;
+                    // $notification->status = 'active';
+                    // $notification->type = 'newaccount';
+                    // $notification->message = "New Fleet Schedule added for <strong>" . $user->fname . ' '. $user->lname. "</strong>.";
+                    // $notification->save();
+
+
+
                     return redirect()->back()->with('success', 'Successfully added schedule.');
                 }else{
                     return redirect()->back()->with('success', 'Error added schedule.'); 
@@ -297,6 +316,18 @@ class FleetController extends Controller
         if( $existingFleet )
         {
             $existingFleet->delete();  
+
+             
+            $notification1 = new Notification();
+            // $notification->image_id = $imagemodel->id;
+            $notification1->user_id = Auth::user()->id;
+            $notification1->status = 'active';
+            $notification1->type = 'delete';
+            $notification1->message = "Fleet (" . $existingFleet->make. " ". $existingFleet->model .") has been deleted by: " . Auth::user()->fname . ' '. Auth::user()->lname. "</strong> ";
+            $notification1->save();
+
+
+
             return  redirect()->back()->with('success', 'Fleet deleted successfully!');
         } 
         return redirect()->back()->with('error', 'Sorry, we have trouble to delete this fleet.');

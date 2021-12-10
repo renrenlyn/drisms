@@ -8,15 +8,11 @@
             <div class="modal-content"> 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="mdi mdi-close-circle-outline"></i></span></button>
-                    <h4 class="modal-title" id="myModalLabel2">Update {{$student->fname }}</h4>
-
-  
-
+                    <h4 class="modal-title" id="myModalLabel2">Update {{$student->fname }}</h4> 
                 </div> 
-                <div class="modal-body">
-                    <form action="{{ route('invoice.store')}}" method="POST" >
-                       
 
+                <div class="modal-body">
+                    <form action="{{ route('invoice.store')}}" method="POST" > 
                     @csrf
                     
                     <input type="hidden" class="form-control" placeholder="Amount Paid" value="{{$student->id}}" name="student_id">
@@ -26,12 +22,16 @@
     
                             <label>Course</label>
                             <select class="form-control select2" name="course_id" required=""> 
-                                <option value="">Select Course</option> 
-                                @if(!empty($courses))
-                                  @foreach($courses as $course)
-                                  <option value="{{$course->id}}">{{ $course->name }}</option> 
-                                  @endforeach
-                                @endif
+                               
+                                  @forelse($studentCourses as $sc) 
+                                    @if($student->id  == $sc->student_id)
+                                      <option value="{{$sc->course_id}}">{{ $sc->name }}</option>  
+                                    @else
+                                      <option value="">No record was found</option> 
+                                    @endif
+                                  @empty
+                                    <option value="">No record was found</option> 
+                                  @endforelse 
                             </select>
                           </div>
                         </div>

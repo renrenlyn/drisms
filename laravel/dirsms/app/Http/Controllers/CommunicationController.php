@@ -16,6 +16,7 @@ use App\School;
 use Auth; 
 use Mail;
 
+use App\Notification;
 use Illuminate\Http\Request;
 
 class CommunicationController extends Controller
@@ -128,6 +129,15 @@ class CommunicationController extends Controller
                         $message->to($to_email, $to_name)->subject($subject);
                     }
                 );  
+                
+                $notification1 = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification1->user_id = $value->id;
+                $notification1->status = 'active';
+                $notification1->type = 'message';
+                $notification1->message = "$message <br/><small>Type: $request->type </small><br/><small>Sender: " . Auth::user()->fname . ' '. Auth::user()->lname. "</small> ";
+                $notification1->save();
+                
             }else if($request->type == 'sms'){
 
                 $existSmsGateWay = SmsGateWay::where('user_id', '=', Auth::user()->id)->first();
@@ -148,6 +158,19 @@ class CommunicationController extends Controller
                         'Authorization: ' . $apikey)
                     ); 
                     $result = curl_exec($ch);
+
+
+
+
+                    $notification1 = new Notification();
+                    // $notification->image_id = $imagemodel->id;
+                    $notification1->user_id = $value->id;
+                    $notification1->status = 'active';
+                    $notification1->type = 'message';
+                    $notification1->message = "$message <br/><small>Type: $request->type </small><br/><small>Sender: " . Auth::user()->fname . ' '. Auth::user()->lname. "</small> ";
+                    $notification1->save();
+                
+                    
 
                     if (curl_errno($ch)) {
                        echo 'Error:' . curl_error($ch);

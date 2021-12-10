@@ -17,6 +17,8 @@ use App\Communication_user_school_branch;
 use App\SmsGateWay;
 
 
+use App\Notification;
+
 use Illuminate\Http\Request;
  
 class BranchController extends Controller
@@ -257,6 +259,16 @@ class BranchController extends Controller
         if( $existingBranch )
         {
             $existingBranch->delete();  
+ 
+            $notification1 = new Notification();
+            // $notification->image_id = $imagemodel->id;
+            $notification1->user_id = Auth::user()->id;
+            $notification1->status = 'active';
+            $notification1->type = 'delete';
+            $notification1->message = "Branch ( $existingBranch->name ) has been deleted by: " . Auth::user()->fname . ' '. Auth::user()->lname. "</strong> ";
+            $notification1->save();
+         
+
             return  redirect()->back()->with('success', 'Branch deleted successfully!');
         } 
         return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from branch');

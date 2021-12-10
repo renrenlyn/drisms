@@ -38,15 +38,10 @@
                                         </div>
                                     @elseif ( $notification->type == "newaccount" )
                                             @if($notification->image_name) 
-                                                <img 
-                                                    src="{{ url('/images'). '/' .$notification->image_name }} " 
-                                                    class="img-responsive" 
-                                                    style="height: 50px; width: auto;"
-                                                >    
+                                                <img src="{{ url('/images').'/'.$notification->image_name }}" class="img-responsive" style="height: 50px; width: auto;" >    
                                             @else 
                                                 <div class="notification-icon bg-warning"> 
-                                                    <i class="mdi mdi-account-plus"></i>  
-                                                    
+                                                    <i class="mdi mdi-account-plus"></i>   
                                                 </div>
                                             @endif
                                     @elseif ( $notification->type == "payment" )
@@ -84,10 +79,7 @@
     </div>
 </div>  
 @include('../layouts/includes/footer') 
-<script> 
-
-
-
+<script>  
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -95,29 +87,22 @@
     });
 
     $('.delete_notification').on('click touchstart', function(e){
-        e.preventDefault();
-        
-       
+        e.preventDefault(); 
         var data = $(this).attr('rel');  
             var url = '{{ route("notification.update", ":id") }}';
-                url = url.replace(':id', data);
- 
-            $.ajax({
-                url: url,
-                method: 'PUT', 
-                data: {
-                    _token: '{{csrf_token()}}' 
-                },
-                success: function(status){ 
-                    if(status == true){
-                        $('.notification-identifier'+data).removeClass('notification-active');
-                    } 
-                }
-            }); 
-
-
-
-
+                url = url.replace(':id', data); 
+        $.ajax({
+            url: url,
+            method: 'PUT', 
+            data: {
+                _token: '{{csrf_token()}}' 
+            },
+            success: function(status){ 
+                if(status == true){
+                    $('.notification-identifier'+data).removeClass('notification-active');
+                } 
+            }
+        }); 
     });
 
     $('.trash-notification').on('click touchstart', function(e){
@@ -125,5 +110,6 @@
         var data = $(this).attr('rel');
         $('#'+data).submit();
     });
+
 </script> 
 @endsection

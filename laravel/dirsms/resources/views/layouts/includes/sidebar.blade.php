@@ -61,14 +61,10 @@
                 @endif
 
                 <li class="nav-item"> 
-                    <a 
-                        class="nav-link" 
-                        style="position: relative;" 
-                        href="{{ url('notification') }}"
-                    >
-                      <i class="menu-icon mdi mdi-bell-outline"></i> 
-                      <span class="menu-title">Notification</span>  
-                      <span class="badge badge-pill badge-danger" id="notification" style="position: absolute; left: 16px;"></span>
+                    <a class="nav-link" style="position: relative;" href="{{ url('notification')}}" >
+                        <i class="menu-icon mdi mdi-bell-outline"></i> 
+                        <span class="menu-title">Notification</span>  
+                        <span class="badge badge-pill badge-danger" id="notification" style="position: absolute; left: 16px;"></span>
                     </a>  
                 </li>
                

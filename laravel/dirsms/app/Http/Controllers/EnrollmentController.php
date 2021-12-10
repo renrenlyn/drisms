@@ -19,8 +19,8 @@ use Auth;
 use App\Day;
  
 use App\SchoolCourse;
-  
-
+   
+use App\Notification;
 
 use App\Image;
 
@@ -79,13 +79,11 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {  
-
  
         $request->validate([
             'student_id' => 'unique:student_course', 
-        ]);
- 
- 
+        ]); 
+
         $data = ''; 
         foreach($request->where_did_you_know_school_ as $key => $val){ 
             if($key == array_key_last($request->where_did_you_know_school_)){
@@ -94,8 +92,7 @@ class EnrollmentController extends Controller
                 $data .= '' . $val . ', ';
             }
         } 
-
-
+ 
         $newStudentEnrollment = new StudentCourse();
 
         $newStudentEnrollment->student_id = Auth::user()->id;
@@ -109,8 +106,7 @@ class EnrollmentController extends Controller
         $newStudentEnrollment->practical_driving_course_mv = $request->practical_driving_course_mv;
         $newStudentEnrollment->manual_transmission_mv = $request->manual_transmission_mv;
         $newStudentEnrollment->automatic_transmission_mv = $request->automatic_transmission_mv;
-
-
+ 
         $newStudentEnrollment->practical_driving_course_mc = $request->practical_driving_course_mc;
         $newStudentEnrollment->manual_transmission_mc = $request->manual_transmission_mc;
         $newStudentEnrollment->automatic_transmission_mc = $request->automatic_transmission_mc;
@@ -151,8 +147,31 @@ class EnrollmentController extends Controller
                 $id = Auth::user()->id;
                 $existUser = User::find($id);
                 $existUser->enrollment_status = 1;
-                $existUser->save();
+                $existUser->save(); 
+  
+
+                $notification = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification->user_id = Auth::user()->id;
+                $notification->status = 'active';
+                $notification->type = 'message';
+                $notification->message = "You are successfully enrolled you can go to your theoretical for more info.";
+                $notification->save();
+ 
+                $user_notify = User::Where('id', '=', Auth::user()->id)->first(); 
+
+                $notification1 = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification1->user_id = $request->instructor_id;
+                $notification1->status = 'active';
+                $notification1->type = 'message';
+                $notification1->message = "Student <strong>" . $user_notify->fname . ' '. $user_notify->lname. "</strong> enrolled to your course";;
+                $notification1->save();
                 
+
+
+
+
                 return  redirect()
                         ->back()
                         ->with('success', 'Congratualation!');

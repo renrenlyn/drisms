@@ -8,6 +8,9 @@ use App\User;
 use Auth; 
 use App\Permission;
 
+use App\Notification;
+
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Validator,Redirect,Response,File; 
@@ -207,6 +210,17 @@ class CourseController extends Controller
             $unlink = unlink(public_path() . "/images/$image_->name");
             $image_->delete();  
             $existingCourse->delete();  
+
+            
+            $notification1 = new Notification();
+            // $notification->image_id = $imagemodel->id;
+            $notification1->user_id = Auth::user()->id;
+            $notification1->status = 'active';
+            $notification1->type = 'delete';
+            $notification1->message = "Course ( $existingCourse->name ) has been deleted by: " . Auth::user()->fname . ' '. Auth::user()->lname. "</strong> ";
+            $notification1->save();
+
+
             return  redirect()->back()->with('success', 'Course deleted successfully!');
         } 
         return redirect()->back()->with('error', 'Sorry, we have trouble to delete data from Course');

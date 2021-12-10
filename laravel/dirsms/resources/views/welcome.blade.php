@@ -93,7 +93,11 @@
                 background: #f44336;
                 transition: 1s;
 }
-
+#qrcode {
+  width:160px;
+  height:160px;
+  margin-top:15px;
+}
         </style>
     </head>
     <body>
@@ -113,10 +117,47 @@
             @endif 
             <div class="content">
                 <div class="title m-b-md">
+
+
+                <input id="text" type="text" value="https://hogangnono.com" style="width:80%" /><br />
+                        <div id="qrcode"></div>
+
+                
                         <h1><b><i> DriSMS </i></b></h1>
                         <p> Designing your driving future. </p>
                 </div> 
             </div>
         </div>
+
+        <script>  
+
+
+        var qrcode = new QRCode("qrcode");
+
+            function makeCode () {    
+            var elText = document.getElementById("text");
+            
+            if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+            }
+            
+            qrcode.makeCode(elText.value);
+            }
+
+            makeCode();
+
+            $("#text").
+            on("blur", function () {
+                makeCode();
+            }).
+            on("keydown", function (e) {
+                if (e.keyCode == 13) {
+                makeCode();
+                }
+            });
+
+    </script>
     </body>
 </html>

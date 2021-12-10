@@ -28,7 +28,7 @@
             <!-- stat 1 -->
             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-warning">
+                    <div class="widget-icon widget-secondary ">
                         <i class="mdi mdi-account-multiple-outline"></i>
                     </div>
                     <div class="widget-title">
@@ -47,7 +47,7 @@
              <!-- stat 1 -->
              <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-info ">
+                    <div class="widget-icon widget-success ">
                         <i class="mdi mdi-account-settings-variant"></i>
                     </div>
                     <div class="widget-title">
@@ -66,7 +66,7 @@
             <!-- stat 1 -->
             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-success">
+                    <div class="widget-icon widget-danger ">
                     <i class="menu-icon mdi mdi-table-large"></i>
                     </div>
                     <div class="widget-title">
@@ -82,7 +82,7 @@
             <!-- stat 1 -->
             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-success">
+                    <div class="widget-icon widget-warning ">
                     <i class="menu-icon mdi mdi-source-branch"></i>
                     </div>
                     <div class="widget-title">
@@ -98,7 +98,7 @@
             <!-- stat 1 -->
             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-success">
+                    <div class="widget-icon widget-info ">
                     <i class="menu-icon mdi mdi-book-open"></i>
                     </div>
                     <div class="widget-title">
@@ -115,7 +115,7 @@
             <!-- stat 1 -->
             <div class="col-md-3">
                 <div class="card widget">
-                    <div class="widget-icon widget-success">
+                    <div class="widget-icon widget-danger ">
                     <i class="menu-icon mdi mdi-truck"></i>
                     </div>
                     <div class="widget-title">

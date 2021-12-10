@@ -1,9 +1,7 @@
 @extends('layouts.header') 
 @section('content')      
     @include("layouts/includes/sidebar")     
-
-    <style>
-
+    <style> 
         ul li{
             list-style: none;
         }
@@ -19,8 +17,6 @@
     <div class="page-header"> 
         <h3>School</h3>
     </div> 
-
-
     <!-- students growth -->
     <div class="row">  
         @forelse($schools as $school) 
@@ -67,24 +63,22 @@
 @include('../layouts/includes/footer')  
 
 <script>
-    $('.ec_forn_c').on('change', function(){
-     
-            $('.ec_forn_c').not(this).prop('checked',false);  
-            $data = $(this).attr('rel');
-            
-            $('.dc-cls').addClass('hidden'); 
-            $('#'+$data).removeClass('hidden'); 
-         
+    $('.ec_forn_c').on('change', function(){ 
+        $('.ec_forn_c').not(this).prop('checked',false);  
+        $data = $(this).attr('rel'); 
+
+        $('.dc-cls').addClass('hidden'); 
+        $('#'+$data).removeClass('hidden');  
     });
 
-    $('.others_mc').on('change', function(){
+    $('.others_mc').on('change', function(){ 
 
         if($(this).is(":checked")){ 
             $('.other-transmission').removeClass('hidden');
-        }else{
-
+        }else{ 
             $('.other-transmission').addClass('hidden');
         }
+
     })
 
     $('.others_').on('change', function(){
@@ -95,6 +89,7 @@
 
             $('.other_inform').addClass('hidden');
         }
+        
     })
 </script>
 @endsection

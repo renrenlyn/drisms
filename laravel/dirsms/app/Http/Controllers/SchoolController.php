@@ -21,6 +21,8 @@ use Mail;
 use App\Permission;
 use App\SmsGateWay;
 
+use App\Notification;
+
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -435,6 +437,13 @@ class SchoolController extends Controller
             $existingSchool->status = "Suspended";
             $is_save = $existingSchool->save();
 
+            $notification1 = new Notification();
+            // $notification->image_id = $imagemodel->id;
+            $notification1->user_id = Auth::user()->id;
+            $notification1->status = 'active';
+            $notification1->type = 'delete';
+            $notification1->message = "School ( $existingSchool->name ) has been suspended by: " . Auth::user()->fname . ' '. Auth::user()->lname. "</strong> ";
+            $notification1->save();
 
             return  redirect()->back()->with('success', 'School Suspended successfully!');
         } 

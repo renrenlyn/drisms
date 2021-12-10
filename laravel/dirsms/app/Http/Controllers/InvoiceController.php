@@ -11,6 +11,7 @@ use App\Course;
 use DB;
 use Auth;
 
+use App\Notification;
 use App\Permission;
 
 use Illuminate\Http\Request;
@@ -54,14 +55,16 @@ class InvoiceController extends Controller
     //             ->get();
 
                       
-    $invoices = DB::table('invoices')
-            ->select('*', 'invoices.user_id as user_id', 'invoices.course_id as course_id',  'courses.*', 'courses.name as course_name' , 'i.name as image_name' , DB::raw('SUM(invoices.amount) As total_amount'))
-            ->join('courses', 'courses.id', '=', 'invoices.course_id')  
-            ->join('users as u', 'u.id', '=', 'invoices.user_id') 
-            ->leftJoin('images as i', 'i.id', '=', 'u.id') 
-            ->groupBy('invoices.user_id')  
-            ->groupBy('invoices.course_id')   
-            ->get();   
+        $invoices = DB::table('invoices')
+                    ->select('*', 'invoices.user_id as user_id', 'invoices.course_id as course_id',  'courses.*', 'courses.name as course_name' , 'i.name as image_name' , DB::raw('SUM(invoices.amount) As total_amount'))
+                    ->join('courses', 'courses.id', '=', 'invoices.course_id')  
+                    ->join('users as u', 'u.id', '=', 'invoices.user_id') 
+                    ->leftJoin('images as i', 'i.id', '=', 'u.id') 
+                    ->groupBy('invoices.user_id')  
+                    ->groupBy('invoices.course_id')   
+                    ->get();   
+ 
+ 
 
 
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
@@ -76,6 +79,8 @@ class InvoiceController extends Controller
                 $permission_status = "disabled";
             } 
         }
+
+
 
         return view('admin/invoice', compact('profile_pic', 'invoices', 'permission_status'));
     }
@@ -92,15 +97,14 @@ class InvoiceController extends Controller
         $invoiceAmount = Invoice::where('user_id', $request->student_id)->sum('amount');
         $courseAmount = Course::leftJoin('invoices as i', 'i.course_id', '=', 'courses.id') 
                                 ->first(['courses.price']); 
-
-
-        
+ 
         $total =  intval($courseAmount->price) - intval($invoiceAmount);
  
  
         if($invoiceAmount > $courseAmount->price || $total > $courseAmount->price || $request->amount > $courseAmount->price){ 
             return redirect()->back()->with('error', 'Failed to add payment.');    
         }else{ 
+
             $newInvoice = new Invoice();
             $newInvoice->user_id = $request->student_id;
             $newInvoice->course_id = $request->course_id;
@@ -109,6 +113,16 @@ class InvoiceController extends Controller
             $is_save = $newInvoice->save();
 
             if($is_save){
+ 
+                $user = User::Where('id', '=', $request->student_id)->first(); 
+                $notification = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification->user_id = $request->student_id;
+                $notification->status = 'active';
+                $notification->type = 'payment';
+                $notification->message = "We've received your $notification->type ($request->amount) Pesos <strong>" . $user->fname . ' '. $user->lname. "</strong>.";
+                $notification->save();
+ 
                 return redirect()->back()->with('success', 'successfully add payment.');   
             }else{ 
                 return redirect()->back()->with('error', 'Failed to add payment.');    
@@ -123,9 +137,20 @@ class InvoiceController extends Controller
         $newInvoice->course_id = $request->course_id;
         $newInvoice->amount = $request->amount;
         $newInvoice->method = $request->method;
-        $is_save = $newInvoice->save();
+        $is_save = $newInvoice->save(); 
 
         if($is_save){
+ 
+            $user = User::Where('id', '=', $request->student_id)->first(); 
+            $notification = new Notification();
+            // $notification->image_id = $imagemodel->id;
+            $notification->user_id = $request->student_id;
+            $notification->status = 'active';
+            $notification->type = 'payment';
+            $notification->message = "We've update your $notification->type ($request->amount) Pesos <strong>  $user->fname $user->lname </strong>.";
+            $notification->save();  
+ 
+            
             return redirect()->back()->with('success', 'successfully add payment.');   
         }else{ 
             return redirect()->back()->with('error', 'Failed to add payment.');    

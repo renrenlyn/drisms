@@ -66,6 +66,10 @@ class StudentController extends Controller
  
         $courses = Course::orderBy('created_at', 'DESC')->get();
 
+        $studentCourses = StudentCourse::join('school_course as sc', 'sc.id','=', 'student_course.school_course_id')
+                                        ->join('courses as c', 'c.id', '=', 'sc.course_id') 
+                                        ->get(['c.*', 'sc.*', 'student_course.*']); 
+    
         $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
 
         $permission_status = "";
@@ -76,7 +80,7 @@ class StudentController extends Controller
         }
             
 
-        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount', 'permission_status'));
+        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount', 'permission_status', 'studentCourses'));
     }
 
     /**
@@ -123,6 +127,7 @@ class StudentController extends Controller
 
 
     public function schedulinTheoretical(){ 
+        
             $schools=School::all(); 
             $branches = Branch::all();
             $courses = Course::all(); 
