@@ -90,13 +90,15 @@ class ScheduleController extends Controller
                         ->where('student_course.school_course_id', '=', $id)
                         ->orderBy('student_course.id', 'desc')
                         ->get(['u.fname as fname', 'u.lname as lname', 'student_course.*']);
-                //  dd($view_student_enroll);
+
+                //   dd($view_student_enroll);
        return view('instructor/view/theoretical', compact('view_student_enroll'));
     }
 
     public function instructorTheoreticalUpdateStudent(Request $request, $id){ 
         $exists = StudentCourse::find($id);  
         if($exists){ 
+            $exists->status = 'completed';
             $exists->evaluation = $request->evaluation;
             $is_save = $exists->save();
             if($is_save){
@@ -108,14 +110,7 @@ class ScheduleController extends Controller
                         ->back()
                         ->with('error', 'Failed to evaluate the student!');
             } 
-        }
-        // $view_student_enroll = StudentCourse::join('school_course as sc', 'sc.id', 'student_course.school_course_id')
-        //                 ->join('users as u', 'u.id', '=', 'student_course.student_id')
-        //                 ->where('student_course.school_course_id', '=', $id)
-        //                 ->orderBy('student_course.created_at', 'desc')
-        //                 ->get(['u.fname as fname', 'u.lname as lname', 'student_course.*']);
-
-    //    return view('instructor/view/theoretical', compact('view_student_enroll'));
+        } 
     }
 
 
@@ -128,8 +123,33 @@ class ScheduleController extends Controller
                         ->where('fleet_schedules.student_id', '=', Auth::user()->id )
                         ->first(['u.*', 'f.*', 'fleet_schedules.*']);
  
+            $instructor_fleet_schedule = FleetSchedule::join('users as u', 'u.id', '=', 'fleet_schedules.student_id')
+                        ->join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
+                        ->where('fleet_schedules.instructor_id', '=', Auth::user()->id )
+                        ->get(['u.fname as fname','u.lname as lname', 'fleet_schedules.*']);
+                         
+        return view('practical', compact('fleet_schedule', 'instructor_fleet_schedule')); 
+    }
+ 
+    
+    public function instructorPracticalUpdateStudent(Request $request, $id){
+        
+        $exists = FleetSchedule::find($id); 
          
-        return view('student/practical', compact('fleet_schedule')); 
+        if($exists){ 
+            $exists->status = 'completed';
+            $exists->evaluation = $request->evaluation;
+            $is_save = $exists->save();
+            if($is_save){
+                return  redirect()
+                        ->back()
+                        ->with('success', 'Successfully evaluate the student!');
+            }else{ 
+                return  redirect()
+                        ->back()
+                        ->with('error', 'Failed to evaluate the student!');
+            } 
+        }
     }
     /**
      * Store a newly created resource in storage.

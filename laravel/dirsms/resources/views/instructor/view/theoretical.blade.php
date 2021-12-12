@@ -38,6 +38,8 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ ucfirst($val->fname) }} {{ ucfirst($val->lname) }} </td>
+
+                            
                             @if($val->evaluation == 'pass' || $val->evaluation == 'failed')
                             <td colspan="2"  class="text-center alert @if($val->evaluation == 'pass') alert-success @else alert-danger @endif" > <b> {{ ucfirst($val->evaluation) }} </b> </td>
                              @else
@@ -49,25 +51,22 @@
                                         <input type="submit" class="btn btn-success @if($val->status == 'completed') disabled @endif" value="Pass" />
                                 </form>
                                 </td>
-                                <td> 
-
+                                <td>  
                                     <form action="{{ route('theoretical.instructor.update.student',  $val->id) }}" method="POST" >
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="evaluation" value="failed">
-                                        <input type="submit" class="btn btn-danger @if($val->status == 'completed') disabled @endif" value="Pass" />
+                                        <input type="submit" class="btn btn-danger @if($val->status == 'completed') disabled @endif" value="Failed" />
                                     </form>
                                     
                                   </td> 
                             @endif 
                         </tr> 
-                    @endforeach
-
-
+                    @endforeach 
                 </tbody>
             </table> 
 
-            <button class="btn btn-primary" id="print-schedule" >Print</button>
+            <button class="btn btn-primary mb-2" id="print-schedule" >Print</button>
             @else 
                 @include("admin/empty/empty") 
             @endif  

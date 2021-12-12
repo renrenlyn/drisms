@@ -1,33 +1,8 @@
 @extends('layouts.header') 
 @section('content')      
-    @include("layouts/includes/sidebar")  
-
-
-<style>
-    footer{
-        margin: 0 !important;
-        margin-top: 20px !important;
-    }
-    @media print{
-        #print-fleet{
-            display: none;
-        }
-        footer{
-            display: none;
-        }
-        
-    }
-
-</style>
-    <!-- main content -->
-<div class="main-content">   
-    <div class="page-header"> 
-        <h3></h3>
-    </div> 
- 
-
-    <div class="row">  
-        <div class="col-md-12">
+    @include("layouts/includes/sidebar")   
+<div class="row">  
+    <div class="col-md-12">
         @if(!empty($fleet_schedule))
         <table class="table table-bordered ">
            
@@ -65,18 +40,6 @@
                 @else
                     @include("admin/empty/empty") 
                 @endif
-        </div>
-    </div> 
-</div>
-
-@include('layouts/includes/footer')
-
-<script>
-    $('#print-fleet').on('click touchstart', function(e){
-        e.preventDefault();
-
-        window.print();
-    });
-
-</script>
-@endsection
+    </div>
+</div>  
+ 

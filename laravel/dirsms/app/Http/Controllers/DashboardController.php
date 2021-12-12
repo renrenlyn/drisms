@@ -89,8 +89,9 @@ class DashboardController extends Controller
             
         $student_certification = User::join('student_course as sc', 'sc.student_id', '=', 'users.id')
                                         ->leftJoin('fleet_schedules as fs', 'fs.student_id', '=', 'users.id')
-                                        ->orderBy('fs.created_at', 'desc')
-                                        ->where('sc.status', '=', 'completed')->get(['sc.status as sc_status', 'fs.status as fs_status','users.*']);
+                                        ->orderBy('fs.created_at', 'desc') 
+                                        ->where('sc.status', '=', 'completed')
+                                        ->get(['sc.status as sc_status', 'fs.status as fs_status','users.*']);
             
         return view('dashboard', compact('instructor_evaluation', 'student_certification', 'cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
     }
