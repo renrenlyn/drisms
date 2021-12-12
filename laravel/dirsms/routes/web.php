@@ -10,9 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('qrcode', 'QRController@generateQrCode');
+
+
+// Route::get('qrcode', function () {
+//     return QrCode::size(250)
+//         ->backgroundColor(255, 255, 204)
+//         ->generate('MyNotePaper');
+// });
+
+
 Route::get('pages/profiles/{id}', 'ProfileController@show')->name('profiles.show');
 Route::prefix('/course')->group(function(){
     Route::post('/store', 'CourseController@store')->name('course');
@@ -39,6 +48,7 @@ Route::put('student/fleet/schedule/form/submit/{id}', 'FleetController@fleetStud
 
 Route::prefix('/admin')->group(function(){
     Route::get('/student/seach/', 'StudentController@search')->name('student-search');
+    Route::get('/student/certification/{id}', 'DashboardController@certificate')->name('student.cert');
     Route::get('/instructor/seach/', 'InstructorController@search')->name('instructor-search');
     Route::get('/staff/seach/', 'StaffController@search')->name('staff-search');
     Route::post('/notify', 'NotificationController@notify');

@@ -13,7 +13,7 @@
         }
     </style>
 <div class="main-content">
-    <div class="page-header">
+    <div class="page-header">   
         <h3>{{ $user->fname }} {{ $user->lname }}</h3>
     </div> 
     <!-- page content -->

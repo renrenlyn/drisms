@@ -37,6 +37,7 @@ class StaffController extends Controller
             ->orderBy('users.created_at', 'DESC')
             ->get(['images.name as image_name', 'p.*','users.*']); 
         $branches = Branch::all(); 
+
         return view('admin/staff', compact('users', 'profile_pic', 'branches'));
      
     }
@@ -68,8 +69,23 @@ class StaffController extends Controller
         ]) 
       ->orderBy('created_at', 'DESC')
       ->get(['users.*', 'images.name as image_name']);
-         
-      return view('admin/staff', compact('users'));
+
+      
+
+
+        //addeded from index
+
+
+      $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
+      ->where('users.id', Auth::user()->id)
+      ->get(['users.*', 'images.name as image_name']);  
+
+
+      $branches = Branch::all(); 
+
+
+
+        return view('admin/staff', compact('users', 'profile_pic', 'branches'));
  
 }
 

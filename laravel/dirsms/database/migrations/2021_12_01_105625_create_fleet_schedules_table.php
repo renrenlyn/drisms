@@ -29,6 +29,8 @@ class CreateFleetSchedulesTable extends Migration
             $table->integer('duration')->nullable();   
             $table->string('period')->default('unknown'); 
             
+            $table->enum('status', ['completed', 'inprogress'])->default('inprogress');
+            
             $table->timestamps();
         });
     }

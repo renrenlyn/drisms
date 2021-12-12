@@ -119,9 +119,36 @@ class StudentController extends Controller
         ->get(['users.*', 'images.name as image_name']);
         
         $courses = Course::orderBy('created_at', 'DESC')->get();
- 
-        return view('admin/students', compact('courses', 'students'));
- 
+        
+
+        //addeded from index
+
+        $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
+        ->where('users.id', Auth::user()->id)
+        ->get(['users.*', 'images.name as image_name']);
+
+
+        $invoiceAmount = DB::table('invoices')
+        ->select('*', 'courses.*', DB::raw('SUM(invoices.amount) As total_amount'))
+        ->leftJoin('courses', 'courses.id', '=', 'invoices.course_id')
+        ->where('invoices.user_id', 14)
+        ->get();
+
+        
+        $studentCourses = StudentCourse::join('school_course as sc', 'sc.id','=', 'student_course.school_course_id')
+                                        ->join('courses as c', 'c.id', '=', 'sc.course_id') 
+                                        ->get(['c.*', 'sc.*', 'student_course.*']); 
+
+        $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+
+        $permission_status = "";
+        if($permission) {
+            if($permission->students == "read_only") {
+                $permission_status = "disabled";
+            } 
+        } 
+
+        return view('admin/students', compact('courses', 'students', 'profile_pic', 'invoiceAmount', 'permission_status', 'studentCourses')); 
     }  
 
 
@@ -142,7 +169,7 @@ class StudentController extends Controller
 
         $fleet_schedules = FleetSchedule::join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
                                         ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id') 
-                                        ->where('fleet_schedules.student_id', '!=', Auth::user()->id)
+                                        ->where('fleet_schedules.student_id', '=', 0)
                                         ->orWhere('fleet_schedules.student_id', '=', null)
                                         ->get(['u.fname as fname', 'u.lname as lname', 'f.*','fleet_schedules.*']);
 

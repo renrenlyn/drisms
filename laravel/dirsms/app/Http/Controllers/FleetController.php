@@ -240,11 +240,35 @@ class FleetController extends Controller
 
 
     public function fleetStudentSchedule(Request $request, $id){
+
+
+
         $exists = FleetSchedule::find($id);
         if($exists){
             $exists->student_id = $request->_student_id;
             $is_save = $exists->save(); 
             if($is_save){
+ 
+                $notification = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification->user_id = Auth::user()->id;
+                $notification->status = 'active';
+                $notification->type = 'message';
+                $notification->message = "You are successfully enrolled for Practical, you can go to your Dashboard Practical for more info.";
+                $notification->save();
+
+
+
+                $notification = new Notification();
+                // $notification->image_id = $imagemodel->id;
+                $notification->user_id = $exists->instructor_id;
+                $notification->status = 'active';
+                $notification->type = 'message';
+                $notification->message = "You have new student for practical schedule";
+                $notification->save();
+
+
+
                 return  redirect()->back()->with('success', 'Thanks for the practical registration!');
       
             }else{

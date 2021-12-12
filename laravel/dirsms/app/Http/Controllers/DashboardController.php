@@ -15,12 +15,10 @@ use App\StudentCourse;
 use App\Classes;
 use App\Day;
 use App\SchoolCourse;
-
-
+ 
 
 use Illuminate\Http\Request;
 use Auth; 
-
 use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
@@ -51,6 +49,9 @@ class DashboardController extends Controller
      */
     public function index()
     {  
+
+       
+
         $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
         ->where('users.id', Auth::user()->id)
         ->get(['users.*', 'images.name as image_name']);
@@ -79,7 +80,19 @@ class DashboardController extends Controller
         $days = Day::all();
         $fleets = Fleet::all();  
 
-        return view('dashboard', compact( 'cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
+
+        $instructor_evaluation = User::where([
+                ['role', '=', 'Instructor'],
+                ['status', '=', 'Active']
+            ])->get();
+
+            
+        $student_certification = User::join('student_course as sc', 'sc.student_id', '=', 'users.id')
+                                        ->leftJoin('fleet_schedules as fs', 'fs.student_id', '=', 'users.id')
+                                        ->orderBy('fs.created_at', 'desc')
+                                        ->where('sc.status', '=', 'completed')->get(['sc.status as sc_status', 'fs.status as fs_status','users.*']);
+            
+        return view('dashboard', compact('instructor_evaluation', 'student_certification', 'cstudent', 'cschool','fleets', 'cstaff','cinstructor', 'cnew_student', 'notifications', 'profile_pic', 'branches', 'days', 'student_courses', 'classes', 'schools', 'courses', 'school_courses'));
     }
 
     /**
@@ -93,6 +106,24 @@ class DashboardController extends Controller
         //
     }
 
+
+    public function certificate($id){
+
+
+
+        $student_cert = User::join('student_course as sc', 'sc.student_id', '=', 'users.id')
+                                        ->leftJoin('fleet_schedules as fs', 'fs.student_id', '=', 'users.id') 
+                                        ->leftJoin('images as i', 'i.user_id', '=', 'users.id')  
+                                        ->where([
+                                            ['users.id', '=', $id],
+                                            ['sc.status', '=', 'completed'],
+                                            ['fs.status', '=', 'completed'] 
+                                        ])
+                                        ->first(['i.name as image_name','sc.status as sc_status', 'fs.status as fs_status','users.*']);
+
+                                            // dd($student_cert->image_name);
+        return view('certificate', compact('student_cert'));
+    }
     /**
      * Display the specified resource.
      *

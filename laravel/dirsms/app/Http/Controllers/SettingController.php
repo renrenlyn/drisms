@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode; 
+
 class SettingController extends Controller
 {
     public function __construct()
@@ -38,8 +40,17 @@ class SettingController extends Controller
 
         $existSmsGateWay = SmsGateWay::where('user_id', '=', Auth::user()->id)->first();
       
+
+        $qrcodes =  QrCode::size(50)
+        ->backgroundColor(255, 255, 204)
+        ->generate('facebook.com');
+
+
+        $link = "https://codeanddeploy.com/category/laravel";
+
+
  
-        return view('settings/settings', compact('profile_pic', 'existSmsGateWay'));
+        return view('settings/settings', compact('profile_pic', 'existSmsGateWay', 'qrcodes', 'link'));
     }
 
     /**

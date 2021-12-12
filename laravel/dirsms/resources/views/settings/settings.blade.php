@@ -39,8 +39,8 @@
                         <ul class="nav nav-tabs">
                             <li><a data-toggle="tab" href="#step-1" class="active mr-3">Update Profile Info</a></li>
                             <li><a data-toggle="tab" href="#step-2" class="mr-3">Update Account</a></li> 
-                            <li><a data-toggle="tab" href="#step-3" class="mr-3">Configure Your SMS Gateway</a></li> 
-                         
+                            <li><a data-toggle="tab" href="#step-3" class="mr-3">Configure Your SMS Gateway</a></li>  
+                            <li><a data-toggle="tab" href="#step-4" class="mr-3">Generate QRcode</a></li>  
                         </ul> 
 
 
@@ -162,7 +162,7 @@
 
                                 <div id="step-2" class="tab-pane fade">
                                     
-                                <p class="mt-3">Update your personal profile here.</p>
+                                    <p class="mt-3">Update your personal profile here.</p>
                                     <form method="POST" action="{{ route('settings.update', Auth::user()->id) }}" >
                                         @csrf
                                         @method('PUT')
@@ -294,6 +294,62 @@
                                         </div>
                                     @endif 
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <!-- Step-4  -->
+
+                                <div id="step-4" class="tab-pane fade">
+                                    
+                                    <p class="mt-3">Get Your QRcode here fb</p>
+
+                                    <!-- {!! $qrcodes !!} -->
+
+                                    {!! QrCode::size(250)->generate('facebook.com'); !!}
+
+
+                                    <form method="POST" action="" >
+                                        @csrf
+                                        @method('PUT') 
+
+                                        <div class="form-group row mb-0">
+                                            <div class="col-md-6 offset-md-4">
+                                                <button type="submit" class="btn btn-primary" name="step-4">
+                                                    {{ __('Update for QRCode') }}
+                                                </button> 
+                                            </div> 
+                                        </div>
+                                
+                                    </form> 
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                             </div>
                         </div>

@@ -55,8 +55,20 @@ class ScheduleController extends Controller
                             ->join('days as d', 'd.sc_id', '=', 'sc.id')
                             ->where('student_course.student_id', '=', Auth::user()->id)
                             ->get(['d.day as day','c.name as c_name', 'c.price as c_price', 'sc.*','s.name as s_name', 's.address as s_address','b.name as b_name', 'b.address as b_address', 'student_course.*', 'u.*']);  
-           
-        return view('student/theoretical', compact('studentcourses'));
+    
+        $instructorCourse = StudentCourse::leftJoin('school_course as sc', 'sc.id', '=', 'student_course.school_course_id')
+                        ->join('schools as s', 's.id', '=', 'student_course.school_id')
+                        ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
+                        ->join('users as u', 'u.id', '=', 'student_course.student_id') 
+                        ->join('courses as c', 'c.id', '=', 'sc.course_id')
+                        ->join('days as d', 'd.sc_id', '=', 'sc.id')
+                        ->where([ 
+                            ['sc.instructor_id', '=', Auth::user()->id] 
+                        ])
+                       ->get(['d.day as day','c.name as c_name', 'c.price as c_price', 'sc.*','s.name as s_name', 's.address as s_address','b.name as b_name', 'b.address as b_address', 'student_course.*', 'u.*']);  
+ 
+                    dd($instructorCourse);
+        return view('theoretical', compact('studentcourses', 'instructorCourse'));
     }
 
     public function practical(){    

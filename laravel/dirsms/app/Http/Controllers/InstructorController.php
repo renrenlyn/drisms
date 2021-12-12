@@ -85,9 +85,24 @@ class InstructorController extends Controller
                 ['users.gender', 'LIKE', '%'.$request->gender.'%'] 
             ]) 
           ->orderBy('created_at', 'DESC')
-          ->get(['users.*', 'images.name as image_name']);
-             
-          return view('admin/instructor', compact('users'));
+          ->get(['users.*', 'images.name as image_name']); 
+          
+            //addeded from index
+
+            $profile_pic = User::join('images', 'users.id', '=', 'images.user_id')
+            ->where('users.id', Auth::user()->id)
+            ->get(['users.*', 'images.name as image_name']);
+    
+            $permission = Permission::where('staff_id', '=', Auth::user()->id)->first(); 
+    
+            $permission_status = "";
+            if($permission) {
+                if($permission->instructor == "read_only") {
+                    $permission_status = "disabled";
+                } 
+            }
+
+            return view('admin/instructor', compact('users', 'profile_pic', 'permission_status'));
      
     }
 

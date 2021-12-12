@@ -92,12 +92,12 @@
                 border: 1px solid #f44336;
                 background: #f44336;
                 transition: 1s;
-}
-#qrcode {
-  width:160px;
-  height:160px;
-  margin-top:15px;
-}
+            }
+            #qrcode {
+            width:160px;
+            height:160px;
+            margin-top:15px;
+            }
         </style>
     </head>
     <body>
@@ -118,11 +118,8 @@
             <div class="content">
                 <div class="title m-b-md">
 
-<!-- 
-                <input id="text" type="text" value="https://hogangnono.com" style="width:80%" /><br />
-                        <div id="qrcode"></div> -->
-
-                
+  
+                         
                         <h1><b><i> DriSMS </i></b></h1>
                         <p> Designing your driving future. </p>
                 </div> 

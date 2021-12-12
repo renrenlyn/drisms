@@ -54,6 +54,9 @@ class CreateStudentCourseTable extends Migration
             $table->string('orno')->nullable();
             $table->string('amount_paid')->nullable();
             
+            $table->enum('status', ['completed', 'inprogress'])->default('inprogress');
+
+
             $table->timestamps();
         });
     }

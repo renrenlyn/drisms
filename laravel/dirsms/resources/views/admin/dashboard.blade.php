@@ -171,7 +171,88 @@
                 </div>
         </div>
 
-        
+
+
+
+        <div class="row">
+            <!-- Certificate -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Certificate For Student</h5>
+                    </div>
+                    <div class="card-body p-0 comparison-widget"> 
+
+                        @if(!$student_certification->isEmpty())
+
+                            <table class="border borderless table">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Theoretical</th>
+                                    <th>Practical</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody> 
+                                    @foreach($student_certification as $scr)
+                                        <tr>
+                                            <td> {{ $scr->fname }} {{ $scr->lname }}</td>
+                                            <td> {{ $scr->sc_status }}  </td>
+                                            <td> @if($scr->fs_status == null) not registered @elseif($scr->fs_status == 'inprogress') {{ $scr->fs_status }} @else {{ $scr->fs_status }} @endif</td> 
+                                            <td><a href="{{ route('student.cert', $scr->id) }}"  class="btn btn-success  @if($scr->fs_status == null)  disabled @elseif($scr->fs_status == 'inprogress') disabled @else  @endif"  >Cert</a></td> 
+                                        </tr>
+                                    @endforeach 
+                                </tbody> 
+                            </table>  
+                        @else 
+                            <div class="col-md-12">
+                                <div class="empty">
+                                    <i class="mdi mdi-alert-circle-outline"></i>
+                                    <h3>No student record was found!</h3>
+                                </div>
+                            </div>
+                        @endif
+
+
+                    </div> 
+                </div>
+            </div> 
+
+
+
+             <!-- Certificate -->
+             <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Evaluation for Instructor</h5>
+                    </div>
+                    <div class="card-body p-0 comparison-widget"> 
+                        <table class="border borderless table">
+                            <thead>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody> 
+                                @foreach($instructor_evaluation as $ie)
+                                    <tr>
+                                        <td>{{ $ie->fname }} {{ $ie->lname }}</td>
+                                        <td> {{ $ie->role }} </td>
+                                        <td><a href="#" class="btn btn-primary">Evaluate</a></td> 
+                                    </tr>
+                                @endforeach 
+                            </tbody> 
+                        </table> 
+                    </div> 
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
 
         <!-- page content -->
         <div class="row">
@@ -198,31 +279,15 @@
                                             <td> {{ $course->price }}</td>
                                             <td> {{ $course->status }}</td> 
                                         </tr>
-                                    @endforeach
-
-                                </tbody>
-
-                            </table>
-
-                            <!-- <p>Different course sales comparison.</p> -->
-                              <!-- Canvas for Chart.js
-                              <canvas id="canvas" class="mt-40" height="200"></canvas>
-                               -->
-                              <!-- Custom tooltip canvas 
-                              <canvas id="tooltip-canvas" width="150" height="100"></canvas>
-                              -->
-                              <!-- Reload butto
-                              <div class="chart-icon"><i class="mdi mdi-chart-bubble"></i></div>
-
-n -->
-
-                              <!-- <p class="schedule-map text-center mb-40">Comparison of all course available in <strong>( &#8369; )</strong></p> -->
-
-
-                        </div>
-
+                                    @endforeach 
+                                </tbody> 
+                            </table> 
+                        </div> 
                 </div>
             </div>
+
+
+
 
             <!-- Activity -->
             <div class="col-md-6">
@@ -269,8 +334,8 @@ n -->
                                     @endforelse
 
 
-                                    
-                                    <p class="text-center view-all-last"><a href=""><strong>View All</strong></a></p>
+<!--                                     
+                                    <p class="text-center view-all-last"><a href=""><strong>View All</strong></a></p> -->
                                    
                                 </div>
                         </div>

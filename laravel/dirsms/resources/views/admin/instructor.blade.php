@@ -16,7 +16,7 @@
             <!-- search & Filter -->
             <div class="col-md-12 search-filter" style="display: none;">
                <div class="card">
-                <form class="form" action="{{route('instructor-search')}}" method="POST">
+                <form class="form" action="{{route('instructor-search')}}" method="GET">
                     <div class="row">
                         <div class="col-md-8">
                               <div class="form-group">
