@@ -4,12 +4,24 @@
 
 
     <style>
+
+        @media print{
+            footer,
+            #print-schedule
+            {
+                display: none !important;
+            }
+        }
         footer{
             margin: 0 !important;
         }
     </style>
 <!-- main content -->
 <div class="main-content"> 
+
+    <div class="page-header"> 
+        <h3>Theoretical Classes</h3>
+    </div> 
 
 
     <div class="row"> 
@@ -29,17 +41,33 @@
                             @if($val->evaluation == 'pass' || $val->evaluation == 'failed')
                             <td colspan="2"  class="text-center alert @if($val->evaluation == 'pass') alert-success @else alert-danger @endif" > <b> {{ ucfirst($val->evaluation) }} </b> </td>
                              @else
-                                <td> <a href ="{{ route('theoretical.instructor.view.student', $val->id)}}" class="btn btn-success @if($val->status == 'completed') disabled @endif" >Pass</a> </td>
-                                <td> <a href ="{{ route('theoretical.instructor.view.student', $val->id)}}" class="btn btn-danger @if($val->status == 'completed') disabled @endif">Failed</a> </td>
-                                
-                            @endif
+                                <td> 
+                                <form action="{{ route('theoretical.instructor.update.student',  $val->id) }}" method="POST" >
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="evaluation" value="pass">
+                                        <input type="submit" class="btn btn-success @if($val->status == 'completed') disabled @endif" value="Pass" />
+                                </form>
+                                </td>
+                                <td> 
 
+                                    <form action="{{ route('theoretical.instructor.update.student',  $val->id) }}" method="POST" >
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="evaluation" value="failed">
+                                        <input type="submit" class="btn btn-danger @if($val->status == 'completed') disabled @endif" value="Pass" />
+                                    </form>
+                                    
+                                  </td> 
+                            @endif 
                         </tr> 
                     @endforeach
 
 
                 </tbody>
             </table> 
+
+            <button class="btn btn-primary" id="print-schedule" >Print</button>
             @else 
                 @include("admin/empty/empty") 
             @endif  
@@ -49,4 +77,10 @@
 </div> 
 
 @include('../layouts/includes/footer')  
+
+<script>
+    $('#print-schedule').on('click touchstart', function(){
+        window.print();
+    });
+</script>
 @endsection

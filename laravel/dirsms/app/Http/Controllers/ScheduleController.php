@@ -88,7 +88,7 @@ class ScheduleController extends Controller
         $view_student_enroll = StudentCourse::join('school_course as sc', 'sc.id', 'student_course.school_course_id')
                         ->join('users as u', 'u.id', '=', 'student_course.student_id')
                         ->where('student_course.school_course_id', '=', $id)
-                        ->orderBy('student_course.created_at', 'desc')
+                        ->orderBy('student_course.id', 'desc')
                         ->get(['u.fname as fname', 'u.lname as lname', 'student_course.*']);
                 //  dd($view_student_enroll);
        return view('instructor/view/theoretical', compact('view_student_enroll'));
