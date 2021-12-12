@@ -279,7 +279,7 @@ class SchoolController extends Controller
          
             // $existSC = SchoolCourse::whereIn('course_id', $request->course_id, 'amd')
             // ->whereIn('school_id', $request->school_id )->get();
-
+            //dd($request);
             $data = ''; 
             foreach($request->day as $key => $val){ 
                 if($key == array_key_last($request->day)){
@@ -313,7 +313,7 @@ class SchoolController extends Controller
                 $newCourse->duration = $request->duration;
                 $newCourse->period = $request->period; 
                 $newCourse->school_id = $request->school_id;
-                $newCourse->branch_id = $request->branch_id;
+                // $newCourse->branch_id = $request->branch_id;
                 $newCourse->instructor_id = $request->instructor_id; 
                 $newCourse->course_id = $request->course_id; 
                 $newCourse->save();  

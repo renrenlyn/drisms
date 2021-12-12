@@ -56,6 +56,7 @@ class CreateStudentCourseTable extends Migration
             
             $table->enum('status', ['completed', 'inprogress'])->default('inprogress');
 
+            $table->enum('evaluation', ['pass', 'failed', 'pending'])->default('pending');
 
             $table->timestamps();
         });

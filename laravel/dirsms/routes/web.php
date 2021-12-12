@@ -42,6 +42,9 @@ Route::get('/student/scheduling/', 'StudentController@schedule')->name('student.
 Route::get('schedule/theoretical/', 'ScheduleController@theoretical')->name('schedule.theoretical');  
 Route::get('schedule/practical/', 'ScheduleController@practical')->name('schedule.practical');  
 
+Route::get('theoretical/instructor/view/student/{id}', 'ScheduleController@instructorTheoreticalViewStudent')->name('theoretical.instructor.view.student');
+
+
 Route::put('student/fleet/schedule/form/submit/{id}', 'FleetController@fleetStudentSchedule')->name('student.fleet.form.update');  
 
 

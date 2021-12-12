@@ -56,6 +56,8 @@ class ScheduleController extends Controller
                             ->where('student_course.student_id', '=', Auth::user()->id)
                             ->get(['d.day as day','c.name as c_name', 'c.price as c_price', 'sc.*','s.name as s_name', 's.address as s_address','b.name as b_name', 'b.address as b_address', 'student_course.*', 'u.*']);  
     
+
+        //not used
         $instructorCourse = StudentCourse::leftJoin('school_course as sc', 'sc.id', '=', 'student_course.school_course_id')
                         ->join('schools as s', 's.id', '=', 'student_course.school_id')
                         ->leftJoin('branches as b', 'b.id', '=', 'student_course.branch_id')
@@ -66,10 +68,58 @@ class ScheduleController extends Controller
                             ['sc.instructor_id', '=', Auth::user()->id] 
                         ])
                        ->get(['d.day as day','c.name as c_name', 'c.price as c_price', 'sc.*','s.name as s_name', 's.address as s_address','b.name as b_name', 'b.address as b_address', 'student_course.*', 'u.*']);  
- 
-                    dd($instructorCourse);
-        return view('theoretical', compact('studentcourses', 'instructorCourse'));
+  
+         
+        //not used end
+
+
+        $instructor_school_course = SchoolCourse::join('users as u', 'u.id', '=', 'school_course.instructor_id')
+                                                ->join('schools as s', 's.id', '=', 'school_course.school_id')
+                                                ->join('courses as c', 'c.id', '=', 'school_course.course_id') 
+                                                ->join('days as d', 'd.sc_id', '=', 'school_course.id')
+                                                ->where('school_course.instructor_id', '=', Auth::user()->id)
+                                                ->get(['c.name as c_name','d.day as day','s.name as s_name','school_course.*']);
+    
+        return view('theoretical', compact('studentcourses', 'instructorCourse', 'instructor_school_course'));
     }
+
+    public function instructorTheoreticalViewStudent($id){
+ 
+        $view_student_enroll = StudentCourse::join('school_course as sc', 'sc.id', 'student_course.school_course_id')
+                        ->join('users as u', 'u.id', '=', 'student_course.student_id')
+                        ->where('student_course.school_course_id', '=', $id)
+                        ->orderBy('student_course.created_at', 'desc')
+                        ->get(['u.fname as fname', 'u.lname as lname', 'student_course.*']);
+                //  dd($view_student_enroll);
+       return view('instructor/view/theoretical', compact('view_student_enroll'));
+    }
+
+    public function instructorTheoreticalUpdateStudent(Request $request, $id){ 
+        $exists = StudentCourse::find($id);  
+        if($exists){ 
+            $exists->evaluation = $request->evaluation;
+            $is_save = $exists->save();
+            if($is_save){
+                return  redirect()
+                        ->back()
+                        ->with('success', 'Successfully evaluate the student!');
+            }else{ 
+                return  redirect()
+                        ->back()
+                        ->with('error', 'Failed to evaluate the student!');
+            } 
+        }
+        // $view_student_enroll = StudentCourse::join('school_course as sc', 'sc.id', 'student_course.school_course_id')
+        //                 ->join('users as u', 'u.id', '=', 'student_course.student_id')
+        //                 ->where('student_course.school_course_id', '=', $id)
+        //                 ->orderBy('student_course.created_at', 'desc')
+        //                 ->get(['u.fname as fname', 'u.lname as lname', 'student_course.*']);
+
+    //    return view('instructor/view/theoretical', compact('view_student_enroll'));
+    }
+
+
+
 
     public function practical(){    
 
