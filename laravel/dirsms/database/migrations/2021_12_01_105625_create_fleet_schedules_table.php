@@ -31,6 +31,9 @@ class CreateFleetSchedulesTable extends Migration
             
             $table->enum('status', ['completed', 'inprogress'])->default('inprogress');
             $table->enum('evaluation', ['pass', 'failed', 'pending'])->default('pending');
+            $table->string('driver_license_no')->default('pending');
+            $table->string('control_no')->default('pending');
+            $table->string('date_issue')->default('pending');
             
             $table->timestamps();
         });

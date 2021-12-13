@@ -15,6 +15,7 @@ use App\FleetSchedule;
 use App\StudentCourse;
 use App\SchoolCourse;
 
+use Illuminate\Support\Carbon;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -137,9 +138,42 @@ class ScheduleController extends Controller
         $exists = FleetSchedule::find($id); 
          
         if($exists){ 
+
+            date_default_timezone_set('Asia/Manila');
+
+            // echo date('M-d-y') . ' at '. date('h:i:sa');
+
+
+            $words1 = preg_split('//', 'abcdefghijklmnopqrstuvwxyz0123456789', -1);
+
+            shuffle($words1);
+
+            $words2 = preg_split('//', 'abcdefghijklmnopqrstuvwxyz0123456789', -1);
+
+            shuffle($words2);
+
+            $str1="";
+            $str2="";
+            $str3="";
+            for($i = 0; $i < 5; $i++) {
+                $str1 .= strtoupper($words1[$i]);
+                $str2 .= strtoupper($words2[$i]); 
+            }
+        
+            for($i = 0; $i < 10; $i++) {
+                $str3 .= strtoupper($words1[$i]); 
+            }
+
+
+
+            $exists->driver_license_no = 'DRISMS-'.$str1 .'-' .$str2;
+            $exists->control_no = 'DS-'.$str3. '-'. substr(date('M'), 0, 1). '-'.date('Y'). '-'.  $id;
+            $exists->date_issue = date('M-d-y') . ' at '. date('h:i:sa');
             $exists->status = 'completed';
             $exists->evaluation = $request->evaluation;
             $is_save = $exists->save();
+
+
             if($is_save){
                 return  redirect()
                         ->back()
@@ -149,6 +183,8 @@ class ScheduleController extends Controller
                         ->back()
                         ->with('error', 'Failed to evaluate the student!');
             } 
+
+            
         }
     }
     /**

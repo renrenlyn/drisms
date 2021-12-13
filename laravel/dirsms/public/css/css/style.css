@@ -28,7 +28,7 @@ h6 {
 }
 
 /* Custom css */
-
+.w-full{width: 100%;}
 .flex{ display:flex;}
 .flex-col{ flex-direction: column; }
 .flex-row{ flex-direction: row; }

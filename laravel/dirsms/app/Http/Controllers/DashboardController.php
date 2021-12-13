@@ -108,22 +108,61 @@ class DashboardController extends Controller
     }
 
 
-    public function certificate($id){
-
-
+    public function certificate($id){ 
 
         $student_cert = User::join('student_course as sc', 'sc.student_id', '=', 'users.id')
-                                        ->leftJoin('fleet_schedules as fs', 'fs.student_id', '=', 'users.id') 
-                                        ->leftJoin('images as i', 'i.user_id', '=', 'users.id')  
-                                        ->where([
-                                            ['users.id', '=', $id],
-                                            ['sc.status', '=', 'completed'],
-                                            ['fs.status', '=', 'completed'] 
-                                        ])
-                                        ->first(['i.name as image_name','sc.status as sc_status', 'fs.status as fs_status','users.*']);
+                            ->leftJoin('fleet_schedules as fs', 'fs.student_id', '=', 'users.id')  
+                            ->join('school_course as shc', 'shc.id', '=', 'sc.school_course_id') 
+                            ->join('courses as c', 'c.id', '=', 'shc.course_id') 
+                            ->leftJoin('images as i', 'i.user_id', '=', 'users.id')  
+                            ->where([
+                                ['users.id', '=', $id],
+                                ['sc.status', '=', 'completed'],
+                                ['fs.status', '=', 'completed'] 
+                            ])
+                            ->first(
+                                [
+                                    'i.name as image_name',
+                                    'sc.status as sc_status', 
+                                    'sc.civil_status', 
+                                    'sc.evaluation as sc_evaluation',
+                                    'c.name as c_name', 
+                                    'shc.start as shc_start',
+                                    'shc.end as shc_end',
+                                    'shc.duration as shc_duration',
+                                    'shc.id as shc_id',
+                                    'fs.start as fs_start',
+                                    'fs.end as fs_end',
+                                    'fs.duration as fs_duration',
+                                    'fs.status as fs_status',  
+                                    'fs.driver_license_no',  
+                                    'fs.control_no', 
+                                    'fs.date_issue',
+                                    'fs.evaluation as fs_evaluation',
+                                    'users.*'
+                                ]
+                            );
+ 
+                            date_default_timezone_set('Asia/Manila');
+                            $age = Carbon::parse($student_cert->dob)->diff(Carbon::now())->y;
+                            $now = Carbon::now(); 
 
-                                            // dd($student_cert->image_name);
-        return view('certificate', compact('student_cert'));
+                            $date_now =  $now->year . '-' . $now->month. '-' . $now->day;
+
+                            $ti = User::join('school_course as shc', 'shc.instructor_id', '=', 'users.id') 
+                                ->join('student_course as stc', 'stc.school_course_id', '=', 'shc.id')
+                                ->where('shc.id', '=', $student_cert->shc_id)
+                                ->first(['users.*']);
+
+                            $pi = User::join('fleet_schedules as fs', 'fs.instructor_id', '=', 'users.id') 
+                                    ->join('fleet as f', 'f.id', '=', 'fs.fleet_id') 
+                                    ->where('fs.student_id', '=', $id)
+                                    ->first(['users.*']);
+
+ 
+
+         
+        return view('certificate', compact('student_cert', 'age', 'date_now', 'ti','pi'));
     }
     /**
      * Display the specified resource.
