@@ -55,9 +55,18 @@ class ScheduleController extends Controller
                             ->join('courses as c', 'c.id', '=', 'sc.course_id')
                             ->join('days as d', 'd.sc_id', '=', 'sc.id')
                             ->where('student_course.student_id', '=', Auth::user()->id)
-                            ->get(['d.day as day','c.name as c_name', 'c.price as c_price', 'sc.*','s.name as s_name', 's.address as s_address','b.name as b_name', 'b.address as b_address', 'student_course.*', 'u.*']);  
-    
-
+                            ->first([
+                                'd.day as day',
+                                'c.name as c_name', 
+                                'c.price as c_price', 
+                                'sc.*','s.name as s_name', 
+                                's.address as s_address',
+                                'b.name as b_name', 
+                                'b.address as b_address', 
+                                'student_course.*', 'student_course.id as student_course_id', 
+                                'u.*'
+                            ]);    
+                         
         //not used
         $instructorCourse = StudentCourse::leftJoin('school_course as sc', 'sc.id', '=', 'student_course.school_course_id')
                         ->join('schools as s', 's.id', '=', 'student_course.school_id')
@@ -81,6 +90,8 @@ class ScheduleController extends Controller
                                                 ->where('school_course.instructor_id', '=', Auth::user()->id)
                                                 ->get(['c.name as c_name','d.day as day','s.name as s_name','school_course.*']);
     
+
+
         return view('theoretical', compact('studentcourses', 'instructorCourse', 'instructor_school_course'));
     }
 
@@ -123,12 +134,16 @@ class ScheduleController extends Controller
                         ->join('users as u', 'u.id', '=', 'fleet_schedules.instructor_id')
                         ->where('fleet_schedules.student_id', '=', Auth::user()->id )
                         ->first(['u.*', 'f.*', 'fleet_schedules.*']);
- 
+
+       
             $instructor_fleet_schedule = FleetSchedule::join('users as u', 'u.id', '=', 'fleet_schedules.student_id')
                         ->join('fleet as f', 'f.id', '=', 'fleet_schedules.fleet_id')
                         ->where('fleet_schedules.instructor_id', '=', Auth::user()->id )
                         ->get(['u.fname as fname','u.lname as lname', 'fleet_schedules.*']);
                          
+
+                        // dd($fleet_schedule);
+
         return view('practical', compact('fleet_schedule', 'instructor_fleet_schedule')); 
     }
  

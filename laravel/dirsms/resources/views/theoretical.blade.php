@@ -16,7 +16,7 @@
 
         @media print
         {
-            .page-header { display: none; }
+            .page-header, .evaluate-instructor { display: none; }
             #student-enrollment-record { display: none; }
             footer{ display: none;}
         } 

@@ -48,6 +48,12 @@ Route::put('theoretical/instructor/update/student/{id}', 'ScheduleController@ins
 
 Route::put('practical/instructor/update/student/{id}', 'ScheduleController@instructorPracticalUpdateStudent')->name('practical.instructor.update.student');
 
+Route::get('{string}/instructor/{id_}/evaluation/{id}', 'InstructorController@instructorEvaluation')->name('instructor.evaluation');
+Route::post('instructor/evaluation/store', 'InstructorController@instructorStoreEvaluation')->name('instructor.evaluation.store');
+
+
+
+// Route::get('theoretical/instructor/{student_course_id}/evaluation/{instructor_id}', 'InstructorController@fleetInstructorEvaluation')->name('theoretical.instructor.evaluation');
 
 Route::put('student/fleet/schedule/form/submit/{id}', 'FleetController@fleetStudentSchedule')->name('student.fleet.form.update');  
 

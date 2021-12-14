@@ -1,6 +1,14 @@
-@extends('layouts.header') 
-@section('content')      
-    @include("layouts/includes/sidebar")   
+ 
+  
+    
+<div class="page-header"> 
+ @if($fleet_schedule->status == "completed")
+    <a href="{{ route('instructor.evaluation', ['practical', $fleet_schedule->id, $fleet_schedule->instructor_id]) }} " class="btn btn-success btn-icon pull-right">
+        <i class="mdi mdi-calendar-text"></i> 
+        Evaluate Instructor
+    </a>
+ @endif
+</div>
 <div class="row">  
     <div class="col-md-12">
         @if(!empty($fleet_schedule))

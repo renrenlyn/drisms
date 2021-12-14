@@ -8,6 +8,7 @@ use App\User;
 use App\Image;
 use Auth;
 use App\Permission;
+use App\Evaluation;
 
 use Illuminate\Http\Request;
 
@@ -106,6 +107,51 @@ class InstructorController extends Controller
      
     }
 
+
+
+    public function instructorEvaluation($classes, $classes_id, $instructor_id){
+ 
+
+       return view('evaluation', compact('classes','classes_id', 'instructor_id'));
+    }
+
+
+    public function instructorStoreEvaluation(Request $request){
+        
+        $newEvaluation = new Evaluation();
+
+
+        if($request->classes = 'practical'){
+            $newEvaluation->fleet_schedule_id = $request->classes_id;
+        }else{ 
+            $newEvaluation->student_course_id = $request->classes_id;
+        }
+        $newEvaluation->student_id = Auth::user()->id;
+        $newEvaluation->instructor_id = $request->instructor_id;
+  
+
+        $newEvaluation->classes = $request->classes;
+        $newEvaluation->demonstrates_sensivity_to_students = $request->demonstrates_sensivity_to_students;
+        $newEvaluation->keeps_accurate_records_of_students = $request->keeps_accurate_records_of_students;
+        $newEvaluation->demonstrates_mastery_subject_matter = $request->demonstrates_mastery_subject_matter;
+        $newEvaluation->creates_teaching_strategies = $request->creates_teaching_strategies;
+        $newEvaluation->enhances_student_self_esteem = $request->enhances_student_self_esteem;
+        $newEvaluation->encourage_students = $request->encourage_students;
+        $newEvaluation->designs_and_implements_learning_conditions = $request->designs_and_implements_learning_conditions;
+        $newEvaluation->comments = $request->comments;
+        $newEvaluation->allow_comment_use = $request->allow_comment_use;
+        $is_save = $newEvaluation->save();
+        
+        if($is_save){
+            return  redirect()
+                    ->back()
+                    ->with('success', 'Successfully evaluate the Instructor!');
+        }else{ 
+            return  redirect()
+                    ->back()
+                    ->with('error', 'Failed to evaluate the Instructor!');
+        } 
+     }
 
 
 

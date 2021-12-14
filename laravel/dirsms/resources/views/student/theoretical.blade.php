@@ -1,4 +1,13 @@
- 
+  
+@if($studentcourses) 
+<div class="page-header evaluate-instructor">  
+    <a href="{{ route('instructor.evaluation', ['theoretical', $studentcourses->classes_id, $studentcourses->instructor_id]) }} " class="btn btn-success btn-icon pull-right">
+        <i class="mdi mdi-calendar-text"></i> 
+        Evaluate Instructor
+    </a> 
+</div>
+
+
 <div class="row"> 
     <!-- students theoretical page -->
     <div class="row"> 
@@ -12,16 +21,14 @@
                             
                             <div class="col-md-12 growth-left">
 
-                    @if($studentcourses)
-                        @foreach($studentcourses as $key=>$val) 
                                 <div cladd="item-center">
                                     <label>
                                         <h2>  
-                                            {{ $val->s_name}}  
+                                            {{ $studentcourses->s_name}}  
                                         </h2>
-                                        <small> {{ $val->s_address}}  </small>
+                                        <small> {{ $studentcourses->s_address}}  </small>
                                     </label>
-                                    <p>{{ $val->b_name}}   <small> {{ $val->b_address}}  </small> </p>
+                                    <p>{{ $studentcourses->b_name}}   <small> {{ $studentcourses->b_address}}  </small> </p>
                                 </div>
                                 <div class="row">  
                                     <div class="col-md-12">
@@ -38,14 +45,14 @@
                                             </thead>
                                             <tbody> 
                                                 <tr> 
-                                                    <td> {{ $val->c_name}} </td> 
-                                                    <td> {{ $val->c_price}} </td> 
-                                                    <td> {{ $val->day}} </td> 
-                                                    <td> {{ $val->time_start_end}} </td> 
-                                                    <td> {{ $val->start}} </td> 
-                                                    <td> {{ $val->end}} </td> 
-                                                    <td> {{ $val->duration }} </td> 
-                                                    <td> {{ $val->period }} </td>
+                                                    <td> {{ $studentcourses->c_name}} </td> 
+                                                    <td> {{ $studentcourses->c_price}} </td> 
+                                                    <td> {{ $studentcourses->day}} </td> 
+                                                    <td> {{ $studentcourses->time_start_end}} </td> 
+                                                    <td> {{ $studentcourses->start}} </td> 
+                                                    <td> {{ $studentcourses->end}} </td> 
+                                                    <td> {{ $studentcourses->duration }} </td> 
+                                                    <td> {{ $studentcourses->period }} </td>
                                                 </tr>  
                                             </tbody>
                                         </table>  
@@ -56,20 +63,20 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        {{ $val->driving_lto_requirement }}
+                                                        {{ $studentcourses->driving_lto_requirement }}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ $val->theoretical_driving_course }}</td>
+                                                    <td>{{ $studentcourses->theoretical_driving_course }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ $val->practical_driving_course_mv }} </td>
+                                                    <td>{{ $studentcourses->practical_driving_course_mv }} </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ $val->manual_transmission_mv }} </td>
+                                                    <td>{{ $studentcourses->manual_transmission_mv }} </td>
                                                 </tr> 
                                                 <tr>
-                                                    <td>{{ $val->automatic_transmission_mv }}</td>
+                                                    <td>{{ $studentcourses->automatic_transmission_mv }}</td>
                                                 </tr> 
                                             </tbody>
                                         </table>  
@@ -78,28 +85,28 @@
                                         <table class="table table-borderless form-drisms">
                                             <tbody>
                                                 <tr>
-                                                    <td>{{ $val->practical_driving_course_mc }}</td>
+                                                    <td>{{ $studentcourses->practical_driving_course_mc }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ $val->manual_transmission_mc }}</td>
+                                                    <td>{{ $studentcourses->manual_transmission_mc }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td> {{ $val->automatic_transmission_mc }}</td>
+                                                    <td> {{ $studentcourses->automatic_transmission_mc }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>OTHERS: {{ $val->others_mc }}</td>
+                                                    <td>OTHERS: {{ $studentcourses->others_mc }}</td>
                                                 </tr> 
                                             </tbody>
                                         </table> 
                                     </div>
                                     <div class="col-md-4"> 
                                         <div cladd="item-center">
-                                            <p> Where did you know {{ $val->s_name}} : </p> 
+                                            <p> Where did you know {{ $studentcourses->s_name}} : </p> 
                                         </div> 
                                         <table class="table table-borderless form-drisms">
                                             <tbody>
                                                 <tr>
-                                                    <td> {{ $val->where_did_you_know_school_ }} </td>
+                                                    <td> {{ $studentcourses->where_did_you_know_school_ }} </td>
                                                 </tr> 
                                             </tbody>
                                         </table>  
@@ -114,23 +121,23 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>Civil Status: </th>
-                                                            <td>{{ $val->civil_status }}  </td>
+                                                            <td>{{ $studentcourses->civil_status }}  </td>
                                                         </tr>  
                                                         <tr>
                                                             <th>Place of Birth: </th>
-                                                            <td>{{ $val->pob }}</td>
+                                                            <td>{{ $studentcourses->pob }}</td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Height: </th>
-                                                            <td> {{ $val->height }} </td>
+                                                            <td> {{ $studentcourses->height }} </td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Weigth: </th>
-                                                            <td> {{ $val->weigth }}  </td>
+                                                            <td> {{ $studentcourses->weigth }}  </td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Blood Type: </th>
-                                                            <td>{{ $val->blood_type }}  </td>
+                                                            <td>{{ $studentcourses->blood_type }}  </td>
                                                         </tr> 
                                                     </tbody>
                                                 </table>  
@@ -140,31 +147,31 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>Name of Mother: </th>
-                                                            <td> {{ $val->name_of_mother }}  </td>
+                                                            <td> {{ $studentcourses->name_of_mother }}  </td>
                                                         </tr>  
                                                         <tr>
                                                             <th>Name of Father: </th>
-                                                            <td> {{ $val->name_of_father }} </td>
+                                                            <td> {{ $studentcourses->name_of_father }} </td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Person to Notify in Case of Emergency:  </th>
-                                                            <td> {{ $val->person_notify_in_case_of_emergency }} </td>
+                                                            <td> {{ $studentcourses->person_notify_in_case_of_emergency }} </td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Address: </th>
-                                                            <td> {{ $val->guardian_address }} </td>
+                                                            <td> {{ $studentcourses->guardian_address }} </td>
                                                         </tr> 
                                                         <tr>
                                                             <th>Contact Number: </th>
-                                                            <td> {{ $val->guardian_number }}  </td>
+                                                            <td> {{ $studentcourses->guardian_number }}  </td>
                                                         </tr>  
                                                         <tr>
                                                             <th> Place of Birth: </th>
-                                                            <td>{{ $val->guardian_pob }}</td>
+                                                            <td>{{ $studentcourses->guardian_pob }}</td>
                                                         </tr> 
                                                         <tr>
                                                             <th> Relation: </th>
-                                                            <td> {{ $val->guardian_relation }} </td>
+                                                            <td> {{ $studentcourses->guardian_relation }} </td>
                                                         </tr>  
                                                     </tbody>
                                                 </table>  
@@ -179,11 +186,11 @@
                                                 <tbody>
                                                     <tr>      
                                                         <td><label>O.R.No.</label></td> 
-                                                        <td class="">{{ $val->orno }} </td>
+                                                        <td class="">{{ $studentcourses->orno }} </td>
                                                     </tr> 
                                                     <tr>
                                                         <td><label>Amount Paid</label> </td>
-                                                        <td>{{ $val->amount_paid }}</td>
+                                                        <td>{{ $studentcourses->amount_paid }}</td>
                                                     </tr>   
                                                 </tbody>
                                             </table>    
@@ -199,7 +206,7 @@
                                             <tbody>
                                                 <tr>      
                                                     <th scope="row">Years of Experience: </th> 
-                                                    <td>  {{ $val->y_e }}  </td>
+                                                    <td>  {{ $studentcourses->y_e }}  </td>
                                                 </tr>  
                                             </tbody>
                                         </table>   
@@ -221,11 +228,8 @@
                                         </table>   
                                         <div class="alert alert-danger">NOTE: REGISTRATION FEE OF P2000 IS NON-REFUNDABLE</div>
                                     </div>  
-                                </div>    
-                            @endforeach 
-                        @else
-                            @include("admin/empty/empty")         
-                        @endif 
+                                </div>     
+                       
                 </div> 
                 <div class="col-md-6">
                     <div class="student-growth-chart mt-15">
@@ -237,3 +241,7 @@
     </div>
     </div>
     </div> 
+
+@else
+    @include("admin/empty/empty")         
+@endif 
